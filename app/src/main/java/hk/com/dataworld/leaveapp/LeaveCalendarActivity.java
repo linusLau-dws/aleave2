@@ -81,6 +81,8 @@ public class LeaveCalendarActivity extends BaseActivity {
             json.put("monthEnd", String.format("%d-%02d-%02d", year, month, daysInMonth));
             json.put("getSelf", true); // TODO: Changed to self
             json.put("getOptions", false); // TODO: Check if gson has merge function
+            json.put("zone", "-1"); // TODO: Check if gson has merge function
+
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", mBaseUrl, "_GetLeaveCalendar"), json, new Response.Listener<JSONObject>() {
                 @Override
