@@ -407,7 +407,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    String nonce = response.getString("d");
+                    String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {
                         mRequestQueue = Volley.newRequestQueue(LoginActivity.this);
