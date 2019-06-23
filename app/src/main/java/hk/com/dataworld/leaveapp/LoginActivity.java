@@ -391,6 +391,7 @@ public class LoginActivity extends BaseActivity {
         // You have to start it all over (get a new nonce) if login fails
         mRequestQueue = Volley.newRequestQueue(this);
         JSONObject nonceReqBody = new JSONObject();
+        deviceId = "TBDonEmulator";
         try {
             nonceReqBody.put("deviceID", deviceId);
             nonceReqBody.put("program", 0);
@@ -402,11 +403,13 @@ public class LoginActivity extends BaseActivity {
         pd.setCancelable(false);
         pd.show();
         //Log.d("IMEI", deviceId);
+        Log.i("asdf", nonceReqBody.toString());
         JsonObjectRequest nonceRequest = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                 String.format("%s%s", baseUrl, "_GenerateNonce"), nonceReqBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    Log.i("asdfasdf","sdfgsdfg");
                     String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {
@@ -577,7 +580,7 @@ public class LoginActivity extends BaseActivity {
                                                                 LeaveDescription = subMenuObject.getString("LeaveDescription");
                                                                 Balance = subMenuObject.getString("Balance").equals("null") ? "null" : String.valueOf(Math.round(Double.valueOf(subMenuObject.getString("Balance")) * 100.0) / 100.0);
                                                                 BalanceAsOfDate = subMenuObject.getString("AsOfDate");
-                                                                leavebalance = new LeaveBalanceContent(tmpEmploymentNumber, LeaveCode, LeaveDescription, Balance, BalanceAsOfDate, subMenuObject.getBoolean("AsOfDate"), 0);
+                                                                leavebalance = new LeaveBalanceContent(tmpEmploymentNumber, LeaveCode, LeaveDescription, Balance, BalanceAsOfDate, subMenuObject.getBoolean("IsEnforceAttachment"), 0);
                                                                 leaveBalanceList.add(leavebalance);
                                                             }
                                                             if (!(leaveBalanceList.isEmpty())) {
