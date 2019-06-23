@@ -1,0 +1,346 @@
+-- v1.8.8 Alex 2019.01.11 Add several tables for mobile
+IF (OBJECT_ID('t_MobNonce') is not null)
+BEGIN
+    DROP TABLE t_MobNonce
+END
+GO
+
+IF (OBJECT_ID('t_MobSession') is not null)
+BEGIN
+    DROP TABLE t_MobSession
+END
+GO
+
+IF (OBJECT_ID('t_MobRefreshTokens') is not null)
+BEGIN
+    DROP TABLE t_MobRefreshTokens
+END
+GO
+
+IF (OBJECT_ID('t_MobNotifications') is not null)
+BEGIN
+    DROP TABLE t_MobNotifications
+END
+GO
+
+IF (OBJECT_ID('t_MobMtrFares') is not null)
+BEGIN
+    DROP TABLE t_MobMtrFares
+END
+GO
+
+IF (OBJECT_ID('t_MobMtrStations') is not null)
+BEGIN
+    DROP TABLE t_MobMtrStations
+END
+GO
+
+IF (OBJECT_ID('t_MobBusFares') is not null)
+BEGIN
+    DROP TABLE t_MobBusFares
+END
+GO
+
+IF (OBJECT_ID('t_MobBusFaresSection') is not null)
+BEGIN
+    DROP TABLE t_MobBusFaresSection
+END
+GO
+
+IF (OBJECT_ID('t_MobBusStops') is not null)
+BEGIN
+    DROP TABLE t_MobBusStops
+END
+GO
+
+IF (OBJECT_ID('t_MobMinibusFares') is not null)
+BEGIN
+    DROP TABLE t_MobMinibusFares
+END
+GO
+
+IF (OBJECT_ID('t_MobBluetoothAttendanceSpots') is not null)
+BEGIN
+    DROP TABLE t_MobBluetoothAttendanceSpots
+END
+GO
+
+IF (OBJECT_ID('t_MobBluetoothAttendance') is not null)
+BEGIN
+    DROP TABLE t_MobBluetoothAttendance
+END
+GO
+
+IF (OBJECT_ID('tr_UpdateMobNotifications') is not null)
+BEGIN
+    DROP TRIGGER tr_UpdateMobNotifications
+END
+GO
+
+IF (OBJECT_ID('t_Dashboard') is not null)
+BEGIN
+    DROP TABLE t_Dashboard
+END
+GO
+
+CREATE TABLE [t_Dashboard] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [Title] NVARCHAR(MAX),
+    [Type] TINYINT NOT NULL,
+	[View] VARCHAR(100) NOT NULL,
+    [GroupBy] VARCHAR(100) NOT NULL,
+    [AggregateType] TINYINT NOT NULL,
+    [AggregateColumn] VARCHAR(100),
+    [Serialized] NVARCHAR(MAX),
+    [UserID] INT,
+    [UserGroupID] INT,
+    [ModifiedDate] DATETIME NOT NULL,
+	[ModifiedUser] INT NOT NULL,
+	[CreateDate] DATETIME NOT NULL,
+	[CreateUser] INT NOT NULL,
+	[Sort Sequence] INT,
+CONSTRAINT [PK_t_Dashboard] PRIMARY KEY CLUSTERED
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [t_MobNonce] (
+	DeviceID VARCHAR(100),
+	Nonce VARCHAR(100),
+	[Create Date] DATETIME
+)
+GO
+
+CREATE TABLE [t_MobSession] (
+[Token] VARCHAR(256),
+[UserID] INT NOT NULL,
+[Create Date] DATETIME NOT NULL,
+[Expires At] DATETIME NOT NULL
+CONSTRAINT [PK_MobSession] PRIMARY KEY NONCLUSTERED 
+	(
+		[Token]
+	)
+)
+GO
+
+CREATE TABLE [t_MobRefreshTokens] (
+	[User] INT,
+	[Old Token] VARCHAR(256),
+	[Refresh Token] VARCHAR(128),
+	[Create Date] DATETIME NOT NULL
+)
+GO
+
+-- Extract and format data from t_StaffLeaveRequestDetails
+CREATE TABLE [t_MobNotifications] (
+[Request ID] INT,
+[UserID] INT,
+[Employment ID] INT,
+[Leave Desc] NVARCHAR(100),
+[Leave From] DATETIME,
+[Leave To] DATETIME,
+[Review Date] DATETIME,
+[Reviewer Name] NVARCHAR(100),
+[Create Date] DATETIME NOT NULL,
+[Status] INT
+)
+GO
+
+CREATE TABLE [t_MobMtrFares] 
+    (
+    [Source ID] INT NOT NULL,
+	[Dest ID] INT NOT NULL,
+	[Adult Fare] FLOAT NOT NULL,
+	[Standard Fare] FLOAT NOT NULL,
+	[Elderly Fare] FLOAT NOT NULL,
+	[Disabled Fare] FLOAT NOT NULL,
+	CONSTRAINT [PK_MobMtrFares] PRIMARY KEY NONCLUSTERED 
+	(
+		[Source ID], [Dest ID]
+	)
+)
+GO
+
+CREATE TABLE [t_MobMtrStations]
+    ( 
+	[Line Code] VARCHAR(3) NOT NULL,
+	[Station ID] INT NOT NULL,
+	[Chinese Name] NVARCHAR(50) NOT NULL,
+	[English Name] VARCHAR(50) NOT NULL
+	CONSTRAINT [PK_MobMtrStations] PRIMARY KEY CLUSTERED 
+	(
+		[Line Code], [Station ID]
+	)
+)
+GO
+
+CREATE TABLE [t_MobBusFares]  
+    (   
+	[Route ID] INT NOT NULL,
+	[Bus Company] VARCHAR(100) NOT NULL,
+	[Route Name] VARCHAR(100) NOT NULL,
+	[Source zh-hk] NVARCHAR(200) NOT NULL,
+	[Source zh-cn] NVARCHAR(200) NOT NULL,
+	[Source en-us] VARCHAR(200) NOT NULL,
+	[Dest zh-hk] NVARCHAR(200) NOT NULL,
+	[Dest zh-cn] NVARCHAR(200) NOT NULL,
+	[Dest en-us] VARCHAR(200) NOT NULL,
+	[Full Fare] FLOAT NOT NULL
+	CONSTRAINT [PK_MobBusFares] PRIMARY KEY NONCLUSTERED 
+	(
+		[Route ID], [Bus Company], [Source en-us], [Dest en-us]
+	)
+	)
+GO
+
+CREATE TABLE [t_MobBusFaresSection]  
+    (   
+	[Route ID] INT NOT NULL,
+	[Route Seq] INT NOT NULL,
+	[On Seq] INT NOT NULL,
+	[Off Seq] INT NOT NULL,	
+	[Fare] FLOAT NOT NULL
+	CONSTRAINT [PK_MobBusFaresSection] PRIMARY KEY CLUSTERED 
+	(
+		[Route ID], [Route Seq], [On Seq], [Off Seq]
+	)
+	)
+GO
+
+CREATE TABLE [t_MobBusStops]  
+    (   
+	[Route ID] INT NOT NULL,
+	[Route Seq] INT NOT NULL,
+	[Stop Seq] INT NOT NULL,
+	[Stop Name zh-hk] NVARCHAR(200) NOT NULL,	
+	[Stop Name zh-cn] NVARCHAR(200) NOT NULL,
+	[Stop Name en-us] NVARCHAR(200) NOT NULL
+	CONSTRAINT [PK_MobBusStops] PRIMARY KEY CLUSTERED 
+	(
+		[Route ID],[Route Seq],[Stop Seq]
+	)
+	)
+GO
+
+CREATE TABLE [t_MobMinibusFares]  
+    (   
+	[Route ID] INT NOT NULL,
+	[District] VARCHAR(3),
+	[Route Name] VARCHAR(50) NOT NULL,
+	[Source zh-hk] NVARCHAR(200) NOT NULL,
+	[Source zh-cn] NVARCHAR(200) NOT NULL,
+	[Source en-us] VARCHAR(200) NOT NULL,
+	[Dest zh-hk] NVARCHAR(200) NOT NULL,
+	[Dest zh-cn] NVARCHAR(200) NOT NULL,
+	[Dest en-us] VARCHAR(200) NOT NULL,
+	[Fare] FLOAT NOT NULL
+	CONSTRAINT [PK_MobMinibusFares] PRIMARY KEY NONCLUSTERED 
+	(
+		[Route ID],[Source en-us],[Dest en-us]
+	)
+	)
+GO
+
+CREATE TABLE [t_MobBluetoothAttendanceSpots]  
+    (
+    [Contract ID] INT NOT NULL,
+	[Station Code] NVARCHAR(100) NOT NULL,
+	[Zone Code] NVARCHAR(100) NOT NULL,
+	[Team] NVARCHAR(100) NOT NULL,
+	[BD_NAME] NVARCHAR(100) NOT NULL,
+	[BD_ADDR] VARCHAR(18) NOT NULL,
+	[Description] NVARCHAR(200),
+    [Remark] NVARCHAR(200),
+    [Status] BIT NOT NULL,
+    [CreateDate] DATETIME NOT NULL,
+    [CreateUser] INT NOT NULL,
+    [ModifiedDate] DATETIME NOT NULL,
+    [ModifiedUser] INT NOT NULL,
+	CONSTRAINT [PK_MobBluetoothAttendanceSpots] PRIMARY KEY CLUSTERED
+	(
+		[Contract ID], [Station Code], [Zone Code], [BD_NAME]
+	)
+	)
+GO
+
+CREATE TABLE [t_MobBluetoothAttendance] (
+	[UserAgent] VARCHAR(200),
+	[Zone Code] NVARCHAR(100) NOT NULL,
+	[Station Code] NVARCHAR(100) NOT NULL,
+    [User ID] INT NOT NULL,
+    [Date] DATETIME NOT NULL,
+	[In Time] DATETIME,
+	[Out Time] DATETIME
+);
+GO
+
+CREATE TRIGGER [dbo].[tr_UpdateMobNotifications]
+ON [dbo].[t_StaffLeaveRequestDetails]
+AFTER UPDATE
+AS
+BEGIN
+
+DECLARE @UserID AS INT;
+DECLARE @Desc AS NVARCHAR(100);
+DECLARE @ReviewerName AS NVARCHAR(100);
+DECLARE @mindate AS VARCHAR(10);
+DECLARE @maxdate AS VARCHAR(10);
+
+-- Find whether there exist same ID in t_MobNotifications
+IF (SELECT COUNT(*) FROM t_MobNotifications
+WHERE [Request ID] = (SELECT TOP(1) i.RequestID
+FROM inserted i)) > 0
+	BEGIN
+		UPDATE t_MobNotifications SET Status = (SELECT TOP(1) i.Status FROM inserted i) WHERE [Request ID]=(SELECT TOP(1) i.RequestID
+FROM inserted i);
+
+		SET @mindate = (SELECT TOP(1) left(convert(varchar, min(LeaveFrom), 120),10)
+		FROM inserted i
+		GROUP BY LeaveFrom
+		)
+
+		SET @maxdate = (SELECT TOP(1) left(convert(varchar, max(LeaveTo), 120),10)
+		FROM inserted i
+		GROUP BY LeaveTo
+		)
+
+		IF @mindate < (SELECT TOP(1) t.[Leave From] FROM t_MobNotifications t ORDER BY t.[Leave From])
+			BEGIN
+				UPDATE t_MobNotifications SET [Leave From] = @mindate;
+			END
+		IF @maxdate > (SELECT TOP(1) t.[Leave To] FROM t_MobNotifications t ORDER BY t.[Leave To])
+			BEGIN
+				UPDATE t_MobNotifications SET [Leave To] = @maxdate;
+			END
+	END
+ELSE
+	BEGIN
+		SET @UserID = (SELECT TOP(1) t.UserID
+		FROM inserted i
+		INNER JOIN t_Employment e ON i.EmploymentID = e.ID
+		INNER JOIN t_Staff s ON s.ID = e.StaffID
+		INNER JOIN t_Person t ON t.ID = s.PersonID
+		)
+
+		SET @Desc = (SELECT TOP(1) l.Description
+		FROM inserted i
+		INNER JOIN t_Leave l ON i.LeaveID = l.ID)
+
+		SET @ReviewerName = (SELECT TOP(1) p.Surname + ' ' + p.Othername
+		FROM inserted i
+		INNER JOIN t_User u ON i.ModifiedUser = u.ID
+		INNER JOIN t_Person p ON p.UserID = u.ID
+		INNER JOIN t_Staff s ON s.PersonID = p.ID)
+
+		DELETE FROM t_MobNotifications
+		WHERE DATEDIFF(dd, [Leave To], getDate()) > 30
+
+		INSERT INTO t_MobNotifications
+		([Request ID], [UserID], [Employment ID], [Leave Desc], [Leave From], [Leave To], [Review Date], [Reviewer Name], [Create Date], [Status])
+		VALUES ((SELECT TOP(1) [RequestID] FROM inserted), @UserID, (SELECT TOP(1) [EmploymentID] FROM inserted), @Desc, (SELECT left(convert(varchar, min(LeaveFrom), 120),10) FROM inserted GROUP BY RequestID), (SELECT TOP(1) left(convert(varchar, max(LeaveTo), 120),10) FROM inserted GROUP BY RequestID), (SELECT TOP(1) Convert(varchar, ModifiedDate, 120) FROM inserted), @ReviewerName, Convert(varchar, getdate(), 120), (SELECT TOP(1) [Status] FROM inserted));
+	END
+END
+GO
+/***************************************************************************************************/

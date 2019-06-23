@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/leavelistLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="ID"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/tvApprovalStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvId"
+        android:layout_alignParentLeft="true"
+        android:text="Approval Status"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/titleSeqNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvApprovalStatus"
+        android:layout_alignParentLeft="true"
+        android:paddingStart="4dp"
+        android:text="@string/tv_name_colon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/tvSeqNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvApprovalStatus"
+        android:layout_alignBottom="@+id/titleSeqNo"
+        android:layout_toRightOf="@+id/titleSeqNo"
+        android:paddingStart="3dp"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/titleUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleSeqNo"
+        android:layout_alignParentLeft="true"
+        android:paddingStart="4dp"
+        android:text="@string/tv_leavetype_colon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSeqNo"
+        android:layout_toEndOf="@+id/titleUserName"
+        android:paddingStart="3dp"
+        android:text="Leave Type"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/headerStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleUserName"
+        android:layout_alignParentLeft="true"
+        android:paddingStart="4dp"
+        android:text="@string/tv_from"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/contentStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserName"
+        android:layout_toEndOf="@+id/headerStartDate"
+        android:paddingStart="3dp"
+        android:text="StartDate"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/headerEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserName"
+        android:layout_toEndOf="@+id/sp2"
+        android:text="@string/tv_to"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/contentEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserName"
+        android:layout_toEndOf="@+id/headerEndDate"
+        android:paddingStart="3dp"
+        android:text="EndDate"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/titleRemark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerEndDate"
+        android:layout_alignParentLeft="true"
+        android:paddingStart="4dp"
+        android:text="@string/tv_totalDays"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/tvRemark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contentEndDate"
+        android:layout_toEndOf="@+id/titleRemark"
+        android:paddingStart="3dp"
+        android:text="Total"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contentStartDate"
+        android:layout_toEndOf="@+id/sp3"
+        android:text="@string/tv_remainBal_colon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/tvRemainDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contentEndDate"
+        android:layout_toEndOf="@+id/textView9"
+        android:paddingStart="3dp"
+        android:text="Remain"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorDisplayText" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/titleRemark"
+        android:layout_alignParentStart="true"
+        android:background="#FF401C93" />
+
+    <Space
+        android:id="@+id/sp2"
+        android:layout_width="5dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSeqNo"
+        android:layout_toEndOf="@+id/contentStartDate" />
+
+    <Space
+        android:id="@+id/sp3"
+        android:layout_width="5dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contentStartDate"
+        android:layout_toEndOf="@+id/tvRemark" />
+
+</RelativeLayout>

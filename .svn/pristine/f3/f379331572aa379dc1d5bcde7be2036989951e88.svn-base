@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/img_approval_status"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="14dp"
+        android:src="@drawable/accept_icon" />
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="0dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notification_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/bootstrap_h6_text_size" />
+
+        <TextView
+            android:id="@+id/notification_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/notification_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_margin="4dp"
+        app:bootstrapBrand="danger"
+        app:bootstrapSize="md"
+        app:roundedCorners="true"
+        app:fontAwesomeIcon="fa_trash" />
+</LinearLayout>

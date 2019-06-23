@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_icon_container"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:orientation="vertical">
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:id="@+id/message_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:textSize="@dimen/bootstrap_h1_text_size"
+        app:bootstrapBrand="warning"
+        app:materialIcon="md_message" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/message_count"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom|end"
+        android:clickable="false"
+        android:includeFontPadding="false"
+        android:text="@string/exclude_sat"
+        app:bootstrapBrand="regular"
+        android:textStyle="bold"
+        app:bootstrapSize="sm"
+        app:bootstrapText="0"
+        app:roundedCorners="true" />
+</FrameLayout>

@@ -1,0 +1,282 @@
+package hk.com.dataworld.leaveapp;
+
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+
+import static hk.com.dataworld.leaveapp.Constants.PREF_TOKEN;
+
+public class BluetoothActivity extends BaseActivity {
+
+    private static final int REQ = 168;
+    private final BroadcastReceiver deviceReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            // When discovery finds a device
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                // Get the BluetoothDevice object from the Intent
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+//                if( !PairedDeviceNames.contains(device) && !newDevices.contains(device))
+//                    newDevices.add(device);
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+//                Log.v(" ","discovery Finished ");
+//                if(newDevices.size() != 0)
+//                {
+//                    deviceList.invalidateViews();
+//                    sectionAdapter.notifyDataSetChanged();
+//                }
+//                else
+//                {
+//                    Toast.makeText(YourActivity.this, "No New Devices Found", Toast.LENGTH_LONG).show();
+//                }
+            }
+        }
+    };
+    private String mToken;
+    private String mBaseURL;
+    //    private String mBdName = null, mBdAddr = null;
+    private RequestQueue mRequestQueue;
+    private BluetoothAdapter mBluetoothAdapter;
+    private List<String> mBd_Name = new ArrayList<>();
+    private List<String> mBd_Addr = new ArrayList<>();
+    private CountDownTimer mCountdownTimer;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        int hasPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                103);
+        setContentView(R.layout.activity_bluetooth);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // mBaseURL = extendBaseUrl(prefs.getString(PREF_SERVER_ADDRESS, ""));
+        mToken = prefs.getString(PREF_TOKEN, "");
+
+        mRequestQueue = Volley.newRequestQueue(this);
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("token", mToken);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        BluetoothContent();
+//                JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+//                String.format("%s%s", mBaseURL, "GetBluetoothReceiverID"), obj, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    JSONArray arr = response.getJSONArray("d");
+//                    for (int x = 0; x < arr.length(); x++) {
+//                        JSONObject obj = arr.getJSONObject(x);
+//                        mBd_Name.add(obj.getString("BD_NAME"));
+//                        mBd_Addr.add(obj.getString("BD_ADDR"));
+//                    }
+//                    BluetoothContent();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, getGenericErrorListener(this, null));
+//        mRequestQueue.add(req);
+    }
+
+    private void BluetoothContent() {
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        AlertDialog.Builder builder;
+        if (mBluetoothAdapter == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.bluetooth_function_unavailable);
+            builder.setCancelable(false);
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+            return;
+        }
+        ImageView imageView = findViewById(R.id.bluetooth_anim_view);
+        Glide.with(this).asGif().load(R.raw.bluetooth_searching).into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(BluetoothActivity.this, BluetoothNewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CountDownTimer countDownTimer = new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                finish();
+                Intent intent = new Intent(BluetoothActivity.this, BluetoothSavedReceptorsActivity.class);
+                startActivity(intent);
+            }
+        };
+        countDownTimer.start();
+
+        //region Debug
+//            Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+//
+//            if (pairedDevices.size() > 0) {
+//                for (BluetoothDevice device : pairedDevices) {
+//                    Log.i("Found", device.getName() + " ::" + device.getAddress());
+//                    Toast.makeText(this, device.getName() + " ::" + device.getAddress(), Toast.LENGTH_LONG).show();
+//                    builder = new AlertDialog.Builder(this);
+//                    builder.setTitle(R.string.bluetooth_success);
+//                    builder.setMessage(R.string.bluetooth_disable_bluetooth);
+//                    builder.setPositiveButton(R.string.bluetooth_go_to_settings, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                            startActivityForResult(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS), 0);
+//                        }
+//                    });
+//                    builder.create().show();
+//
+//                }
+//
+//            }
+        //endregion
+
+        BroadcastReceiver br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                    BluetoothDevice bd = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    int rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE); //Displayed as Strength:
+                    Toast.makeText(BluetoothActivity.this,
+                            String.format("%s | %s | %d dBm", bd.getName(), bd.getAddress(), rssi, Locale.ENGLISH),
+                            Toast.LENGTH_SHORT)
+                            .show();
+                    if (mBd_Name.contains(bd.getName()) && mBd_Addr.contains(bd.getAddress())) {
+                        RequestQueue queue = Volley.newRequestQueue(BluetoothActivity.this);
+
+                        JSONObject obj = new JSONObject();
+
+//                            JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+//                                    String.format("%s%s", mBaseURL, "BluetoothLoginOrLogout"),
+//                                    obj,
+//                                    new Response.Listener<JSONObject>() {
+//                                        @Override
+//                                        public void onResponse(JSONObject response) {
+//
+//                                        }
+//                                    },
+//                                    getGenericErrorListener(BluetoothActivity.this, null));
+//
+//
+//                            queue.add(req);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BluetoothActivity.this);
+                        builder.setTitle(R.string.bluetooth_success);
+                        builder.setMessage(R.string.bluetooth_disable_bluetooth);
+                        builder.setPositiveButton(R.string.bluetooth_go_to_settings, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                startActivityForResult(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS), REQ);
+                            }
+                        });
+                        builder.create().show();
+                    }
+                }
+            }
+        };
+
+        mCountdownTimer = new CountDownTimer(10000 * 30, 10000) {
+            @Override
+            public void onTick(long l) {
+                mBluetoothAdapter.startDiscovery();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        IntentFilter ifr = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(br, ifr);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mCountdownTimer.start();
+            }
+        });
+        thread.start();
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(i);
+
+//            builder = new AlertDialog.Builder(this);
+//            builder.setMessage(R.string.bluetooth_not_enabled);
+//            builder.setPositiveButton(R.string.bluetooth_go_to_settings, new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                    startActivityForResult(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS), 0);
+//                }
+//            });
+//            builder.create().show();
+        }
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ) {
+            finish();
+        }
+    }
+
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        menu.removeItem(R.id.action_notification);
+        return true;
+    }
+}

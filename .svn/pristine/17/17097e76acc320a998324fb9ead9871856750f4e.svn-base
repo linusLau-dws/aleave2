@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/user_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/button_swap"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:contentDescription="Swap"-->
+            <!--android:src="@drawable/ic_swap_horiz_black_24dp" />-->
+
+            <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/transport_icon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:minHeight="20dp"-->
+            <!--android:minWidth="20dp"-->
+            <!--android:translationZ="1dp"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/route"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="44P"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+            <!--</FrameLayout>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/arrow"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Belair Gardens ➠ Smithfield"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/on_off"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=""-->
+            <!--android:textAlignment="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/fare"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Fare: %s$1"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/transportation_type_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/transportation_type_group"
+                    android:paddingEnd="14dp"
+                    android:text="@string/public_transport" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+                    android:id="@+id/transportation_type_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:bootstrapBrand="regular"
+                    app:bootstrapSize="md"
+                    app:buttonMode="radio"
+                    app:roundedCorners="true">
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/bus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapText="@string/bus_plain"
+                        app:checked="true" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/subway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapText="@string/mtr_plain" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/green_minibus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapText="@string/minibus_plain" />
+                </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bus1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:weightSum="12">
+
+                <TextView
+                    android:id="@+id/bus_route_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:labelFor="@id/bus_route"
+                    android:paddingEnd="4dp"
+                    android:text="@string/route_colon" />
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/bus_route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:hint="e.g. 1A"
+                    android:lines="1"
+                    app:roundedCorners="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/bus_get_stations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    app:bootstrapBrand="success"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="{fa_arrow-right}"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/bus2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/bus_route_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:labelFor="@id/bus_route"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bus_itinerary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:labelFor="@id/bus_route" />
+                </LinearLayout>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/bus_swap_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginStart="4dp"
+                    app:bootstrapBrand="regular"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="{md_swap-horiz}"
+                    app:roundedCorners="true" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/common1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:id="@+id/mtr1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingEnd="14dp"
+                        android:text="@string/line_colon" />
+
+                    <hk.com.dataworld.leaveapp.MtrDropDown
+                        android:id="@+id/source_mtrlines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="3"
+                        android:text="@string/please_select"
+                        android:textColor="@color/colorWhite"
+                        app:bootstrapBrand="primary"
+                        app:bootstrapSize="xs"
+                        app:dropdownResource="@array/rejectreason"
+                        app:roundedCorners="true" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/source_colon" />
+
+                <hk.com.dataworld.leaveapp.MtrDropDown
+                    android:id="@+id/source_stations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:enabled="false"
+                    android:text="@string/please_select"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="xs"
+                    app:dropdownResource="@array/rejectreason"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/common2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:id="@+id/mtr2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingEnd="14dp"
+                        android:text="@string/line_colon" />
+
+                    <hk.com.dataworld.leaveapp.MtrDropDown
+                        android:id="@+id/dest_mtrlines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="3"
+                        android:text="@string/please_select"
+                        android:textColor="@color/colorWhite"
+                        app:bootstrapBrand="primary"
+                        app:bootstrapSize="xs"
+                        app:dropdownResource="@array/rejectreason"
+                        app:roundedCorners="true" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/destination_colon" />
+
+                <hk.com.dataworld.leaveapp.MtrDropDown
+                    android:id="@+id/dest_stations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:enabled="false"
+                    android:text="@string/please_select"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="xs"
+                    app:dropdownResource="@array/rejectreason"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/claim_gen_expense_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/claim_gen_expense_date_edit"
+                    android:paddingEnd="14dp"
+                    android:text="@string/claim_gen_expense_date" />
+
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/claim_gen_expense_date_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="3"
+                    android:editable="false"
+                    android:lines="1"
+                    app:roundedCorners="true"
+                    tools:ignore="Deprecated" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingTop="30dp"
+                android:paddingEnd="4dp">
+
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bootstrapBrand="success"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="@string/add"
+                    app:roundedCorners="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dynamic_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/user_inputs" />
+        <!--android:layout_above="@+id/claims_claim_container"-->
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/claims_claim_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:gravity="end"-->
+        <!--android:padding="4dp">-->
+
+
+        <!--<com.beardedhen.androidbootstrap.BootstrapButton-->
+        <!--android:id="@+id/claims_claim"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:bootstrapBrand="warning"-->
+        <!--app:bootstrapSize="md"-->
+        <!--app:bootstrapText="@string/claim_fares"-->
+        <!--app:roundedCorners="true" />-->
+        <!--</LinearLayout>-->
+
+
+    </RelativeLayout>
+</ScrollView>

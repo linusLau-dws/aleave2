@@ -1,0 +1,152 @@
+package hk.com.dataworld.leaveapp;
+
+import android.app.Service;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
+import com.smartarmenia.dotnetcoresignalrclientjava.HubConnection;
+import com.smartarmenia.dotnetcoresignalrclientjava.HubConnectionListener;
+import com.smartarmenia.dotnetcoresignalrclientjava.HubEventListener;
+import com.smartarmenia.dotnetcoresignalrclientjava.HubMessage;
+import com.smartarmenia.dotnetcoresignalrclientjava.WebSocketHubConnectionP2;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+import static hk.com.dataworld.leaveapp.Constants.NOTIFICATION_CHANNEL_NAME;
+import static hk.com.dataworld.leaveapp.Constants.PREF_SERVER_ADDRESS;
+import static hk.com.dataworld.leaveapp.Constants.PREF_TOKEN;
+import static hk.com.dataworld.leaveapp.Utility.extendBaseUrl;
+
+public class NotificationServiceExperimental extends Service {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("Notification", "esKlapptCaMarche");
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String address = extendBaseUrl(sharedPreferences.getString(PREF_SERVER_ADDRESS, ""));
+        final String url = address.charAt(address.length() - 1) == '/' ? address + "QueryReport/Notifications.cs" : address + "/%s";
+        //TODO: Debug
+        String testUrl = "http://192.168.9.23:8888/QueryReport/signalr/hubs/";
+        //TODO: Debug
+
+        String token = sharedPreferences.getString(PREF_TOKEN, "");
+
+        // Use SignalR
+        final HubConnection connection = new WebSocketHubConnectionP2(testUrl, null);
+        connection.addListener(new HubConnectionListener() {
+            @Override
+            public void onConnected() {
+                Log.i("Connected", "esklappt");
+            }
+
+            @Override
+            public void onDisconnected() {
+
+            }
+
+            @Override
+            public void onMessage(HubMessage message) {
+
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                Log.i("NotConnected", exception.toString());
+            }
+        });
+
+        // invoke = Call hub method
+        //connection.invoke("Register", token);
+
+        // subscribeToEvent = Client method
+        connection.subscribeToEvent("Send", new HubEventListener() {
+            @Override
+            public void onEventMessage(HubMessage message) {
+                Log.i("Works", message.toString());
+                // TODO: Notification goes here.
+                Uri notificationSoundUri =
+                        RingtoneManager.getDefaultUri(
+                                RingtoneManager.TYPE_NOTIFICATION);
+                NotificationCompat.Builder notificationBuilder = new
+                        NotificationCompat.Builder(getApplicationContext(), NOTIFICATION_CHANNEL_NAME);
+
+                notificationBuilder.setSmallIcon(R.drawable.ihr)
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.reject_icon))
+                        .setContentTitle(message.getArguments()[0].getAsString())
+                        .setContentText(message.getArguments()[1].getAsString())
+                        .setSound(notificationSoundUri)
+                        .setLights(Color.GREEN, 500, 500);
+            }
+        });
+        connection.connect();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public NotificationServiceExperimental() {
+        super();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        super.onRebind(intent);
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+    }
+
+    @Override
+    protected void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
+        super.dump(fd, writer, args);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+}

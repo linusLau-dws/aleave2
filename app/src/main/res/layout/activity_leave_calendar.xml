@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topBlockIncl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/toggle_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:bootstrapBrand="secondary"
+            app:bootstrapSize="md"
+            app:fontAwesomeIcon="fa_chevron_down" />
+
+        <LinearLayout
+            android:id="@+id/topBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
+
+            <!--<com.beardedhen.androidbootstrap.BootstrapDropDown-->
+            <!--android:id="@+id/spinner"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:layout_weight="1"-->
+            <!--app:bootstrapBrand="primary"-->
+            <!--app:bootstrapSize="xs"-->
+            <!--app:bootstrapText="Test"-->
+            <!--app:dropdownResource="@array/week_string_array"-->
+            <!--app:roundedCorners="true"/>-->
+
+            <!--<com.beardedhen.androidbootstrap.BootstrapDropDown-->
+            <!--android:id="@+id/spinner2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:layout_weight="1"-->
+            <!--app:bootstrapBrand="primary"-->
+            <!--app:bootstrapSize="xs"-->
+            <!--app:bootstrapText="Test"-->
+            <!--app:dropdownResource="@array/week_string_array"-->
+            <!--app:roundedCorners="true" />-->
+
+            <!--<com.beardedhen.androidbootstrap.BootstrapDropDown-->
+            <!--android:id="@+id/spinner3"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="4dp"-->
+            <!--android:layout_weight="1"-->
+            <!--app:bootstrapBrand="primary"-->
+            <!--app:bootstrapSize="xs"-->
+            <!--app:bootstrapText="Test"-->
+            <!--app:dropdownResource="@array/week_string_array"-->
+            <!--app:roundedCorners="true" />-->
+
+            <com.beardedhen.androidbootstrap.BootstrapDropDown
+                android:id="@+id/spinner4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="xs"
+                app:bootstrapText="Test"
+                app:dropdownResource="@array/week_string_array"
+                app:roundedCorners="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="lg"
+                    app:buttonMode="radio"
+                    app:roundedCorners="true">
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/button_grouped_self"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapText="@string/leave_calendar_myself"
+                        app:checked="true" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/button_grouped_team"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapText="@string/leave_calendar_team" />
+                </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+                <Switch
+                    android:id="@+id/leave_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/leave_calendar_leave" />
+
+                <Switch
+                    android:id="@+id/shift_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/leave_calendar_shift" />
+            </LinearLayout>
+
+            <!--<Switch-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+            <!--<Switch-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/year_month_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/bootstrap_h2_text_size"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.haibin.calendarview.CalendarView
+            android:id="@+id/leave_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:calendar_match_parent="true"
+            app:current_month_lunar_text_color="@color/bootstrap_gray_dark"
+            app:current_month_text_color="@color/bootstrap_brand_success"
+            app:month_view_show_mode="mode_only_current"
+            app:scheme_month_text_color="@color/colorGreen"
+            app:scheme_text_color="@color/bootstrap_brand_primary"
+            app:scheme_theme_color="@color/bootstrap_brand_danger"
+            app:select_mode="multi_mode"
+            app:selected_text_color="@color/colorWhite"
+            app:selected_theme_color="@color/bootstrap_brand_primary">
+
+        </com.haibin.calendarview.CalendarView>
+
+        <fragment
+            android:id="@+id/eventListFragment"
+            android:name="hk.com.dataworld.leaveapp.EventListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="229dp"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,26 @@
+package hk.com.dataworld.leaveapp.model;
+
+import com.evrencoskun.tableview.sort.ISortableModel;
+
+public class ColumnHeaderModel implements ISortableModel {
+
+    private String mData;
+
+    public ColumnHeaderModel(String mData) {
+        this.mData = mData;
+    }
+
+    public String getData() {
+        return mData;
+    }
+
+    @Override
+    public String getId() {
+        return mData;
+    }
+
+    @Override
+    public Object getContent() {
+        return mData;
+    }
+}

@@ -1,0 +1,563 @@
+package hk.com.dataworld.leaveapp;
+
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapDropDown;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.exifinterface.media.ExifInterface;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static android.app.Activity.RESULT_OK;
+import static hk.com.dataworld.leaveapp.Constants.DEBUG_FALLBACK_URL;
+import static hk.com.dataworld.leaveapp.Constants.PREF_LOCALE;
+import static hk.com.dataworld.leaveapp.Constants.PREF_SERVER_ADDRESS;
+import static hk.com.dataworld.leaveapp.Constants.PREF_TOKEN;
+import static hk.com.dataworld.leaveapp.Utility.extendBaseUrl;
+import static hk.com.dataworld.leaveapp.Utility.getGenericErrorListener;
+
+public class ClaimsGeneralFragment extends Fragment {
+    private static final String TAG = ClaimsGeneralFragment.class.getSimpleName();
+    MtrDropDown mDropDown_1, mDropDown_2;
+    private RequestQueue mRequestQueue;
+    private LinkedHashMap<String, Integer> mGeneralCategory, mGeneralItem, mGeneralType, mFamilyMembers;
+    private String mToken;
+    private String mUrl;
+    private Uri mFile;
+    //private ImageView mAttachmentImageView;
+    //private Bitmap mOldBitmap, mNewBitmap;
+    private AttachmentRecyclerViewAdapter mAttachmentAdaptor;
+
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "DWHRMS");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.i("DWHRMS", "failed to create directory");
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_claims_fragment_general, container, false);
+        return view;
+    }
+
+    private void layer_1(final View view, int input) {
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("token", mToken);
+            obj.put("catID", input);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                String.format("%s%s", mUrl, "GetClaim_1"), obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (!response.isNull("d") && response.getJSONArray("d").length() > 0) {
+                        mDropDown_1.setEnabled(true);
+                        mGeneralItem = new LinkedHashMap<>();
+                        JSONArray arr = response.getJSONArray("d");
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            mGeneralItem.put(obj.getString("Description"), obj.getInt("ID"));
+                        }
+                        mDropDown_1.setUpInt(mGeneralItem);
+                        mDropDown_1.setOnDropDownItemClickListener(new BootstrapDropDown.OnDropDownItemClickListener() {
+                            @Override
+                            public void onItemClick(ViewGroup parent, View v, int id) {
+                                mDropDown_1.setUpIntOnClickContent(id);
+                                layer_2(view, (int) mDropDown_1.getmCurrent());
+                            }
+                        });
+                        mDropDown_1.setUpIntOnClickContent(0);
+                        layer_2(view, (int) mDropDown_1.getmCurrent());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, getGenericErrorListener(getContext(), null));
+        mRequestQueue.add(req);
+    }
+
+    private void layer_2(final View view, int input) {
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("token", mToken);
+            obj.put("itemID", input);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                String.format("%s%s", mUrl, "GetClaim_2"), obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (!response.isNull("d") && response.getJSONArray("d").length() > 0) {
+                        mDropDown_2.setEnabled(true);
+                        mGeneralType = new LinkedHashMap<>();
+                        JSONArray arr = response.getJSONArray("d");
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            mGeneralType.put(obj.getString("Description"), obj.getInt("ID"));
+                        }
+                        mDropDown_2.setUpInt(mGeneralType);
+                        mDropDown_2.setOnDropDownItemClickListener(new BootstrapDropDown.OnDropDownItemClickListener() {
+                            @Override
+                            public void onItemClick(ViewGroup parent, View v, int id) {
+                                mDropDown_2.setUpIntOnClickContent(id);
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, getGenericErrorListener(getContext(), null));
+        mRequestQueue.add(req);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mToken = sp.getString(PREF_TOKEN, "");
+        mUrl = extendBaseUrl(sp.getString(PREF_SERVER_ADDRESS, DEBUG_FALLBACK_URL));
+
+        RecyclerView recyclerView = view.findViewById(R.id.attachmentImage);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 6));
+        mAttachmentAdaptor = new AttachmentRecyclerViewAdapter(getContext(), true);
+        recyclerView.setAdapter(mAttachmentAdaptor);
+
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("token", mToken);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mDropDown_1 = view.findViewById(R.id.claim_gen_expense_edit);
+        mDropDown_2 = view.findViewById(R.id.claim_gen_type_edit);
+
+        final BootstrapEditText centre = view.findViewById(R.id.claim_gen_remark_edit);
+        final BootstrapEditText amount = view.findViewById(R.id.claim_total_amount_edit);
+        BootstrapButton resetBtn = view.findViewById(R.id.claims_clear);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                centre.setText("");
+                amount.setText("");
+            }
+        });
+
+        JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                String.format("%s%s", mUrl, "GetClaim_0"), obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (!response.isNull("d") && response.getJSONArray("d").length() > 0) {
+                        final MtrDropDown dropDown_0 = view.findViewById(R.id.claim_gen_category_edit);
+                        mGeneralCategory = new LinkedHashMap<>();
+                        JSONArray arr = response.getJSONArray("d");
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            mGeneralCategory.put(obj.getString("Description"), obj.getInt("ID"));
+                        }
+                        dropDown_0.setUpInt(mGeneralCategory);
+                        dropDown_0.setOnDropDownItemClickListener(new BootstrapDropDown.OnDropDownItemClickListener() {
+                            @Override
+                            public void onItemClick(ViewGroup parent, View v, int id) {
+                                dropDown_0.setUpIntOnClickContent(id);
+                                layer_1(view, (int) dropDown_0.getmCurrent());
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, getGenericErrorListener(getContext(), null));
+        mRequestQueue.add(req);
+
+        try {
+            obj.put("token", mToken);
+            obj.put("locale", sp.getString(PREF_LOCALE, "en"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final MtrDropDown dropDown_3 = view.findViewById(R.id.claim_gen_family_member_edit);
+        JsonObjectRequest req2 = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                String.format("%s%s", mUrl, "GetClaim_Family"), obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (!response.isNull("d") && response.getJSONArray("d").length() > 0) {
+                        dropDown_3.setEnabled(true);
+                        mFamilyMembers = new LinkedHashMap<>();
+                        JSONArray arr = response.getJSONArray("d");
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            mFamilyMembers.put(obj.getString("PersonName"), obj.getInt("PersonID"));
+                        }
+                        dropDown_3.setUpInt(mFamilyMembers);
+                        dropDown_3.setOnDropDownItemClickListener(new BootstrapDropDown.OnDropDownItemClickListener() {
+                            @Override
+                            public void onItemClick(ViewGroup parent, View v, int id) {
+                                dropDown_3.setUpIntOnClickContent(id);
+                            }
+                        });
+                        dropDown_3.setText(getString(R.string.na)); //Optional field
+                    } else {
+                        dropDown_3.setText(getString(R.string.no_available_options));
+                        dropDown_3.setEnabled(false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, getGenericErrorListener(getContext(), null));
+        mRequestQueue.add(req2);
+
+
+        BootstrapButton browse_btn = view.findViewById(R.id.claim_document_btn);
+        browse_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        final BootstrapEditText dateInput = view.findViewById(R.id.claim_gen_expense_date_edit);
+        dateInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                String date = dateInput.getText().toString();
+                if (!date.isEmpty()) {
+                    Log.i("i", "startDate is not empty");
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    try {
+                        Date d = df.parse(date);
+                        c.setTime(d);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                dateInput.setText(String.format("%02d-%02d-%02d", year, month + 1, dayOfMonth));
+                            }
+                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateInput.setText(simpleDateFormat.format(Calendar.getInstance().getTime()));
+
+
+        //mAttachmentImageView = view.findViewById(R.id.attachmentImage);
+        //mOldBitmap = ((BitmapDrawable) mAttachmentImageView.getDrawable()).getBitmap();
+
+        BootstrapButton browseButton = view.findViewById(R.id.claim_document_btn);
+        browseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePicture();
+            }
+        });
+
+        BootstrapButton galleryButton = view.findViewById(R.id.claim_document_gallery_btn);
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickFromGallery();
+            }
+        });
+
+
+        BootstrapButton claimButton = view.findViewById(R.id.claims_submit);
+        claimButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View notThisView) {
+                BootstrapEditText amount = view.findViewById(R.id.claim_total_amount_edit);
+                if (amount.getText().toString().isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage(R.string.msg_errorField)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .create().show();
+                } else {
+
+//                    mNewBitmap = ((BitmapDrawable) mAttachmentImageView.getDrawable()).getBitmap();
+//                    String lImgStr = "";
+//
+//                    if (!mNewBitmap.equals(mOldBitmap)) {
+//                        byte[] imgByte = Utility.getBytes(mNewBitmap);
+//                        lImgStr = Base64.encodeToString(imgByte, Base64.DEFAULT);
+//                    }
+
+                    mRequestQueue = Volley.newRequestQueue(getContext());
+                    JSONObject obj = new JSONObject();
+                    JSONObject dataObj = new JSONObject();
+                    try {
+                        dataObj.put("Date", dateInput.getText().toString());
+                        BootstrapEditText centre = view.findViewById(R.id.claim_gen_remark_edit);
+                        dataObj.put("CentreName", centre.getText().toString());
+                        dataObj.put("ClaimAmount", Double.valueOf(amount.getText().toString()));
+                        if (mAttachmentAdaptor.getItemCount() == 0) {
+                            dataObj.put("Base64", new JSONArray());
+                        } else {
+                            dataObj.put("Base64", mAttachmentAdaptor.getJSONArr());
+                        }
+                        dataObj.put("LeaveRequestID", -1);    //Must explicitly set to -1.
+                        dataObj.put("FamilyMember", dropDown_3.getText().toString().equals(getString(R.string.na)) ? -1 : (int) dropDown_3.getmCurrent());
+                        dataObj.put("ExpenseItemID", (int) mDropDown_1.getmCurrent());
+                        dataObj.put("ExpenseTypeID", (int) mDropDown_2.getmCurrent());
+                        Log.i("dataaa", dataObj.toString());
+                        obj.put("baseURL", mUrl);
+                        obj.put("token", mToken);
+                        obj.put("Data", dataObj.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    final ProgressDialog pd = new ProgressDialog(getContext());
+                    pd.setIndeterminate(false);
+                    pd.setCancelable(false);
+                    pd.setMessage(getString(R.string.loading));
+                    pd.show();
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                            String.format("%s%s", mUrl, "InsertStaffMedicalClaimRecord"), obj,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //JSONObject res;
+                                    pd.dismiss();
+                                    try {
+                                        //res = response.getJSONObject("d");
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                        int return_status = response.getInt("d"); //res.getInt("status");
+                                        switch (return_status) {
+                                            case 1:
+                                                builder.setMessage(getString(R.string.success));
+                                                break;
+                                            case 2:
+                                                builder.setMessage(getString(R.string.err_duplicate));
+                                                break;
+                                            default:
+                                                builder.setMessage(getString(R.string.err_db_generic));
+                                                break;
+                                        }
+                                        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        })
+                                                .create().show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }, getGenericErrorListener(getContext(), null));
+                    mRequestQueue.add(jsonObjectRequest);
+                }
+            }
+        });
+
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    public void takePicture() {
+        ((ClaimsActivity) getActivity()).mIsEnableRestartBehaviour = false;
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mFile = Uri.fromFile(getOutputMediaFile());
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mFile);
+
+        startActivityForResult(intent, 100);
+    }
+
+    public void pickFromGallery() {
+        ((ClaimsActivity) getActivity()).mIsEnableRestartBehaviour = false;
+//        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//        getIntent.setType("image/*");
+//
+//        Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+//        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+//
+//        startActivityForResult(chooserIntent, 101);
+
+
+        Intent intent = new Intent(Intent.ACTION_PICK); // Action
+        intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 100:
+                if (resultCode == RESULT_OK) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(mFile.getEncodedPath());
+                    try {
+                        ExifInterface exif = new ExifInterface(mFile.getEncodedPath());
+                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                        Log.i(TAG, "Exif: " + orientation);
+                        Matrix matrix = new Matrix();
+                        if (orientation == 6) {
+                            Log.i(TAG, "Need to rotate 90 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 1024, 768);
+                            matrix.postRotate(90);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else if (orientation == 3) {
+                            Log.i(TAG, "Need to rotate 180 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 768, 1024);
+                            matrix.postRotate(180);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else if (orientation == 8) {
+                            Log.i(TAG, "Need to rotate 270 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 1024, 768);
+                            matrix.postRotate(270);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else {
+                            Log.i(TAG, "No rotation needed");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 768, 1024);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mAttachmentAdaptor.add(myBitmap);
+                    mAttachmentAdaptor.notifyDataSetChanged();
+                }
+                break;
+            case 101:
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContext().getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    Bitmap myBitmap = BitmapFactory.decodeFile(picturePath);
+                    try {
+                        ExifInterface exif = new ExifInterface(picturePath);
+                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                        Log.i(TAG, "Exif: " + orientation);
+                        Matrix matrix = new Matrix();
+                        if (orientation == 6) {
+                            Log.i(TAG, "Need to rotate 90 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 1024, 768);
+                            matrix.postRotate(90);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else if (orientation == 3) {
+                            Log.i(TAG, "Need to rotate 180 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 768, 1024);
+                            matrix.postRotate(180);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else if (orientation == 8) {
+                            Log.i(TAG, "Need to rotate 270 degrees");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 1024, 768);
+                            matrix.postRotate(270);
+                            myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
+                        } else {
+                            Log.i(TAG, "No rotation needed");
+                            myBitmap = Utility.resizeBitmap(myBitmap, 768, 1024);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mAttachmentAdaptor.add(myBitmap);
+                    mAttachmentAdaptor.notifyDataSetChanged();
+
+//                    try {
+//                        InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Bitmap bitmap = BitmapFactory.decodeFile(data.getData().toString());
+//                    mAttachmentImageView.setImageBitmap(bitmap);
+                }
+                break;
+        }
+    }
+}

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context="hk.com.dataworld.leaveapp.LeaveMasterRecordActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ListView-->
+        <!--android:id="@+id/lvLeave"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:focusable="true"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/rgStatus"-->
+        <!--tools:layout_editor_absoluteX="0dp"></ListView>-->
+
+        <ListView
+            android:id="@+id/lvLeave"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgStatus"></ListView>
+
+
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/etToDate"
+            tools:layout_editor_absoluteX="0dp">
+
+            <RadioButton
+                android:id="@+id/rbPending"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_button_yellow"
+                android:text="@string/tv_pendingStatus_short"
+                android:textColor="@color/colorDisplayText"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbAccepted"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_button_green"
+                android:text="@string/tv_acceptStatus"
+                android:textColor="@color/colorDisplayText"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbRejected"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_button_red"
+                android:text="@string/tv_rejectStatus"
+                android:textColor="@color/colorDisplayText"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbWithdrewOrTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_button_blue"
+                android:textColor="@color/colorDisplayText"
+                android:textSize="13sp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvHeadingTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorDisplayText"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <EditText
+            android:id="@+id/etFromDate"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_edittext"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/et_fromDateWithoutFormat"
+            android:inputType="date"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorDisplayText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeadingTitle" />
+
+        <EditText
+            android:id="@+id/etToDate"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_edittext"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/et_toDateWithoutFormat"
+            android:inputType="date"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorDisplayText"
+            app:layout_constraintStart_toEndOf="@+id/etFromDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeadingTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btn_removeAllNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                app:bootstrapBrand="primary"
+                app:bootstrapText="@string/clear_all_notifications"
+                app:roundedCorners="true" />
+
+            <ListView
+                android:id="@+id/drawer_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

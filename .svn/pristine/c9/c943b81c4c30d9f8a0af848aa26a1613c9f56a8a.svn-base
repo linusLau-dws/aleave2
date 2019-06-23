@@ -1,0 +1,45 @@
+package hk.com.dataworld.leaveapp;
+
+public class LeaveBalanceContent {
+    private String lb_emp_no;
+    private String lb_leave_type;
+    private String lb_leave_description;
+    private String lb_leave_balance;
+    private String lb_leave_balanceasofdate;
+    private Integer count;
+
+
+    //public LeaveBalanceContent(String e, String t, Double b, String bl) {
+    public LeaveBalanceContent(String e, String t, String ld, String b, String bd, Integer x) {
+        lb_emp_no = e;
+        lb_leave_type = t;
+        lb_leave_description = ld;
+        lb_leave_balance = b;
+        lb_leave_balanceasofdate = bd;
+        count = x;
+    }
+
+    public String getLBEmploymentNumber() {
+        return lb_emp_no;
+    }
+
+    public String getLBLeaveType() {
+        return lb_leave_type;
+    }
+
+    public String getLBLeaveDescription() {
+        return lb_leave_description;
+    }
+
+    public String getLBLeaveBalance() {
+        return lb_leave_balance;
+    }
+
+    public String getLBLeaveBalanceAsOfDate() {
+        return lb_leave_balanceasofdate;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_claims_general"
+        android:icon="@drawable/ic_account_balance_wallet_white_24dp"
+        android:title="@string/general_claims" />
+    <item
+        android:id="@+id/item_claims_recommended_route"
+        android:icon="@drawable/ic_directions_white_24dp"
+        android:title="@string/recommended_route" />
+    <item
+        android:id="@+id/item_claims_manual_mode"
+        android:icon="@drawable/ic_edit_location_white_24dp"
+        android:title="@string/manual_mode" />
+</menu>

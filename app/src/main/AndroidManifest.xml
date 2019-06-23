@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="hk.com.dataworld.leaveapp">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.location.network" />
+
+    <application
+        android:name=".ApplicationStartingPoint"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name_leavemanager"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LeaveCalendarActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ClaimsActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LeaveApplyActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LeaveApprovalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ShowFullSizePicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LeaveMasterRecordActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaySlipActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IR56BActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewDownloadActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HistoryMasterRecordActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name=".BootCompleteReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!--<intent-filter>-->
+        <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+        <!--</intent-filter>-->
+        <service
+            android:name=".NotificationService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>

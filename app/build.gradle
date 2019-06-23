@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "hk.com.dataworld.leaveapp"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 5
+        versionName "1.6"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
+    implementation 'com.android.support:support-compat:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+
+
+    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.maps:google-maps-services:0.9.0'
+
+    implementation 'com.android.support:exifinterface:28.0.0'
+    implementation 'com.beardedhen:androidbootstrap:2.3.2'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+//    implementation 'com.smartarmenia:dotnetcoresignalrclientjava:1.14'
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+    implementation 'com.github.SoftFeta:TableView:master-SNAPSHOT'
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    implementation 'com.haibin:calendarview:3.5.9'
+
+    implementation files('libs/commons-codec-1.11.jar')
+    implementation files('libs/commons-codec-1.11-javadoc.jar')
+}
+
+//New added
+apply plugin: 'com.google.gms.google-services'

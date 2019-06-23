@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/claims_user_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--<ImageButton-->
+            <!--android:id="@+id/button_swap"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:contentDescription="Swap"-->
+            <!--android:src="@drawable/ic_swap_horiz_black_24dp" />-->
+
+            <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/transport_icon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:minHeight="20dp"-->
+            <!--android:minWidth="20dp"-->
+            <!--android:translationZ="1dp"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/route"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="44P"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+            <!--</FrameLayout>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/arrow"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Belair Gardens ➠ Smithfield"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/on_off"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=""-->
+            <!--android:textAlignment="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/fare"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Fare: %s$1"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold" />-->
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="2dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/custom_source_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/custom_source"
+                        android:paddingEnd="14dp"
+                        android:text="@string/source_colon" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                        android:id="@+id/custom_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="3"
+                        android:hint="@string/source_plain"
+                        android:lines="1"
+                        app:roundedCorners="true" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/origin_current_loc_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapBrand="regular"
+                        app:bootstrapSize="sm"
+                        app:materialIcon="md_gps_fixed"
+                        app:roundedCorners="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/custom_dest_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/custom_dest"
+                        android:paddingEnd="14dp"
+                        android:text="@string/destination_colon" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                        android:id="@+id/custom_dest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="3"
+                        android:hint="@string/destination_plain"
+                        android:lines="1"
+                        app:roundedCorners="true" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/dest_current_loc_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bootstrapBrand="regular"
+                        app:bootstrapSize="sm"
+                        app:materialIcon="md_gps_fixed"
+                        app:roundedCorners="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/claim_gen_expense_date_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/claim_gen_expense_date_edit"
+                        android:paddingEnd="14dp"
+                        android:text="@string/claim_gen_expense_date" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                        android:id="@+id/claim_gen_expense_date_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="3"
+                        android:editable="false"
+                        android:lines="1"
+                        app:roundedCorners="true"
+                        tools:ignore="Deprecated" />
+                </TableRow>
+
+            </TableLayout>
+
+            <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+                android:id="@+id/single_or_double"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="md"
+                app:buttonMode="radio"
+                app:roundedCorners="true">
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/single_trip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bootstrapText="@string/single_trip"
+                    app:checked="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/round_trip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bootstrapText="@string/round_trip" />
+            </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingTop="30dp"
+                android:paddingEnd="4dp">
+
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/claims_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:bootstrapBrand="success"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="@string/submit"
+                    app:materialIcon="md_access_alarms"
+                    app:roundedCorners="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/claims_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bootstrapBrand="danger"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="@string/reset"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:padding="4dp"
+                android:src="@drawable/dirs" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/results_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</ScrollView>

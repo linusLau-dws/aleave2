@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_leavemanager">假期管理</string>
+
+    <!--   Predefined Reject Reason -->
+    <string-array name="rejectreason">
+        <item />
+        <item>已無剩假</item>
+        <item>假期衝突</item>
+        <item>假紙不符</item>
+    </string-array>
+
+    <string-array name="transport_types">
+        <item>@string/bus_plain</item>
+        <item>@string/mtr_plain</item>
+        <item>@string/minibus_plain</item>
+    </string-array>
+
+    <!--  Copyright , Terms and Conditions Message -->
+    <string name="msg_infoCopyright">
+        版權所有 © 2018 達訊顧問有限公司。保留所有權利。
+        \n\n條款及細則
+        \n\n你使用 DW-iHR Leave Manager應用程式時，會被視作接納本應用程式的條款及細則。
+        \n\n1. 達訊顧問有限公司(下稱「公司」)在DW-iHR 假期管理應用程式(下稱「本應用程式」) 登載的資料(下稱「資料」)，包括但不限於透過互聯網提供的資料，僅供一般參考用途。雖然公司已盡力確保該等資料準確無誤，但對於在任何特定情況下使用該等資料是否準確或恰當，並沒有作出明示或隱含的陳述、申述、保證或擔保。對因使用或關乎使用該等資料及本應用程式而引致的任何損失或損害，公司概不負上法律責任。
+        \n\n2. 用戶資料和透過互聯網提供的資料，僅供一般參考用途。雖然公司已盡力確保該等資料準確無誤，但對於在任何特定情況下使用該等資料是否準確或恰當，並沒有作出明示或隱含的陳述、申述、保證或擔保。對因使用或關乎使用該等資料及本應用程式而引致的任何損失或損害，公司概不負上法律責任。
+        \n\n3. 使用本服務會產生流動數據用量。如你於海外以流動數據使用本服務，須繳付數據漫遊費用。
+        \n\n4. 公司保留權利，可隨時運用其絕對酌情決定權，省略、暫停或編輯其在本應用程式編製的一切資料，而無須給予任何理由或事先通知。
+        \n\n5. 你明確了解並同意使用本應用程式的服務之風險須自行負擔。本應用程式是依「現況」及「現有」基礎提供。
+        \n\n6. 本應用程式及登載的資料均為公司的財產，其受到有關版權、商標或其他所有權的權利及法律保護。公司明確保留其法律行使權。其全部或部分內容不得修改、登載、轉傳或再度發放，或參與其轉移或伴售賣、藉以製造衍生作業或作任何形式的商業使用。
+        \n\n7. 公司保留權利於任何時間不允許您連結至本程式。若公司行使該權利，您同意即時刪除您對本程式的連結。
+        \n\n8. 你絕不可在知情或疏忽的情況下產生不必要的流量、載入電腦病毒、木馬程式、電腦蠕蟲、邏輯炸彈或其他惡意或科技上對本程式有害的資料以誤用本程式或使本程式停止運作。
+        \n\n9. 你絕不可使用本程式的服務作不合法的目的。你須嚴格遵守香港或其他地區一切與網上行為及可接受內容有關的法律法規。
+        \n\n10. 你絕不可對本程式或其任何相關伺服器、電腦或資料庫取得或嘗試取得未經許可的存取。
+        \n\n11. 公司不保證你能在不受干擾、持續或安全的情況下進入本應用程式。部分或整個應用程式可能突然在任何時段內或因各種原因不能使用，其中包括系統失靈或中斷、互聯網停機或其他技術故障；公司對此等原因並無控制權，亦概不負責。你同意自行承擔使用網站的一切相關風險，亦不就你因任何原因無法使用網站而引致的任何損害或損失，向公司追究責任。
+        \n\n12. 你陳述及保證你不會在使用本程式時參與任何下述行為︰
+        \n(a)使用本程式的服務以達到向任何其他使用者發出大量未要求傳送的信息的目的；或
+        \n(b)以查詢公司所提供資訊以外的目的使用本程式。
+        \n\n13. 若任何人因你於本程式上或經由本程式所作的行為向公司提出申索，你須對公司遭受的與該申索相關的任何形式的損害、損失及支出(包括所有律師費及其他支出)彌償公司並使公司得到全額及有效彌償。
+        \n\n14. 公司不對本程式內容的可信性、準確性、及時性、適用性及完整性提供任何保證。除本條款及細則列明(如有)外，你使用及存取本程式並不以任何形式產生任何其他關係致使公司承擔任何責任。
+        \n\n15. 公司可不時修訂及更新本條款。你已獲告知須定期經本程式檢視本條款以確保你已參閱本條款的最新版本。公司並沒有任何責任於本程式貼出通告通知你本條款的條文更新。若你於上述修訂及更新生效後繼續使用或進入本程式，你同意受經修訂的本條款所約束，而該修訂將取代所有公司以往向你提供的條款及細則。
+        \n\n16. 本免責聲明的條款受香港特別行政區的法律管限，並按香港特別行政區的法律解釋。你亦同意接受香港特別行政區法院非專有審判權的管轄。
+        \n\n17. 本免責聲明是英文原文的中譯本，如中文與英文版本之間有任何歧義，概以英文版本為準。
+        \n
+    </string>
+
+    <string name="leave_calendar_team">隊伍</string>
+    <string name="leave_calendar_myself">自己</string>
+
+    <string name="leave_calendar_leave">假期</string>
+    <string name="leave_calendar_shift">更期</string>
+
+    <string name="title_activity_settings">設定</string>
+
+    <!-- Strings related to Settings -->
+    <!--  General settings -->
+    <string name="pref_header_general">基本設定</string>
+    <string name="pref_title_server_addr">伺服器位址</string>
+    <string name="pref_title_Language">語言</string>
+
+    <!-- Language options -->
+    <string name="pref_language_english">English</string>
+    <string name="pref_language_chinese">中文</string>
+
+    <!-- menu items -->
+    <string name="action_settings">設定</string>
+    <string name="action_logout">登出</string>
+    <string name="action_about">使用條款</string>
+
+    <!-- Action in progress -->
+    <string name="login_msg_progress">登入中…</string>
+    <string name="leave_apply_msg_progress">申請放假中…</string>
+    <string name="leave_approval_msg_progress">申請批核處理中…</string>
+    <string name="leave_withdraw_msg_progress">申請撤回處理中…</string>
+    <string name="leave_cancel_msg_progress">申請取消處理中…</string>
+    <string name="request_leave_approval_list_progress">讀取申請列表中…</string>
+    <string name="request_leave_approval_detail_progress">讀取申請資料中…</string>
+    <string name="request_leave_history_list_progress">讀取申請歷史列表中…</string>
+    <string name="request_leave_history_detail_progress">讀取申請歷史資料中…</string>
+    <string name="logout_msg_progress">登出中…</string>
+
+    <!-- Login Page -->
+    <string name="et_name">用戶</string>
+    <string name="et_password">密碼</string>
+    <string name="et_password_retype">重複密碼</string>
+    <string name="btn_login">登入</string>
+    <string name="tv_version">版本</string>
+    <string name="remember_me">記住我的登錄狀態</string>
+    <string name="password_change_mandatory">首次登入必須重設密碼。</string>
+    <string name="no_active_employments">此用戶現時沒有合約！</string>
+
+    <!-- Selection Page -->
+    <string name="btn_applyleave">申請假期</string>
+    <string name="btn_myapplication">我的申請</string>
+    <string name="btn_leaveapproval">批核假期</string>
+    <string name="btn_cancelleaveapproval">批核取消假期申請</string>
+    <string name="btn_downloadPDF">下載PDF檔案</string>
+    <string name="btn_downloadTaxation">下載報稅表</string>
+    <string name="btn_downloadPayslip">下載糧單報表</string>
+    <string name="btn_leave_calendar">假期排程表</string>
+    <string name="btn_fare_claims">工作費用申報</string>
+    <string name="btn_attendance">上班簽到 (另外程式)</string>
+
+    <!-- Selection Page (Camel) -->
+    <string name="btn_applyleaveCamel">申請假期</string>
+    <string name="btn_myapplicationCamel">我的申請</string>
+    <string name="btn_leaveapprovalCamel">批核假期</string>
+    <string name="btn_cancelleaveapprovalCamel">批核取消假期申請</string>
+    <string name="btn_downloadPDFCamel">下載PDF檔案</string>
+    <string name="btn_downloadTaxationCamel">下載報稅表</string>
+    <string name="btn_downloadPayslipCamel">下載糧單報表</string>
+    <string name="btn_leave_calendarCamel">假期排程表</string>
+    <string name="btn_fare_claimsCamel">工作費用申報</string>
+    <string name="btn_attendanceCamel">上班簽到</string>
+
+    <!-- Apply Leave Page -->
+    <string name="title_activity_leave_apply">申請放假</string>
+    <string name="dialog_title_date_selected">申請放假日子:</string>
+    <string name="tv_name">申請人: %1$s</string>
+    <string name="tv_name_colon">申請人: </string>
+    <string name="tv_nickname">暱稱: %1$s</string>
+    <string name="tv_remainBal">剩餘假期: %1$s</string>
+    <string name="tv_remainBal_colon">剩餘假期: </string>
+    <string name="tv_asOfDate">截至於: %1$s</string>
+    <string name="rb_al">年假</string>
+    <string name="rb_sl">病假</string>
+    <string name="rb_fullday">全日</string>
+    <string name="rb_section">三節</string>
+    <string name="rb_am">上午</string>
+    <string name="rb_pm">下午</string>
+    <string name="et_startDate">開始日期</string>
+    <string name="et_endDate">結束日期</string>
+    <string name="btn_apply">申請</string>
+
+    <!-- Leave Master Record Page -->
+    <string name="et_fromDateWithoutFormat">由</string>
+    <string name="et_toDateWithoutFormat">至</string>
+
+    <string name="tv_pendingStatus">等待審批</string>
+    <string name="tv_pendingStatus_short">等待審批</string>
+    <string name="tv_acceptStatus">已批准</string>
+    <string name="tv_rejectStatus">被拒絕</string>
+    <string name="tv_cancelledStatus">已取消</string>
+    <string name="tv_pendingforcancelStatus">等待批准取消假期</string>
+    <string name="tv_confirmedCancelledStatus">已確定取消假期</string>
+
+    <string name="tv_undefineStatus">未定義狀態</string>
+    <string name="tv_tranferStatus">已轉交</string>
+
+    <!-- Leave List Data Layout Page -->
+    <string name="tv_leavetype">假期種類: %1$s</string>
+    <string name="tv_leavetype_colon">假期種類: </string>
+    <string name="tv_from">由: </string>
+    <string name="tv_to">至: </string>
+    <string name="tv_date_range">由: %1$s\n至: %2$s</string>
+    <string name="tv_totalDays">總共申請天數: </string>
+
+    <!-- Leave Approval Page -->
+    <string name="et_leavetype">假期種類</string>
+    <string name="tv_approvalStatus">批核狀態: %1$s</string>
+    <string name="et_rejectReason">拒批原因</string>
+    <string name="et_otherRejectReason">其它拒批原因</string>
+    <string name="btn_approval">批准</string>
+    <string name="btn_reject">拒絕</string>
+    <string name="btn_withdraw">撤回申請</string>
+    <string name="btn_cancel">取消申請</string>
+    <string name="btn_approvalprogress">過程</string>
+
+    <!-- Approval Progress List Page -->
+    <string name="tv_heading">批核過程</string>
+    <string name="tv_seqno">次序: %1$d</string>
+    <string name="tv_username">用户名: %1$s</string>
+    <string name="tv_position">職位: %1$s</string>
+    <string name="tv_datetime">日期: %1$s 時間: %2$s</string>
+    <string name="tv_remark">備註: %1$s</string>
+
+    <!--Download Page -->
+    <string name="btn_download">下載</string>
+    <string name="btn_view">取讀</string>
+
+    <!-- General Information Message -->
+    <string name="msg_errorUserPwd">用戶/密碼 不正確</string>
+    <string name="msg_infoInsertRecordSuccess">記錄已成功新增</string>
+    <string name="msg_infoInsertRecordFail">記錄新增出錯!</string>
+    <string name="msg_infoNoRecordFound">沒有任何記錄!</string>
+    <string name="msg_errorEmployment">沒有僱員資料</string>
+    <string name="msg_errorNoPic">沒有照片!</string>
+    <string name="msg_errorField">沒有輸入足夠資料!</string>
+    <string name="enforced_attachment">申請這種假期類型需要附件</string>
+    <string name="msg_errDate">開始日期不可早於結束日期</string>
+    <string name="msg_errReject">請提供拒絕原因</string>
+    <string name="msg_infoFileDownloadOk">成功下載檔案.</string>
+    <string name="msg_infoNoPDFviewer">沒有可讀取PDF文件的工具.</string>
+    <string name="msg_sendRequest">請求已發送</string>
+    <string name="msg_dateRange">日期範圍不能多於180日</string>
+    <string name="msg_infoLogoutConfirm">確定要登出?</string>
+    <string name="msg_infoTimeoutLogin">操作逾時，請重新登入！</string>
+    <string name="msg_errorLoginFail">伺服器暫時無法提供服務，請稍後重試!</string>
+    <string name="msg_errorDataIncomplete">伺服器數據不一致，請稍後重試!</string>
+    <string name="msg_errorPasswordMismatch">兩組密碼不符！</string>
+    <string name="msg_errorPasswordTooShort">密碼須有%1$d個或以上字元。</string>
+    <string name="msg_errorPasswordUpper">密碼須有%1$d個或以上大草字母。</string>
+    <string name="msg_errorPasswordLower">密碼須有%1$d個或以上小草字母。</string>
+    <string name="msg_errorPasswordNumber">密碼須有%1$d個或以上數字。</string>
+    <string name="msg_errorPasswordSymbol">密碼須有%1$d個或以上符號。</string>
+    <string name="msg_errorNoAvailableDates">沒有符合條件的日期！</string>
+
+    <string name="msg_infoTimeout">操作逾時，請稍後再試！</string>
+    <string name="msg_errorSessionExpired">操作逾時，請重新登入。</string>
+    <string name="msg_errorNoAvailableNetworks">沒有可用網絡！請檢查設定。</string>
+    <string name="msg_errorPleaseContact">出現錯誤，請聯絡資訊科技管理員。</string>
+
+    <string name="date_mon">%1$s（一）</string>
+    <string name="date_tue">%1$s（二）</string>
+    <string name="date_wed">%1$s（三）</string>
+    <string name="date_thu">%1$s（四）</string>
+    <string name="date_fri">%1$s（五）</string>
+    <string name="date_sat">%1$s（六）</string>
+    <string name="date_sun">%1$s（日）</string>
+
+    <string name="mon_short">一)</string>
+    <string name="tue_short">二)</string>
+    <string name="wed_short">三)</string>
+    <string name="thu_short">四)</string>
+    <string name="fri_short">五)</string>
+    <string name="sat_short">六)</string>
+    <string name="sun_short">日)</string>
+
+    <!-- General Common Button -->
+    <string name="common_Close">關閉</string>
+
+    <!-- Reserved -->
+    <string name="source">起點站：%1$s</string>
+    <string name="source_colon">起點站：</string>
+    <string name="source_plain">起點站</string>
+    <string name="destination">終點站：%1$s</string>
+    <string name="destination_colon">終點站：</string>
+    <string name="destination_plain">終點站</string>
+    <string name="line">路線：%1$s</string>
+    <string name="line_colon">路線：</string>
+    <string name="route">路線：%1$s</string>
+    <string name="route_colon">路線：</string>
+    <string name="bus_plain">巴士</string>
+    <string name="bus">巴士 %1$s</string>
+    <string name="minibus_plain">小巴</string>
+    <string name="minibus">小巴 %1$s</string>
+    <string name="mtr_plain">地鐵</string>
+    <string name="mtr">地鐵 %1$s</string>
+    <string name="light_rail_plain">輕鐵</string>
+    <string name="light_rail">輕鐵 %1$s</string>
+    <string name="public_transport">公共交通：</string>
+    <string name="approved_2">閣下於%2$s至%3$s的%1$s申請已獲%4$s批准 (%5$s)。</string>
+    <string name="approved_3">閣下於%2$s的%1$s申請已獲%3$s批准 (%4$s)。</string>
+    <string name="rejected_2">閣下於%2$s至%3$s的%1$s申請已被%4$s拒絕 (%5$s)。</string>
+    <string name="rejected_3">閣下於%2$s的%1$s申請已被%3$s拒絕 (%4$s)。</string>
+    <string name="confirmed_cancelled_2">閣下於%2$s至%3$s的%1$s取消已獲%4$s批准 (%5$s)。</string>
+    <string name="confirmed_cancelled_3">閣下於%2$s的%1$s取消已獲%3$s批准 (%4$s)。</string>
+    <string name="general_claims">一般支出津貼</string>
+    <string name="recommended_route">建議路線</string>
+    <string name="manual_mode">手動模式</string>
+    <string name="confirmed_cancelled_1">%1$s取消獲批准</string>
+    <string name="new_leave_application_1">新%1$s申請</string>
+    <string name="new_leave_application_2">%1$s申請於%2$s至%3$s放%4$s。</string>
+    <string name="new_leave_application_3">%1$s申請於%2$s放%3$s。</string>
+    <string name="approved_1">%1$s獲批准</string>
+    <string name="rejected_1">%1$s被拒絕</string>
+    <string name="fare">費用：$%1$.1f</string>
+    <string name="submit">{fa_paper-plane} 遞交</string>
+    <string name="submit_plain">遞交</string>
+    <string name="reset">{fa_undo} 重設</string>
+    <string name="browse">{fa_camera} 拍照……</string>
+    <string name="browse_gallery">{fa_picture-o} 瀏覽……</string>
+    <string name="route_arrow">%1$s ➠ %2$s</string>
+    <string name="on_off">上：%1$s\n落：%2$s</string>
+    <string name="add">{fa_plus} 增加</string>
+    <string name="delete">{fa_minus} 刪除</string>
+    <string name="round_trip">{md_repeat} 雙程</string>
+    <string name="single_trip">{md_arrow-forward} 單程</string>
+    <string name="claim_fares">{md_monetization-on} 申請</string>
+    <string name="server_loc_header">請輸入伺服器位置：</string>
+    <string name="loading">載入中……</string>
+    <string name="total_fares">總費用：$%1$.1f</string>
+
+    <string name="exclude">不包括：</string>
+    <string name="exclude_sat">星期六</string>
+    <string name="exclude_sun">星期日</string>
+    <string name="exclude_holidays">法定/銀行假期</string>
+
+    <string name="EAL">東鐵綫</string>
+    <string name="KTL">觀塘綫</string>
+    <string name="TWL">荃灣綫</string>
+    <string name="ISL">港島綫</string>
+    <string name="TCL">東涌綫</string>
+    <string name="TKL">將軍澳綫</string>
+    <string name="WRL">西鐵綫</string>
+    <string name="MOL">馬鞍山綫</string>
+    <string name="DRL">迪士尼綫</string>
+    <string name="SIL">南港島綫</string>
+    <string name="please_select">==請選擇==</string>
+    <string name="err_line_not_selected">請選擇有效路綫。</string>
+    <string name="err_station_not_selected">請選擇有效車站。</string>
+    <string name="na">不適用</string>
+    <string name="no_available_options">沒有適用選項</string>
+
+    <string name="claim_gen_expense_date">支出日期：</string>
+    <string name="claim_gen_category">類別：</string>
+    <string name="claim_gen_expense">支出類別：</string>
+    <string name="claim_gen_type">類型：</string>
+    <string name="claim_gen_family_member">家庭成員：</string>
+    <string name="claim_gen_remark">備注：</string>
+    <string name="claim_gen_total_amount">支出總額：</string>
+    <string name="claim_gen_claim_amount">津貼金額：</string>
+    <string name="claim_gen_document">文件：</string>
+    <string name="disambig">請選擇以下路線其一：</string>
+
+    <string name="err_db_generic">錯誤：資料庫錯誤</string>
+    <string name="err_duplicate">錯誤：已有記錄！</string>
+    <string name="success">成功。</string>
+    <string name="clear_all_notifications">{md_clear-all} 清除所有通知</string>
+
+    <string name="application_sent">成功提交申請。</string>
+    <string name="withdrawal_successful">已取消申請。</string>
+    <string name="cancellation_request_sent">成功提交取消假期申請。</string>
+
+    <string name="route_does_not_exist">路線並不存在。</string>
+
+    <string name="first_approver">閣下為首位批核者。</string>
+    <string name="sure">確定？</string>
+
+    <string name="year_month">%1$d 年 %2$d 月</string>
+
+    <string name="payslip_not_available">暫未能提供選擇月份的糧單報表。</string>
+    <string name="payroll_month">結算月份：</string>
+    <string name="generate">下載</string>
+    <string name="to">至</string>
+    <string name="today">今天</string>
+
+    <string name="CompanyName">公司名稱：</string>
+    <string name="ContractCode">合約編號：</string>
+    <string name="Station">區域：</string>
+    <string name="Zone">分區：</string>
+    <string name="PeriodYear">報稅年度：</string>
+    <string name="PrintDate">列印日期：</string>
+    <string name="PrintPageBreak">列印分頁線：</string>
+    <string name="UseTaxationLimit">使用稅務限額：</string>
+    <string name="LastSheetNumber">最後一頁表格號碼：</string>
+    <string name="PrintSheetNumber">列印表格號碼：</string>
+    <string name="ExcludeNoAddress">排除空白住址記錄：</string>
+    <string name="ShowStaffNumber">顯示員工編號：</string>
+</resources>
