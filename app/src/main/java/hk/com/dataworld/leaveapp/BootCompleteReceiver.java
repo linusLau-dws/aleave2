@@ -30,7 +30,6 @@ public class BootCompleteReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         Log.d(TAG_BOOT_BROADCAST_RECEIVER, action);
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            //
             final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             String token = sp.getString(PREF_TOKEN, "");
             String refrToken = sp.getString(PREF_REFRESH_TOKEN, "");
@@ -57,9 +56,13 @@ public class BootCompleteReceiver extends BroadcastReceiver {
                                             editor.putString(PREF_REFRESH_TOKEN, newRefr);
                                             editor.apply();
 
+                                            // Start Messaging Service on Boot
+                                            Intent messagingServiceIntent = new Intent(context, MessagingService.class);
+                                            context.startService(messagingServiceIntent);
+                                            
                                             // Start Notification Service on Boot
-                                            Intent startServiceIntent = new Intent(context, NotificationService.class);
-                                            context.startService(startServiceIntent);
+                                            Intent notificationServiceIntent = new Intent(context, NotificationService.class);
+                                            context.startService(notificationServiceIntent);
 
 /*
 // Start Bluetooth Service on Boot
