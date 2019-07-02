@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -188,6 +189,8 @@ public class LeaveCalendarActivity extends BaseActivity {
             }
         });
 
+        ListView mListView = findViewById(R.id.calEvents);
+
         try {
             JSONObject json = new JSONObject();
             json.put("token", mToken);
@@ -196,6 +199,7 @@ public class LeaveCalendarActivity extends BaseActivity {
             json.put("monthEnd", String.format("%s-%02d", yearMonth, daysInMonth));
             json.put("getSelf", true);
             json.put("getOptions", true);
+            json.put("zone", -1);
             Log.i("REVAMP", json.toString());
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", mBaseUrl, "_GetLeaveCalendar"), json, new Response.Listener<JSONObject>() {
@@ -213,7 +217,7 @@ public class LeaveCalendarActivity extends BaseActivity {
                         JSONArray zones = obj.getJSONObject("options").getJSONArray("zone");
                         String[] zoneArr = new String[zones.length()];
                         for (int i=0; i< zones.length(); i++) {
-                            zoneArr[i] = zones.getString(i);
+                            zoneArr[i] = zones.getJSONObject(i).getString("Text");
                         }
                         zoneDropDown.setDropdownData(zoneArr);
 
@@ -241,6 +245,8 @@ public class LeaveCalendarActivity extends BaseActivity {
                         });
                         mCalendar.setVisibility(View.VISIBLE);
                         mCalendar.update();
+                        EventListAdapter mEventListAdapter= new EventListAdapter(LeaveCalendarActivity.this, obj);
+                        mListView.
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

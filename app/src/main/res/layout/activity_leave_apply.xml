@@ -349,7 +349,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <com.google.android.material.navigation.NavigationView
+        <com.google.android.material.navigation.NavigationView
+    android:background="@color/platinum"
         android:id="@+id/drawer_navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -367,7 +368,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
-                app:bootstrapBrand="primary"
+                app:bootstrapBrand="danger"
                 app:bootstrapText="@string/clear_all_notifications"
                 app:roundedCorners="true" />
 

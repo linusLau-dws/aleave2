@@ -297,6 +297,8 @@ public class LeaveMasterRecordActivity extends BaseActivity implements View.OnCl
                     break;
             }
         }
+
+        PendingRB.toggle();
     }
 
     @Override

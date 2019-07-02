@@ -56,6 +56,7 @@ dependencies {
     implementation 'com.github.SoftFeta:TableView:master-SNAPSHOT'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation 'com.haibin:calendarview:3.5.9'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
 
     implementation files('libs/commons-codec-1.11.jar')
     implementation files('libs/commons-codec-1.11-javadoc.jar')
