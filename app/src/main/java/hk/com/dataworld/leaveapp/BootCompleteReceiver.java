@@ -59,7 +59,7 @@ public class BootCompleteReceiver extends BroadcastReceiver {
                                             // Start Messaging Service on Boot
                                             Intent messagingServiceIntent = new Intent(context, MessagingService.class);
                                             context.startService(messagingServiceIntent);
-                                            
+
                                             // Start Notification Service on Boot
                                             Intent notificationServiceIntent = new Intent(context, NotificationService.class);
                                             context.startService(notificationServiceIntent);

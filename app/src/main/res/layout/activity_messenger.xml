@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.shrikanthravi.chatview.widget.ChatView
+        android:id="@+id/chatView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:chatViewBackgroundColor="@color/telegramx" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:background="@color/platinum"
+        android:id="@+id/drawer_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btn_removeAllNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                app:bootstrapBrand="danger"
+                app:bootstrapText="@string/clear_all_notifications"
+                app:roundedCorners="true" />
+
+            <ListView
+                android:id="@+id/drawer_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

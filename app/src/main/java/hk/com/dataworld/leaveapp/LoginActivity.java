@@ -125,8 +125,6 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    
-
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +144,11 @@ public class LoginActivity extends BaseActivity {
 
                         Log.d(TAG, token);
                         Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginActivity.this, MessengerActivity.class);
+                        intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
+//                        finish();
+                        startActivity(intent);
                     }
                 });
 
