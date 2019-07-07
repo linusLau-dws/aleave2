@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -48,6 +49,7 @@ import java.util.Locale;
 import hk.com.dataworld.leaveapp.DAL.Notification;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
+import static hk.com.dataworld.leaveapp.Constants.ACTION_INCOMING_NOTIFICATION;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION_COUNT;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_SHIM_NOTIFICATION;
@@ -96,7 +98,7 @@ public class MessengerActivity extends BaseActivity {
         mChatView.setOnClickSendButtonListener(new ChatView.OnClickSendButtonListener() {
             @Override
             public void onSendButtonClick(String body) {
-               sendMessage(body);
+                sendMessage(body);
             }
         });
 
@@ -146,14 +148,14 @@ public class MessengerActivity extends BaseActivity {
     private void sendMessage(String body) {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("token", mSharedPreferences.getString( extendBaseUrl(mSharedPreferences.getString(PREF_TOKEN, "")), ""));
+            obj.put("token", mSharedPreferences.getString(mSharedPreferences.getString(PREF_TOKEN, ""), ""));
             obj.put("StationCode", "01");
             obj.put("ZoneCode", "01");
             obj.put("Message", body);
             obj.put("ChatroomID", 1);
             obj.put("MessageType", 0);
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
-                    String.format("%s%s",  extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, "")), "SendMsg"), obj, new Response.Listener<JSONObject>() {
+                    String.format("%s%s", extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, "")), "SendMsg"), obj, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 //                            try {
@@ -190,6 +192,18 @@ public class MessengerActivity extends BaseActivity {
 
             mIsIncoming = true;
         }
+    }
+
+    private void receiveMessage(String sender, String body) {
+        Message message = new Message();
+        message.setUserName(sender);
+        message.setBody(body);
+        message.setMessageType(Message.MessageType.LeftSimpleMessage);
+        message.setTime(mFormatter.format(new Date()));
+        message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//Uri.parse("android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
+        mChatView.addMessage(message);
+
+        mIsIncoming = false;
     }
 
     @Override
@@ -357,6 +371,8 @@ public class MessengerActivity extends BaseActivity {
             mNotiCountButton.setOnClickListener(onClickListener);
             mNotiCountButton.setText(String.valueOf(notifications.size()));
 
+            registerBroadcastReceiver(new MessagingBroadcastReceiver());
+
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -371,6 +387,12 @@ public class MessengerActivity extends BaseActivity {
         return true;
     }
 
+    private void registerBroadcastReceiver(MessagingBroadcastReceiver mbr) {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("incoming");
+        registerReceiver(mbr, intentFilter);
+    }
+
     class MessagingBroadcastReceiver extends BroadcastReceiver {
         public MessagingBroadcastReceiver() {
             super();
@@ -383,7 +405,7 @@ public class MessengerActivity extends BaseActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
+            receiveMessage(intent.getStringExtra("sender"), intent.getStringExtra("message"));
         }
     }
 }
