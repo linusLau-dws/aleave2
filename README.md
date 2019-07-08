@@ -44,6 +44,7 @@ UPDATE t_Metadata SET [Value] = '<new version number>' WHERE [Key] = 'VERSION_NU
 If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FMDB on iOS to patch it.
 
 ### iOS
+[App Store Connect guide here](https://instabug.com/blog/how-to-submit-app-to-app-store/)
 
 ### Android
 
