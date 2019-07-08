@@ -11,7 +11,7 @@ To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...
 
 ## Dependencies
 ### iOS
-The iOS app employs [CocoaPod](https://cocoapods.org/), a popular package manager for iOS. A new machine should have it installed first:
+The iOS app employs [CocoaPods](https://cocoapods.org/), a popular package manager for iOS. A new machine should have it installed first:
 ```bash
 $ sudo gem install cocoapods
 ```
@@ -36,7 +36,7 @@ I maintain two libraries myself on GitHub:
 -	[TableView for Android](https://github.com/SoftFeta/TableView)
 -	[ChatView for Android](https://github.com/SoftFeta/ChatView)
 
-## Building
+## Building guide
 Before building, update the version number in AndroidManifest.xml / .xcodeproj AND the SQL Server table t_Metadata using 
 ```sql
 UPDATE t_Metadata SET [Value] = '<new version number>' WHERE [Key] = 'VERSION_NUMBER'
