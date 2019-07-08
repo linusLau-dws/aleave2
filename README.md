@@ -1,11 +1,11 @@
 ## Coding guide
 ### iOS
-The app is written in Swift 4.
+The app is written in Swift 4, and requires iOS 10.0+.
 
 To add a string, always use `NSLocalizedString(key, comment)` for translation. To add a formatted string, wrap the `NSLocalizedString` inside `String(format: <NSLocalizedString>, CVarArg...)`.
 
 ### Android
-The app is written in Java.
+The app is written in Java, and requires Android 5.0+ (API level 21+).
 
 To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...)`.
 
