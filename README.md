@@ -33,3 +33,17 @@ Before building, update the version number in AndroidManifest.xml / .xcodeproj A
 UPDATE t_Metadata SET [Value] = '<new version number>' WHERE [Key] = 'VERSION_NUMBER'
 ```
 If local (SQLite) schema changed, use the onUpdate function of SQLHelper / FMDB on iOS to patch it.
+
+### iOS
+
+### Android
+
+1.	Open Android Studio, select `Build` > `Generate Signed Bundle / APK…`
+
+2.	Choose Android App Bundle if you wish to upload the app to Play Store, otherwise select APK.
+ 
+3.	The .jks key store file is inside the same project. Locate it and put its path into the dialog. The key store password and key password are both `dw@4ndr01d`.
+
+4.	Choose release for Build Type and click Finish.
+
+5.	A dialog will appear at the bottom right corner of the screen. Click locate to open the container folder.
