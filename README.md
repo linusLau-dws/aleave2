@@ -48,11 +48,16 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 ### Android
 
 1.	Open Android Studio, select `Build` > `Generate Signed Bundle / APK…`
+![1](https://drive.google.com/uc?export=view&id=1t3L8_G-ABmgkUp3VjEXYhjvePeeoXqgb)
 
 2.	Choose Android App Bundle if you wish to upload the app to Play Store, otherwise select APK.
- 
+![2](https://drive.google.com/uc?export=view&id=13qzP2FdfH7dpR7EHE8Kex97N-mtjVT6Z)
+
 3.	The .jks key store file is inside the same project. Locate it and put its path into the dialog. The key store password and key password are both `dw@4ndr01d`.
+![3](https://drive.google.com/uc?export=view&id=1T4tmBrv9GJOdciVsvncYiVOTWGnDMnIr)
 
 4.	Choose release for Build Type and click Finish.
+![4](https://drive.google.com/uc?export=view&id=1xz3UOOKehB9IgrjRWxpfE5LWH6gQQShb)
 
 5.	A dialog will appear at the bottom right corner of the screen. Click locate to open the container folder.
+![5](https://drive.google.com/uc?export=view&id=11EJkYDkQncdL2s6J2gnlrC_v26ein_UX)
