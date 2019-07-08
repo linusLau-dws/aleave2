@@ -7,7 +7,7 @@ To add a string, always use `NSLocalizedString(key, comment)` for translation. T
 ### Android
 The app is written in Java.
 
-To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...`.
+To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...)`.
 
 ## Dependencies
 ### iOS
