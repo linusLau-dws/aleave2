@@ -2,10 +2,12 @@
 ### iOS
 The app is written in Swift 4.
 
+To add a string, always use `NSLocalizedString(key, comment)` for translation. To add a formatted string, wrap the `NSLocalizedString` inside `String(format: <NSLocalizedString>, CVarArg...)`.
+
 ### Android
 The app is written in Java.
 
-To add a string, always use `NSLocalizedString(key, comment)` for translation. To add a formatted string, wrap the `NSLocalizedString` inside `String(format: <NSLocalizedString>, CVarArg...)`.
+To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...`.
 
 ## Dependencies
 ### iOS
