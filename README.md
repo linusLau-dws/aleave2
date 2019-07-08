@@ -41,7 +41,7 @@ Before building, update the version number in AndroidManifest.xml / .xcodeproj A
 ```sql
 UPDATE t_Metadata SET [Value] = '<new version number>' WHERE [Key] = 'VERSION_NUMBER'
 ```
-If local (SQLite) schema changed, use the onUpdate function of SQLHelper / FMDB on iOS to patch it.
+If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FMDB on iOS to patch it.
 
 ### iOS
 
