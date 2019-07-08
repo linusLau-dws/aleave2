@@ -25,12 +25,17 @@ The project dependent on the following libraries, as listed in the Podfile:
 -	[SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), for creating and accessing JSON objects using subscript syntax
 
 ### Android
+
 The project dependent on the following libraries, as listed in the Podfile:
+
 -	[Volley](https://developer.android.com/training/volley/index.html), analogous to AlamoFire on iOS
 -	[Android-Bootstrap](https://github.com/Bearded-Hen/Android-Bootstrap), UI components
+
 I maintain two libraries myself on GitHub:
+
 -	[TableView for Android](https://github.com/SoftFeta/TableView)
 -	[ChatView for Android](https://github.com/SoftFeta/ChatView)
+
 ## Building
 Before building, update the version number in AndroidManifest.xml / .xcodeproj AND the SQL Server table t_Metadata using 
 ```sql
