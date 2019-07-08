@@ -6,20 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,8 +31,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.shrikanthravi.chatview.data.Message;
 import com.shrikanthravi.chatview.widget.ChatView;
 import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.PicassoEngine;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,11 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hk.com.dataworld.leaveapp.DAL.Notification;
-import me.leolin.shortcutbadger.ShortcutBadger;
 
-import static hk.com.dataworld.leaveapp.Constants.ACTION_INCOMING_NOTIFICATION;
-import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION;
-import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION_COUNT;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_SHIM_NOTIFICATION;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_SOURCE_NOTIFICATION_STATUS;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_TO_MY_HISTORY;
@@ -63,7 +55,7 @@ import static hk.com.dataworld.leaveapp.Utility.getGenericErrorListener;
 public class MessengerActivity extends BaseActivity {
 
     private ChatView mChatView;
-    private static final int imagePickerRequestCode = 123;
+    private static final int IMAGE_PICKER = 123;
     private static final int SELECT_VIDEO = 146;
     private static final int CAMERA_REQUEST = 352;
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -106,14 +98,17 @@ public class MessengerActivity extends BaseActivity {
         mChatView.setOnClickGalleryButtonListener(new ChatView.OnClickGalleryButtonListener() {
             @Override
             public void onGalleryButtonClick() {
-                Matisse.from(MessengerActivity.this)
-                        .choose(MimeType.allOf())
-                        .countable(true)
-                        .maxSelectable(9)
-                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                        .thumbnailScale(0.85f)
-                        .imageEngine(new PicassoEngine())
-                        .forResult(imagePickerRequestCode);
+                Intent intent = new Intent(Intent.ACTION_PICK); // Action
+                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_PICKER);
+//                Matisse.from(MessengerActivity.this)
+//                        .choose(MimeType.allOf())
+//                        .countable(true)
+//                        .maxSelectable(9)
+//                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+//                        .thumbnailScale(0.85f)
+//                        .imageEngine(new PicassoEngine())
+//                        .forResult(IMAGE_PICKER);
             }
         });
 
@@ -211,8 +206,30 @@ public class MessengerActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Image Selection result
-        if (requestCode == imagePickerRequestCode && resultCode == RESULT_OK) {
-            mSelected = Matisse.obtainResult(data);
+        if (requestCode == IMAGE_PICKER && resultCode == RESULT_OK) {
+//            mSelected = Matisse.obtainResult(data);
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            Message _message = new Message();
+            _message.setBody("Lorem ipsum");//messageET.getText().toString().trim());
+            _message.setMessageType(Message.MessageType.LeftSingleImage);
+            _message.setTime(mFormatter.format(new Date()));
+            _message.setUserName("Groot");
+            Uri uri = Uri.parse(picturePath);
+            List<Uri> uriList = new ArrayList<>();
+            uriList.add(uri);
+            _message.setImageList(uriList);//mSelected);
+            _message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
+            mChatView.addMessage(message);
+            mIsIncoming = false;
+            return;
 
             if (mIsIncoming) {
                 if (mSelected.size() == 1) {
@@ -221,7 +238,7 @@ public class MessengerActivity extends BaseActivity {
                     message.setMessageType(Message.MessageType.LeftSingleImage);
                     message.setTime(mFormatter.format(new Date()));
                     message.setUserName("Groot");
-                    message.setImageList(mSelected);
+                    message.setImageList(mSelected);//mSelected);
                     message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
                     mChatView.addMessage(message);
                     mIsIncoming = false;
