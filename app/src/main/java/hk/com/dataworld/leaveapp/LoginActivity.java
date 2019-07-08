@@ -97,6 +97,8 @@ public class LoginActivity extends BaseActivity {
     private JSONArray LeaveBalance;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mPrefsEditor;
+    private String mInstanceId = null;
+
     private ProgressDialog pd;
     private Response.ErrorListener networkIssueListener = new Response.ErrorListener() {
         @Override
@@ -125,8 +127,6 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    
-
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,11 +141,18 @@ public class LoginActivity extends BaseActivity {
                             return;
                         }
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
+                        // Get new Instance ID mInstanceId
+                        InstanceIdResult instanceIdResult = task.getResult();
+                        if (instanceIdResult != null) {
+                            mInstanceId = instanceIdResult.getToken();
+                            Log.d(TAG, mInstanceId);
+                            Toast.makeText(LoginActivity.this, mInstanceId, Toast.LENGTH_SHORT).show();
+                        }
 
-                        Log.d(TAG, token);
-                        Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MessengerActivity.class);
+                        intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
+//                        finish();
+                        startActivity(intent);
                     }
                 });
 
@@ -458,7 +465,7 @@ public class LoginActivity extends BaseActivity {
                                     try {
                                         if (!response.isNull("d")) {
                                             JSONObject tokContainer = response.getJSONObject("d");
-                                            String tok = tokContainer.getString("t");
+                                            final String tok = tokContainer.getString("t");
                                             String rtok = tokContainer.getString("r");
 
                                             mPolicy_low = tokContainer.getInt("policy_low");
@@ -495,6 +502,37 @@ public class LoginActivity extends BaseActivity {
                                                     String.format("%s%s", baseUrl, "_GetLeaveInfo"), leaveObj, new Response.Listener<JSONObject>() {
                                                 @Override
                                                 public void onResponse(JSONObject response) {
+
+                                                    // TODO: Firebase
+                                                    if (mInstanceId!= null) {
+                                                        mRequestQueue = Volley.newRequestQueue(LoginActivity.this);
+                                                        JSONObject req = new JSONObject();
+                                                        try {
+                                                            req.put("deviceToken", mInstanceId);
+                                                            req.put("os", true);
+                                                            req.put("token", tok);
+                                                            JsonObjectRequest StoreIdReq = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                                                                    String.format("%s%s", baseUrl, "_RegDeviceToken"), req, new Response.Listener<JSONObject>() {
+                                                                @Override
+                                                                public void onResponse(JSONObject response) {
+                                                                    // TODO: move intent here
+                                                                }
+                                                            }, new Response.ErrorListener() {
+                                                                @Override
+                                                                public void onErrorResponse(VolleyError error) {
+
+                                                                }
+                                                            });
+                                                            StoreIdReq.setRetryPolicy(new DefaultRetryPolicy(
+                                                                    8000,
+                                                                    0,
+                                                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                                            mRequestQueue.add(StoreIdReq);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                    // TODO: FireBase
 
                                                     Log.d("Leave", "leave");
                                                     List<LoginResultData> loginReceivedList = new ArrayList<>();
@@ -633,7 +671,7 @@ public class LoginActivity extends BaseActivity {
                                                 }
                                             }, networkIssueListener);
                                             leaveReq.setRetryPolicy(new DefaultRetryPolicy(
-                                                    60000,
+                                                    20000,
                                                     0,
                                                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                             mRequestQueue.add(leaveReq);

@@ -246,7 +246,7 @@ public class LeaveCalendarActivity extends BaseActivity {
                         mCalendar.setVisibility(View.VISIBLE);
                         mCalendar.update();
                         EventListAdapter mEventListAdapter= new EventListAdapter(LeaveCalendarActivity.this, obj);
-                        mListView.
+                        //mListView.
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

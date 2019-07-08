@@ -19,6 +19,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import static hk.com.dataworld.leaveapp.Constants.ACTION_INCOMING_NOTIFICATION;
+import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION;
+import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION_COUNT;
+
 public class MessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -64,7 +68,7 @@ public class MessagingService extends FirebaseMessagingService {
             }
 
         }
-        sendNotification(remoteMessage.getNotification().getBody());
+        sendNotification(remoteMessage.getNotification());
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
@@ -130,7 +134,7 @@ public class MessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(RemoteMessage.Notification notification) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -142,8 +146,8 @@ public class MessagingService extends FirebaseMessagingService {
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.login_page_icon)
 //                        .setContentTitle(getString(R.string.fcm_message))
-                        .setContentTitle("New message")
-                        .setContentText(messageBody)
+                        .setContentTitle(notification.getTitle())
+                        .setContentText(notification.getBody())
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
@@ -160,5 +164,11 @@ public class MessagingService extends FirebaseMessagingService {
         }
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+        Intent broadcast = new Intent();
+        broadcast.setAction("incoming");
+        broadcast.putExtra("sender", notification.getTitle());
+        broadcast.putExtra("message", notification.getBody());
+        sendBroadcast(broadcast);
     }
 }
