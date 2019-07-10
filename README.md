@@ -1,3 +1,58 @@
+## MySQL Version
+
+MariaDB is the free and open-source fork of MySQL, thus, there are almost no differences between them. We use the official ODBC driver to communicate between SQL Server and MariaDB. The syntax is very different from SQL Server.
+
+### Set up SQL mode
+
+Don't use `set global sql_mode='mssql'`. Add `sql-mode="mssql"` under `[mysqld]`, like this:
+```
+[mysqld]
+sql-mode="mssql"
+```
+
+### Set up ODBC drivers
+
+You need to set up **BOTH** 32-bit and 64-bit versions of the official driver. The 32-bit driver is for data transmission between MariaDB and SQL Server. The 64-bit driver is for ASP.NET to access MariaDB.
+* 32-bit: Open `C:\Windows\SysWOW64\odbcad32.exe` and add an entry.
+
+* 64-bit: Open `C:\windows\system32\odbcad32.exe` and add an entry.
+
+
+### Connection string
+To access the server, use the connection string bellow.
+```
+Dsn=helloworld;Driver={MariaDB ODBC 3.1 Driver};user=root;password=sa;database=DWS_LEAVEMGR;OPTIONS=67108864;
+```
+
+`67108864` allows multiple statements in one command, separated by `;`. 
+
+* Manually sync data (push + pull)
+
+
+### Trigger
+Put the cURL folder to `C:\`, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
+
+```sql
+-- To allow advanced options to be changed.  
+EXEC sp_configure 'show advanced options', 1;  
+GO  
+-- To update the currently configured value for advanced options.  
+RECONFIGURE;  
+GO  
+-- To enable the feature.  
+EXEC sp_configure 'xp_cmdshell', 1;  
+GO  
+-- To update the currently configured value for this feature.  
+RECONFIGURE;  
+GO  
+```
+
+We can mimic `xp_cmdshell` using MySQL User-Defined Functions Project, install it by  `lib_mysqludf_sys.dll` into `C:\Program Files\MariaDB 10.3\lib\plugin` and execute ``
+```sql
+DROP FUNCTION IF EXISTS sys_eval;
+CREATE FUNCTION sys_eval RETURNS string SONAME 'lib_mysqludf_sys.dll';
+```
+
 ## Coding guide
 ### iOS
 The app is written in Swift 4, and requires iOS 10.0+.
