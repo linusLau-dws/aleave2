@@ -1,3 +1,23 @@
+## Trigger
+
+Put the cURL folder to `C:\`, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
+
+Remember to configure the server beforehand:
+```sql
+-- To allow advanced options to be changed.  
+EXEC sp_configure 'show advanced options', 1;  
+GO  
+-- To update the currently configured value for advanced options.  
+RECONFIGURE;  
+GO  
+-- To enable the feature.  
+EXEC sp_configure 'xp_cmdshell', 1;  
+GO  
+-- To update the currently configured value for this feature.  
+RECONFIGURE;  
+GO  
+```
+
 ## MySQL Version
 
 MariaDB is the free and open-source fork of MySQL, thus, there are almost no differences between them. We use the official ODBC driver to communicate between SQL Server and MariaDB. The syntax is very different from SQL Server.
@@ -30,22 +50,6 @@ Dsn=helloworld;Driver={MariaDB ODBC 3.1 Driver};user=root;password=sa;database=D
 
 
 ### Trigger
-Put the cURL folder to `C:\`, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
-
-```sql
--- To allow advanced options to be changed.  
-EXEC sp_configure 'show advanced options', 1;  
-GO  
--- To update the currently configured value for advanced options.  
-RECONFIGURE;  
-GO  
--- To enable the feature.  
-EXEC sp_configure 'xp_cmdshell', 1;  
-GO  
--- To update the currently configured value for this feature.  
-RECONFIGURE;  
-GO  
-```
 
 We can mimic `xp_cmdshell` using MySQL User-Defined Functions Project, install it by  `lib_mysqludf_sys.dll` into `C:\Program Files\MariaDB 10.3\lib\plugin` and execute ``
 ```sql
