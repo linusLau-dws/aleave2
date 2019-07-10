@@ -68,6 +68,10 @@ The app is written in Java, and requires Android 5.0+ (API level 21+).
 
 To add a string, always use `getString(R.string.some_string, arg0, arg1, arg2...)`.
 
+## Testing
+Use Lint on Android.
+You may want to use wireless debug on both platforms.
+
 ## Dependencies
 ### iOS
 The iOS app employs [CocoaPods](https://cocoapods.org/), a popular package manager for iOS. A new machine should have it installed first:
@@ -121,3 +125,5 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 
 5.	A dialog will appear at the bottom right corner of the screen. Click locate to open the container folder.
 ![5](https://drive.google.com/uc?export=view&id=11EJkYDkQncdL2s6J2gnlrC_v26ein_UX)
+
+Now you may upload the generated file to Play Console.
