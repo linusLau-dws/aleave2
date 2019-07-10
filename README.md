@@ -1,8 +1,7 @@
 # Back end
 
 ## Trigger
-
-Put the cURL folder to `C:\`, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
+Install OpenSSL beforehand, make sure it is added to `%PATH%`. Put the cURL folder to `C:\` of the **database** server, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
 
 Remember to configure the server beforehand:
 ```sql
