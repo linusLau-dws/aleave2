@@ -52,7 +52,7 @@ We use the official ODBC driver to communicate between SQL Server and MariaDB. T
 
 ### Set up SQL mode
 
-Don't use `set global sql_mode='mssql'`. Add `sql-mode="mssql"` under `[mysqld]`, like this:
+Don't use `set global sql_mode='mssql'`. The `global` is misleading as the server still resets the sql_mode upon restarts. Instead, add `sql-mode="mssql"` under `[mysqld]`, like this:
 ```
 [mysqld]
 sql-mode="mssql"
