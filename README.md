@@ -61,7 +61,7 @@ sql-mode="mssql"
 ### Set up ODBC drivers
 
 You need to set up **BOTH** 32-bit and 64-bit versions of the official driver. The 32-bit driver is for data transmission between MariaDB and SQL Server. The 64-bit driver is for ASP.NET to access MariaDB.
-* 32-bit: Open `C:\Windows\SysWOW64\odbcad32.exe` and add an entry. (Confusing but yes. The **32**-bit is in **SysWOW64**.)
+* 32-bit: Open `C:\Windows\SysWOW64\odbcad32.exe` and add an entry. (Confusing but yes. The **32**-bit tool is in **SysWOW64**.)
 
 * 64-bit: Open `C:\windows\system32\odbcad32.exe` and add an entry.
 
