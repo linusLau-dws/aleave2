@@ -23,10 +23,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set the sync interval in the UI. You may manually sync the data as well.
-
-Create a linked server. Use 64-bit ODBC driver.
-
 # Back end
 
 ## Trigger
@@ -69,8 +65,17 @@ You need to set up **BOTH** 32-bit and 64-bit versions of the official driver. T
 
 * 64-bit: Open `C:\windows\system32\odbcad32.exe` and add an entry.
 
+### Set up SQL Server
 
-### Connection string
+To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set the sync interval in the UI. You may manually sync the data as well.
+
+Create a linked server. Use 64-bit ODBC driver. Notice the connection string.
+
+![](https://drive.google.com/uc?export=view&id=1xjQviov4qWayfolZY1vduoc2iKFF4Xjf)
+![](https://drive.google.com/uc?export=view&id=1ARDwpip5W88wA945yRg6THKO8l3f5kj3)
+![](https://drive.google.com/uc?export=view&id=1Rspn9WKNgMCQSD6eLNUvjTXpUt4YUP5P)
+
+### Set up ASP.NET (C#)
 To access the server, use the connection string bellow.
 ```
 Dsn=helloworld;Driver={MariaDB ODBC 3.1 Driver};user=root;password=sa;database=DWS_LEAVEMGR;OPTIONS=67108864;
