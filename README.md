@@ -23,7 +23,9 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set sync interval in the UI. You may manually sync the data as well.
+To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set the sync interval in the UI. You may manually sync the data as well.
+
+Create a linked server. Use 64-bit ODBC driver.
 
 # Back end
 
@@ -48,7 +50,9 @@ GO
 
 ## MySQL Version
 
-MariaDB is the free and open-source fork of MySQL, thus, there are almost no differences between them. We use the official ODBC driver to communicate between SQL Server and MariaDB. The syntax is very different from SQL Server.
+MariaDB is the free and open-source fork of MySQL, thus, there are almost no differences between them. It is usually chosen over MySQL so that companies do not have to worry about licensing issues.
+
+We use the official ODBC driver to communicate between SQL Server and MariaDB. The syntax is very different from SQL Server.
 
 ### Set up SQL mode
 
