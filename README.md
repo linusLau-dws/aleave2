@@ -23,6 +23,8 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set sync interval in the UI. You may manually sync the data as well.
+
 # Back end
 
 ## Trigger
