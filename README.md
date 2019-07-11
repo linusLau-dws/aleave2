@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Back end](#back-end)
+  - [Trigger](#trigger)
+  - [MySQL Version](#mysql-version)
+    - [Set up SQL mode](#set-up-sql-mode)
+    - [Set up ODBC drivers](#set-up-odbc-drivers)
+    - [Connection string](#connection-string)
+    - [Trigger](#trigger-1)
+- [Front end](#front-end)
+  - [Coding guide](#coding-guide)
+    - [iOS](#ios)
+    - [Android](#android)
+  - [Testing](#testing)
+  - [Dependencies](#dependencies)
+    - [iOS](#ios-1)
+    - [Android](#android-1)
+  - [Building guide](#building-guide)
+    - [iOS](#ios-2)
+    - [Android](#android-2)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Back end
 
 ## Trigger
