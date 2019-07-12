@@ -8,6 +8,20 @@ Systemd relies on Meson since dropping Autotools in version 234.
 
 Rietveld / Launchpad / Rietveld 2
 
+# XML
+
+https://www.ird.gov.hk/eng/pdf/ir56f_spec_e.pdf
+
+Use drag to select.
+
+IR56B:Tax
+
+IR56E:Start
+
+IR56F:Stop
+
+IR56G:Leave
+
 # RosterManagement 713=='12-month basic salary' (平均工資)
 `PayrollMonth = p.PayrollMonth;`
 - B.S.: Basic Salary
