@@ -102,6 +102,13 @@ Standard: t_Staff_Leave
 # SL
 ## Definition of 'Continuous SL'
 `SICK_LEAVE_CONSECUTIVE_DAY_DEFINITION`: Sick Leave Consecutive Day Definition (Labour Law = 4)
+不是連續4日或以上，可以Pay或No Pay (有NSL Type)，但不能扣Balance。4日或以上，可以扣。
+
+Labour Law (double check):
+Year|Threshold Days
+1|2
+2|4
+Max|120
 
 # AL
 0.01 per day
