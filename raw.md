@@ -110,6 +110,16 @@ Year|Threshold Days
 2|4
 Max|120
 
+- Baguio
+* SL: $ * 4/5
+* NSL: No Pay
+
+- Standard
+* PSL: Partial Sick Leave: $ * 4/5
+* SL: Follows Pay Group Formula
+* FSL: Full Pay
+* NSL: No Pay
+
 # AL
 0.01 per day
 ## Tricky: Adjustment vs Override
