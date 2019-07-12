@@ -2,6 +2,8 @@ Amazon Redshift is based on **PostgreSQL 8.0.2**. Amazon Redshift and PostgreSQL
 
 [Install the Amazon Redshift ODBC Driver on Linux Operating Systems](https://docs.aws.amazon.com/redshift/latest/mgmt/install-odbc-driver-linux.html)
 
+No repos. No Ubuntu Package. Install .deb directly.
+
 Rietveld / Launchpad / Rietveld 2
 
 # RosterManagement 713=='12-month basic salary' (平均工資)
