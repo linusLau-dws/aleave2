@@ -99,6 +99,9 @@ Baguio: does not have Portal. Everything is obtained from t_Roster, never t_Staf
 Standard: t_Staff_Leave
 
 補 Positional Difference (P.D.)
+# SL
+## Definition of 'Continuous SL'
+`SICK_LEAVE_CONSECUTIVE_DAY_DEFINITION`: Sick Leave Consecutive Day Definition (Labour Law = 4)
 
 # AL
 0.01 per day
