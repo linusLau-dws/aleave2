@@ -120,6 +120,10 @@ Max|120
 * FSL: Full Pay
 * NSL: No Pay
 
+#### Cases when BH and SL overlap / R and SL overlap
+- `LEAVE_WAIVE_SLBALANCE_DEDUCTION_ON_BANKHOLIDAY`: Leave - Enable system to waive the deduction on SL balance when the SL application date is a bank holiday (0 = No, 1 = Yes)
+- `LEAVE_WAIVE_SLBALANCE_DEDUCTION_ON_RESTDAY`: Leave - Enable system to waive the deduction on SL balance when the SL application date is a rest day (0 = No, 1 = Yes)
+
 # AL
 0.01 per day
 ## Tricky: Adjustment vs Override
