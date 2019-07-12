@@ -1,4 +1,4 @@
-Amazon Redshift is based on ***PostgreSQL 8.0.2***. Amazon Redshift and PostgreSQL have a number of very important differences that you must be aware of as you design and develop your data warehouse applications. For more information about how Amazon Redshift SQL differs from PostgreSQL, see Amazon Redshift and PostgreSQL.
+Amazon Redshift is based on **PostgreSQL 8.0.2**. Amazon Redshift and PostgreSQL have a number of very important differences that you must be aware of as you design and develop your data warehouse applications. For more information about how Amazon Redshift SQL differs from PostgreSQL, see Amazon Redshift and PostgreSQL.
 
 # RosterManagement 713=='12-month basic salary' (平均工資)
 `PayrollMonth = p.PayrollMonth;`
@@ -73,3 +73,15 @@ Subtotal = CalculateAL (未放AL) + CalculateST (未放ST) + CaculateGratuity (�
 - t_StaffTermination_Detail.CalculateLongServicePayment
 
 未放AL  未放ST
+
+# Web.config
+NextGen 用 SQLService，所以no provilege to backup (make .bak)，Use the tool `SQLAzureMW (SQL Server Database Migration Wizard)`, now replaced by `Data Migration Assistant (DMA)`.
+
+# IsCL
+t_Employment.IsCL means Is Casual Labour 散工 (Standard+碧). (Baguio has no IsPartTime checkbox). It's possible to be part to be part-time but not casual labour. (Kitty's handover 有個表。)
+Boss: 每個禮拜做5日，rest點。
+Baguio:
+- All leaves hard-coded.
+- All leaves: 1 day, NO half day.
+月中轉Post，就要Renew employment。
+RosterManagement.asmx Line 13929 `void ImportPlannedRosterCentralizeMethod(int p_intPayrollPeriodID, DAL.Model.PlannedRoster[] pPlannedRoster, string psUploadMode, int piTotalNoOfPlannedToImportEmployment, int piUserID, bool boolImportToShiftSection)`
