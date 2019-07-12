@@ -3,12 +3,12 @@
 - B.S.: Basic Salary
 - R.I.: Regular Income
 7月計6月OT
-t_Leave.IsAdjustInNextMonth
-t_PayItemType.IsAdjustInNextMonth
-t_PayrollTrial_Snapshot_Leave.IsAdjustInNextMonth
-t_PayrollTrial_Snapshot_PayItem.IsAdjustInNextMonth
-t_PayrollTrial_Snapshot_SH.IsAdjustInNextMonth
-t_StatutoryHolidayCalculation.IsAdjustInNextMonth
+- t_Leave.IsAdjustInNextMonth
+- t_PayItemType.IsAdjustInNextMonth
+- t_PayrollTrial_Snapshot_Leave.IsAdjustInNextMonth
+- t_PayrollTrial_Snapshot_PayItem.IsAdjustInNextMonth
+- t_PayrollTrial_Snapshot_SH.IsAdjustInNextMonth
+- t_StatutoryHolidayCalculation.IsAdjustInNextMonth
 
 問題：Leave Period月頭至月頭，Pay Period月中至月中。
 - `RosterManagement.asmx.cs` Line 520 `bool Calculate12MonthForAllStaff(int PayrollPeriodID, int ContractID, int UserID, DAL.Model.SystemParameterInfo[] p_objSystemParameter, bool p_IsTrial)`
@@ -47,19 +47,15 @@ Checkboxes: - Terminate (當月) != Quit (不理何月Quit，總知那月已Quit
 ### Include in B.S. (Basic Salary)?
 NPL 12000/30 分開計仲好。NPL = 10000/30 = 333.33. Allowance = 2000/30 = 66.67.
 碧 -> Fixed Pipeline, staight-forward: 計糧 -> 713
-Others -> 如果7月未計糧，6月錯。
+Others -> 如果7月未計糧，6月錯。(旮旯月分)
 
-SELECT DISTINCT TABLE_NAME 
-    FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE COLUMN_NAME IN ('SubtotalExcludeTermination')
+- t_Leave.IsAdjustInNextMonth
+- t_PayItemType
+- t_PayrollTrial_Snapshot_Leave
+- t_PayrollTrial_Snapshot_PayItem
+- t_PayrollTrial_Snapshot_SH
+- t_StatutoryHolidayCalculation
 
-	t_Leave.IsAdjustInNextMonth
-	t_PayItemType
-t_PayrollTrial_Snapshot_Leave
-t_PayrollTrial_Snapshot_PayItem
-t_PayrollTrial_Snapshot_SH
-t_StatutoryHolidayCalculation
-
-t_PayrollTrial.SubtotalExcludeTermination
-t_PayrollTrial_BackPay.SubtotalExcludeTermination
-t_PayrollTrial_CPA.SubtotalExcludeTermination
+- t_PayrollTrial.SubtotalExcludeTermination
+- t_PayrollTrial_BackPay.SubtotalExcludeTermination
+- t_PayrollTrial_CPA.SubtotalExcludeTermination
