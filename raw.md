@@ -126,3 +126,81 @@ Common Leave Year Law:
 
 #### Workflow
 如員工**申請Leave的時間**在離職通知期(Notice Period)內，條workflow可以唔同。
+
+## My
+`RECALC_713_MW_PAYROLLP_LEAVEP_OTP`
+```c#
+if ((new BLL.CodeSettings()).GetSystemParameterInfoSingle(Common.Constant.SystemParameter.RECALC_713_MW_PAYROLLP_LEAVEP_OTP.ToString())) {
+#region
+#endregion
+}
+```
+
+LDAP:
+
+```c#
+        /*- v1.6.9 Sun 2016-04-28: LDAP functions Begin -*/
+        #region LDAP related functions
+        [WebMethod]
+        public bool IsLDAPAvailable(){
+            BLL.CodeSettings l_objCode = new BLL.CodeSettings();
+            if (l_objCode.GetSystemParameterInfoSingle(Common.Constant.SystemParameter.LDAP_IS_AVAILABLE.ToString()) == "1")
+                return true;
+            else
+                return false;
+        }
+
+        [WebMethod]
+        public bool IsValidLDAPLogin(string p_strLoginID, string p_strPassword)
+        {
+            BLL.CodeSettings l_objCode = new BLL.CodeSettings();
+            try
+            {
+                if (IsLDAPAvailable())
+                {
+                    using (var l_objLDAPContext = new PrincipalContext(ContextType.Domain, l_objCode.GetSystemParameterInfoSingle(Common.Constant.SystemParameter.LDAP_DOMAIN.ToString()), p_strLoginID, p_strPassword))
+                    {
+                        return l_objLDAPContext.ValidateCredentials(p_strLoginID, p_strPassword);
+                    }
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public int AuthenticateUserLDAP(string p_strLoginID, string p_strPassword)
+        {
+            if (IsValidLDAPLogin(p_strLoginID, p_strPassword))
+            {
+                using (DAL.LinqToDWHRMSDataContext p_DataContext = new DAL.LinqToDWHRMSDataContext(g_strConnection))
+                {
+                    p_DataContext.ObjectTrackingEnabled = false;
+                    //return this.AuthenticateUserDetail(p_strLoginID, p_strPassword, p_DataContext);
+                    return this.AuthenticateUserDetail(p_strLoginID, p_strPassword, p_DataContext, true);
+                    /*
+                    var p_UserRecord = from user in p_DataContext.t_Users
+                                       where
+                                        user.Username == p_strLoginID 
+                                        && user.Status == (int)Common.Utility.GeneralStatus.ACTIVE
+                                       select user;
+
+                    if (p_UserRecord.Count() == 1)
+                        return p_UserRecord.Single().ID;
+                    else
+                        return -1;
+                    */
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        #endregion
+        /*- v1.6.9 Sun 2016-04-28: LDAP functions End -*/
+        ```
