@@ -4,6 +4,8 @@ Amazon Redshift is based on **PostgreSQL 8.0.2**. Amazon Redshift and PostgreSQL
 
 No repos. No Ubuntu Package. Install .deb directly.
 
+Systemd relies on Meson since dropping Autotools in version 234.
+
 Rietveld / Launchpad / Rietveld 2
 
 # RosterManagement 713=='12-month basic salary' (平均工資)
