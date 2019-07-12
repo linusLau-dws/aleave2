@@ -85,3 +85,9 @@ Baguio:
 - All leaves: 1 day, NO half day.
 月中轉Post，就要Renew employment。
 RosterManagement.asmx Line 13929 `void ImportPlannedRosterCentralizeMethod(int p_intPayrollPeriodID, DAL.Model.PlannedRoster[] pPlannedRoster, string psUploadMode, int piTotalNoOfPlannedToImportEmployment, int piUserID, bool boolImportToShiftSection)`
+
+Baguio: does not have Portal. Everything is obtained from t_Roster, never t_Staff_Leave. Roster should be in sync w/ Leave. Roster is hard code. UI->Delete Staff Leave->Need to sync w/ Roster.
+
+Standard: t_Staff_Leave
+
+補 Positional Difference (P.D.)
