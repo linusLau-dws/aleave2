@@ -91,3 +91,11 @@ Baguio: does not have Portal. Everything is obtained from t_Roster, never t_Staf
 Standard: t_Staff_Leave
 
 補 Positional Difference (P.D.)
+
+# AL
+0.01 per day
+## Tricky: Adjustment vs Override
+Balance of 2019-07-10: 3.76 Days
+
+Adjustment on 2019-07-11: +0.5; Balance on 2019-07-11: 3.76 + 0.5 **+0.01**
+But if Override on 2019-07-11: Result = 2 (**IGNORE ALL ADJUSTMENTS**)
