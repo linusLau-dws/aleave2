@@ -48,14 +48,14 @@ Checkboxes: - Terminate (當月) != Quit (不理何月Quit，總知那月已Quit
 NPL 12000/30 分開計仲好。NPL = 10000/30 = 333.33. Allowance = 2000/30 = 66.67.
 碧 -> Fixed Pipeline, staight-forward: 計糧 -> 713
 Others -> 如果7月未計糧，6月錯。(旮旯月分)
-
+#### IsAdjustInNextMonth
 - t_Leave.IsAdjustInNextMonth
 - t_PayItemType
 - t_PayrollTrial_Snapshot_Leave
 - t_PayrollTrial_Snapshot_PayItem
 - t_PayrollTrial_Snapshot_SH
 - t_StatutoryHolidayCalculation
-
+#### SubtotalExcludeTermination
 - t_PayrollTrial.SubtotalExcludeTermination
 - t_PayrollTrial_BackPay.SubtotalExcludeTermination
 - t_PayrollTrial_CPA.SubtotalExcludeTermination
