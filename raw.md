@@ -125,11 +125,21 @@ Max|120
 - `LEAVE_WAIVE_SLBALANCE_DEDUCTION_ON_RESTDAY`: Leave - Enable system to waive the deduction on SL balance when the SL application date is a rest day (0 = No, 1 = Yes)
 
 ### Formula
+- `t_PayCodeFormula`
+- `t_PayCodeFormulaItem`
 [Day of SH] * ([Basic Salary] / [Calendar Day]) + [Day of BH]
 
 NOTE: [Calendar Day] means Total Days in Month
-- `t_PayCodeFormula`
-- `t_PayCodeFormulaItem`
+
+`DWHRMS_Master\Calculation\PayrollTrial.cs` Line 5288 `PayrollObject[] CalculatePayrollTrial(DAL.Model.PayrollTrialResources p_objPayrollTrialResources)`:
+```c#
+//v1.8.1 Fai 2018.01.30 - Support Day of Leave in in SH / BH - Begin
+DateInBH = g.SelectMany(x => x.DateInBH).Distinct().ToArray(),
+DateInSH = g.SelectMany(x => x.DateInSH).Distinct().ToArray(),
+//v1.8.1 Fai 2018.01.30 - Support Day of Leave in in SH / BH - End
+
+DateList = g.SelectMany(x => x.DateList).ToArray(),
+```
 
 # AL
 0.01 per day
