@@ -116,4 +116,4 @@ Common Leave Year Law:
 
 *still* 1st year|2020-01-01|2020-12-31|But some companies: 2nd year
 
-OT_PUR
+`OT_PUR` (stands for OT Purchase, formally 'Pay in lieu of OT') is a payitem type. 買OT Balance。
