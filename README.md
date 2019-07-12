@@ -67,7 +67,7 @@ You need to set up **BOTH** 32-bit and 64-bit versions of the official driver. T
 
 ### Set up SQL Server
 
-To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set the sync interval in the UI. You may manually sync (push to + pull from MariaDB) the data as well. Synchronisation works by filtering records using the `ModifiedDate`.
+To enhance security, the system is designed as follows. Only SQL Server knows the existence of MariaDB. MariaDB does not know the existence of SQL Server. Set the sync interval in the UI. You may manually sync (push to + pull from MariaDB) the data as well. Synchronisation works by filtering records using the `ModifiedDate`. Select the pointers of the old records where modified date is greater than the reference date by key, delete them using `OPENQUERY()`, and insert the new records.
 
 Create a linked server. Use 64-bit ODBC driver. Notice the connection string.
 
