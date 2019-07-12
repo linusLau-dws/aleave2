@@ -8,6 +8,8 @@ Systemd relies on Meson since dropping Autotools in version 234.
 
 Rietveld / Launchpad / Rietveld 2
 
+To-do: Calc minimum wages.
+
 # XML
 
 https://www.ird.gov.hk/eng/pdf/ir56f_spec_e.pdf
