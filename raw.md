@@ -61,7 +61,9 @@ Others -> 如果7月未計糧，6月錯。(旮旯月分)
 - t_PayrollTrial.SubtotalExcludeTermination
 - t_PayrollTrial_BackPay.SubtotalExcludeTermination
 - t_PayrollTrial_CPA.SubtotalExcludeTermination
+
 Subtotal = CalculateAL (未放AL) + CalculateST (未放ST) + CaculateGratuity (如 End of notice != (Terminate Effective Date - 1day))，就一定要給代通知金，只是看誰給 (負數：員工給)。要run多次MPF Calculation: 
+
 - t_StaffTermination_Detail.CalculatePaymentInLieu
 - t_StaffTermination_Detail.CalculateServancePayment
 - t_StaffTermination_Detail.CalculateLongServicePayment
