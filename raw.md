@@ -1,3 +1,5 @@
+Amazon Redshift is based on ***PostgreSQL 8.0.2***. Amazon Redshift and PostgreSQL have a number of very important differences that you must be aware of as you design and develop your data warehouse applications. For more information about how Amazon Redshift SQL differs from PostgreSQL, see Amazon Redshift and PostgreSQL.
+
 # RosterManagement 713=='12-month basic salary' (平均工資)
 `PayrollMonth = p.PayrollMonth;`
 - B.S.: Basic Salary
