@@ -1,5 +1,7 @@
 Amazon Redshift is based on **PostgreSQL 8.0.2**. Amazon Redshift and PostgreSQL have a number of very important differences that you must be aware of as you design and develop your data warehouse applications. For more information about how Amazon Redshift SQL differs from PostgreSQL, see Amazon Redshift and PostgreSQL.
 
+Rietveld / Launchpad / Rietveld 2
+
 # RosterManagement 713=='12-month basic salary' (平均工資)
 `PayrollMonth = p.PayrollMonth;`
 - B.S.: Basic Salary
@@ -98,4 +100,20 @@ Standard: t_Staff_Leave
 Balance of 2019-07-10: 3.76 Days
 
 Adjustment on 2019-07-11: +0.5; Balance on 2019-07-11: 3.76 + 0.5 **+0.01**
+
 But if Override on 2019-07-11: Result = 2 (**IGNORE ALL ADJUSTMENTS**)
+
+The label `Adjustment Date` is actually `Adjust/Override Day`
+
+- Join Date: 2019-01-01
+- Adjustment Date: 2019-01-01
+- Scheme Start Calc Date: 2020-01-01
+- 入 company 已享第二年adjustment
+
+Common Leave Year Law:
+
+1st year|2019-05-01|2019-12-31|But some companies: 1st year
+
+*still* 1st year|2020-01-01|2020-12-31|But some companies: 2nd year
+
+OT_PUR
