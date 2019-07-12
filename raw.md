@@ -1,4 +1,4 @@
-# RosterManagement 713
+# RosterManagement 713=='12-month basic salary' (平均工資)
 `PayrollMonth = p.PayrollMonth;`
 - B.S.: Basic Salary
 - R.I.: Regular Income
