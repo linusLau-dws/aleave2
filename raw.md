@@ -117,3 +117,6 @@ Common Leave Year Law:
 *still* 1st year|2020-01-01|2020-12-31|But some companies: 2nd year
 
 `OT_PUR` (stands for OT Purchase, formally 'Pay in lieu of OT') is a payitem type. 買OT Balance。
+
+Workflow
+如員工**申請Leave的時間**在離職通知期(Notice Period)內，條workflow可以唔同。
