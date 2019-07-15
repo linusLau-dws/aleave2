@@ -23,12 +23,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Other docs
-- ML Addition Formula: ([Day of Leave In SH] * [12-Month Average Wages] * 0.8) + (([Day of Leave] - [Day of Leave in BH]) * ([Basic Salary] / [Calendar Day])) 
-
-- SL Addition Formula: ([Day of Leave In SH] * ([Basic Salary] / [Calendar Day])) + (([Day of Leave] - [Day of Leave in BH]) * ([Basic Salary] / [Calendar Day]) * 0.8)
-
-
 # Back end
 
 ## Trigger
