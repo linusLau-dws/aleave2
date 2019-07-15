@@ -165,4 +165,10 @@ Now you may upload the generated file to Play Console.
 ### iOS
 PDFKit
 ### Android
-Requires an external PDF reader to open the file (usually built in by manufacturers already)
+Requires an external PDF reader to open the file (usually built in by manufacturers already). If one is not installed, we recommand MoonReader or Librera.
+## Chatroom
+### iOS
+Uses the built-in Push Notifications, enabled in the `Capabiilities` tab.
+### Android
+Uses Firebase Messaging.
+## TestFlight
