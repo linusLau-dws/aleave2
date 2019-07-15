@@ -30,10 +30,15 @@ If the leave type requires attachment (set by HR administrator through DW-iHR) a
 Clicking on an attached image will enlarge it.
 ## My Applications
 Now includes Casual Leave (CL) & Overtime (OT).
+
+The user can also filter records by Leave Date and Leave Description.
 ## Notifications
 Technical details are mentioned below.
 ## Leave Approval
 Now includes Casual Leave (CL) & Overtime (OT).
+
+The HR administrator can also filter records by Leave Date, Applicant and Leave Description.
+
 As mentioned above in the *Apply Leave* section, clicking on an attached image will enlarge it.
 ## Expense Claims
 ## Download Payroll & Taxation Forms
