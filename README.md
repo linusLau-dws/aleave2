@@ -23,8 +23,19 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Back end
+# Highlights
+## Download Payroll & Taxation Forms
+### iOS
+PDFKit
+### Android
+Requires an external PDF reader to open the file (usually built in by manufacturers already). If one is not installed, we recommand MoonReader or Librera.
+## Chatroom
+### iOS
+The app uses Apple's proprietary built-in Push Notifications, enabled in the `Capabilities` tab.
+### Android
+The app uses Firebase Cloud Messaging.
 
+# Back end
 ## Trigger
 Install OpenSSL beforehand, make sure it is added to `%PATH%`. Put the cURL folder to `C:\` of the **database** server, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
 
@@ -168,14 +179,3 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 Now you may upload the generated file to Play Console.
 ### Fastlane
 *insert content here*
-# Highlights
-## Download Payroll & Taxation Forms
-### iOS
-PDFKit
-### Android
-Requires an external PDF reader to open the file (usually built in by manufacturers already). If one is not installed, we recommand MoonReader or Librera.
-## Chatroom
-### iOS
-The app uses Apple's proprietary built-in Push Notifications, enabled in the `Capabilities` tab.
-### Android
-The app uses Firebase Cloud Messaging.
