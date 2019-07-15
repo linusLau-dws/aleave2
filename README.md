@@ -90,6 +90,11 @@ We can mimic `xp_cmdshell` using MySQL User-Defined Functions Project, install i
 DROP FUNCTION IF EXISTS sys_eval;
 CREATE FUNCTION sys_eval RETURNS string SONAME 'lib_mysqludf_sys.dll';
 ```
+
+### Synchronisation
+
+To pull data from or push data to the MariaDB server, call the stored procedures `sp_PullMobile` or `sp_PushData`. These stored procedures use `OPENQUERY()` to communicate with the linked server.
+
 # Front end
 ## Coding guide
 ### iOS
