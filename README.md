@@ -171,4 +171,4 @@ Requires an external PDF reader to open the file (usually built in by manufactur
 Uses the built-in Push Notifications, enabled in the `Capabiilities` tab.
 ### Android
 Uses Firebase Messaging.
-## TestFlight
+## Fastlane
