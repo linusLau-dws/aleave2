@@ -11,7 +11,7 @@ Rietveld / Launchpad / Rietveld 2
 To-do: Calc minimum wages.
 
 # Other docs
-- ML Addition Formula: ([Day of Leave In SH] * [12-Month Average Wages] * 0.8) + (([Day of Leave] - [Day of Leave in BH]) * ([Basic Salary] / [Calendar Day])) 
+- ML Addition Formula: ([Day of Leave In SH] * **[12-Month Average Wages] * 0.8**) + (([Day of Leave] - [Day of Leave in BH]) * ([Basic Salary] / [Calendar Day])) 
 
 - SL Addition Formula: ([Day of Leave In SH] * ([Basic Salary] / [Calendar Day])) + (([Day of Leave] - [Day of Leave in BH]) * ([Basic Salary] / [Calendar Day]) * 0.8)
 
