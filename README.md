@@ -26,11 +26,15 @@
 # Highlights
 ## Apply Leave
 Now includes Casual Leave (CL) & Overtime (OT).
+If the leave type requires attachment (set by HR administrator through DW-iHR) and one does not upload it, an error dialog will pop up.
+Clicking on an attached image will enlarge it.
 ## My Applications
 Now includes Casual Leave (CL) & Overtime (OT).
 ## Notifications
+Technical details are mentioned below.
 ## Leave Approval
 Now includes Casual Leave (CL) & Overtime (OT).
+As mentioned above in the *Apply Leave* section, clicking on an attached image will enlarge it.
 ## Expense Claims
 ## Download Payroll & Taxation Forms
 ### iOS
@@ -104,7 +108,7 @@ Dsn=helloworld;Driver={MariaDB ODBC 3.1 Driver};user=root;password=sa;database=D
 
 ### Trigger
 
-We can mimic `xp_cmdshell` using MySQL User-Defined Functions Project, install it by  `lib_mysqludf_sys.dll` into `C:\Program Files\MariaDB 10.3\lib\plugin` and execute ``
+We can mimic `xp_cmdshell` using MySQL User-Defined Functions Project, install it by  `lib_mysqludf_sys.dll` into `C:\Program Files\MariaDB 10.3\lib\plugin` and execute:
 ```sql
 DROP FUNCTION IF EXISTS sys_eval;
 CREATE FUNCTION sys_eval RETURNS string SONAME 'lib_mysqludf_sys.dll';
