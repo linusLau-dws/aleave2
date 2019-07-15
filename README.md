@@ -24,16 +24,24 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Highlights
+## Apply Leave
+Now includes Casual Leave (CL) & Overtime (OT).
+## My Applications
+Now includes Casual Leave (CL) & Overtime (OT).
+## Notifications
+## Leave Approval
+Now includes Casual Leave (CL) & Overtime (OT).
+## Expense Claims
 ## Download Payroll & Taxation Forms
 ### iOS
 PDFKit
 ### Android
-Requires an external PDF reader to open the file (usually built in by manufacturers already). If one is not installed, we recommand MoonReader or Librera.
+Requires an external PDF reader to open the file (usually built in to the phone by manufacturers already). If one is not pre-installed, we recommend MoonReader or Librera.
 ## Chatroom
 ### iOS
-The app uses Apple's proprietary built-in Push Notifications, enabled in the `Capabilities` tab.
+The app uses Apple's proprietary built-in Push Notifications, which is enabled in `.xcodeproj`'s `Capabilities` tab.
 ### Android
-The app uses Firebase Cloud Messaging.
+The app uses [Firebase Cloud Messaging](https://firebase.google.com/).
 
 # Back end
 ## Trigger
