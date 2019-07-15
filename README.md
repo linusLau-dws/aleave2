@@ -166,6 +166,9 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 ![5](https://drive.google.com/uc?export=view&id=11EJkYDkQncdL2s6J2gnlrC_v26ein_UX)
 
 Now you may upload the generated file to Play Console.
+### Fastlane
+*insert content here*
+# Highlights
 ## Download Payroll & Taxation Forms
 ### iOS
 PDFKit
@@ -173,7 +176,6 @@ PDFKit
 Requires an external PDF reader to open the file (usually built in by manufacturers already). If one is not installed, we recommand MoonReader or Librera.
 ## Chatroom
 ### iOS
-Uses the built-in Push Notifications, enabled in the `Capabiilities` tab.
+The app uses Apple's proprietary built-in Push Notifications, enabled in the `Capabilities` tab.
 ### Android
-Uses Firebase Messaging.
-## Fastlane
+The app uses Firebase Cloud Messaging.
