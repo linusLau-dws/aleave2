@@ -167,3 +167,8 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 ![5](https://drive.google.com/uc?export=view&id=11EJkYDkQncdL2s6J2gnlrC_v26ein_UX)
 
 Now you may upload the generated file to Play Console.
+## Download Payroll & Taxation Forms
+### iOS
+PDFKit
+### Android
+Requires an external PDF reader to open the file (usually built in by manufacturers already)
