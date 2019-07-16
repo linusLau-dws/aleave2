@@ -46,12 +46,21 @@ As mentioned above in the *Apply Leave* section, clicking on an attached image w
 PDFKit
 ### Android
 Requires an external PDF reader to open the file (usually built in to the phone by manufacturers already). If one is not pre-installed, we recommend MoonReader or Librera.
+## Forced password change on first login
+A modal will show after the user has successfully logged in for the first time. The new password must confirm to the password format designated by the client. The password policy can be set in Code Settings.
 ## Chatroom
 ### iOS
 The app uses Apple's proprietary built-in Push Notifications, which is enabled in `.xcodeproj`'s `Capabilities` tab.
 ### Android
 The app uses [Firebase Cloud Messaging](https://firebase.google.com/).
+# Security
+Security is our prime concern thus all data will be secured, and never be given to third parties. We are aware of the recent sabotages of mobile applications produced by several well-known companies; thus the security of  application has reinforced.
+## Sessions
+Expires after 180 minutes.
+## Refresh tokens
+As previously mentioned, when a session expires, the user will be forced to log out. Yet, the user continues to receive notifications of leave approvals or rejections. This is due to the refresh token mechanism.
 
+A user can obtain a new token without logging in explicitly, by providing the server his old token and refresh token. Recall that when a user reboots his phone, the notification background service starts automatically. To enable the user receiving notifications, the app attempts to get the old token and refresh token of his last login and ask the server for a new pair of tokens. The notification service will start upon a successful exchange.
 # Back end
 ## Trigger
 Install OpenSSL beforehand, make sure it is added to `%PATH%`. Put the cURL folder to `C:\` of the **database** server, check that the P13 private and public key file is inside `C:\curl\bin\curl`.
