@@ -205,3 +205,8 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 Now you may upload the generated file to Play Console.
 ### Fastlane
 *insert content here*
+
+
+##
+`program`: The name of the app. Altering this value will alter the connection value as well, the database of the default table will be different.
+``: 
