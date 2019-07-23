@@ -56,7 +56,7 @@ The app uses [Firebase Cloud Messaging](https://firebase.google.com/).
 # Security
 Security is our prime concern thus all data will be secured, and never be given to third parties. We are aware of the recent sabotages of mobile applications produced by several well-known companies; thus the security of  application has reinforced.
 ## Sessions
-Expires after 180 minutes.
+Expires after 180 minutes. See [Meaning of parameters in MobileSvc.asmx](#meaning-of-parameters-in-mobilesvc.asmx), that we check the session every `ScriptMethod` (except `_GenerateNonce()` and `_Login()` ).
 ## Refresh tokens
 As previously mentioned, when a session expires, the user will be forced to log out. Yet, the user continues to receive notifications of leave approvals or rejections. This is due to the refresh token mechanism.
 
@@ -84,7 +84,7 @@ GO
 ## Meaning of parameters in MobileSvc.asmx
 `program`: The name of the app. Altering this value will alter the connection value as well, the database of the default table will be different.
 
-Every ScriptMethod (i.e. those called by HTTP POST requests) should start with the code snippet below, to check verify the user session:
+Every `ScriptMethod` (i.e. those called by HTTP POST requests) should start with the code snippet below, to check verify the user session:
 ``` C#
             // Check token and get UserID if success - Begin
             int uid = CheckToken(token, program);
