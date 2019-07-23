@@ -81,6 +81,22 @@ RECONFIGURE;
 GO  
 ```
 
+## Meaning of parameters in MobileSvc.asmx
+`program`: The name of the app. Altering this value will alter the connection value as well, the database of the default table will be different.
+
+Every ScriptMethod (i.e. those called by HTTP POST requests) should start with the code snippet below, to check verify the user session:
+``` C#
+            // Check token and get UserID if success - Begin
+            int uid = CheckToken(token, program);
+            if (uid == -1)
+            {
+                Context.Response.StatusCode = 403;
+                return "SESSION_EXPIRED";
+            }
+            // Check token and get UserID if success - End
+```
+If the session is invalid, or removed by the timeout, any function will return the integer `-1`. This is intended to mask any exploitable error messages.
+
 ## MySQL Version
 
 MariaDB is the free and open-source fork of MySQL, thus, there are almost no differences between them. It is usually chosen over MySQL so that companies do not have to worry about licensing issues.
@@ -205,8 +221,3 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 Now you may upload the generated file to Play Console.
 ### Fastlane
 *insert content here*
-
-
-##
-`program`: The name of the app. Altering this value will alter the connection value as well, the database of the default table will be different.
-``: 
