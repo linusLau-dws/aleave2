@@ -43,7 +43,7 @@ As mentioned above in the *Apply Leave* section, clicking on an attached image w
 ## Expense Claims
 ## Download Payroll & Taxation Forms
 ### iOS
-PDFKit
+The app uses Apple's built-in [PDFKit](https://developer.apple.com/documentation/pdfkit).
 ### Android
 Requires an external PDF reader to open the file (usually built in to the phone by manufacturers already). If one is not pre-installed, we recommend MoonReader or Librera.
 ## Forced password change on first login
