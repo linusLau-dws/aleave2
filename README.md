@@ -48,7 +48,8 @@ Last updated: 2019-09-12 11:48:21
 # Highlights
 ## Apply Leave
 - In addition to leaves, supports Casual Leave (CL) & Overtime (OT).
-If the leave type requires attachment (set by HR administrator through DW-iHR) and one does not upload it, an error dialog will pop up.
+
+  If the leave type requires attachment (set by HR administrator through DW-iHR) and one does not upload it, an error dialog will pop up.
 Clicking on an attached image will enlarge it.
 - Supports Enabling and Disabling 3Section, AM/PM, hourly-based for specific leaves. **(Configure at: Code Settings > Leave)**
 - Supports Enabling and Disabling 3Section, AM/PM, hourly-based for specific positions. **(Configure at: Code Settings > Position)**
@@ -75,7 +76,7 @@ Requires an external PDF reader to open the file (usually built in to the phone 
 A modal will show after the user has successfully logged in for the first time. The new password must confirm to the password format designated by the client. The password policy can be set in Code Settings.
 ## Chatroom
 ### iOS
-The app uses Apple's proprietary built-in Push Notifications, which is enabled in `.xcodeproj`'s `Capabilities` tab.
+The app uses Apple's proprietary built-in Push Notifications, which is enabled in `.xcodeproj`'s `Capabilities` tab.  
 ### Android
 The app uses [Firebase Cloud Messaging](https://firebase.google.com/).
 # Security
