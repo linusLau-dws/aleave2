@@ -44,16 +44,19 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 # DW-iLeave Documentation
-Last updated: 2019-07-31 11:48:21
+Last updated: 2019-09-12 11:48:21
 # Highlights
 ## Apply Leave
-Now includes Casual Leave (CL) & Overtime (OT).
+- In addition to leaves, supports Casual Leave (CL) & Overtime (OT).
 If the leave type requires attachment (set by HR administrator through DW-iHR) and one does not upload it, an error dialog will pop up.
 Clicking on an attached image will enlarge it.
-## My Applications
-Now includes Casual Leave (CL) & Overtime (OT).
+- Supports Enabling and Disabling 3Section, AM/PM, hourly-based for specific leaves. **(Configure at: Code Settings > Leave)**
+- Supports Enabling and Disabling 3Section, AM/PM, hourly-based for specific positions. **(Configure at: Code Settings > Position)**
 
-The user can also filter records by Leave Date and Leave Description.
+## My Applications
+- In addition to leaves, supports Casual Leave (CL) & Overtime (OT).
+- The user can also filter records by Leave Date and Leave Description.
+
 ## Notifications
 Technical details are mentioned below.
 ## Leave Approval
