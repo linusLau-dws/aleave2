@@ -43,6 +43,7 @@
         \n
     </string>
 
+    <string name="btn_chatroom">TEAM CHAT</string>
     <string name="leave_calendar_team">Team</string>
     <string name="leave_calendar_myself">Myself</string>
 

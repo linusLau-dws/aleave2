@@ -72,7 +72,7 @@ public class MessengerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Self Test");
+        getSupportActionBar().setTitle("My group");
         setContentView(R.layout.activity_messenger);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 

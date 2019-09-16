@@ -90,6 +90,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MessengerActivity"
+            android:parentActivityName=".MessengerSelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessengerSelectionActivity"
             android:parentActivityName=".SelectionActivity"
             android:screenOrientation="portrait" />
         <receiver

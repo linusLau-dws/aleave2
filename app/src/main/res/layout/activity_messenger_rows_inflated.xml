@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:id="@+id/imageView"
+        android:src="@drawable/group_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="4dp"/>
+
+    <LinearLayout
+        android:padding="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My group"
+            android:textSize="@dimen/bootstrap_h3_text_size"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019-06-24 11:12:13"
+            android:textSize="@dimen/bootstrap_h4_text_size"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Joe Bloggs: HI"
+            android:textSize="@dimen/bootstrap_h4_text_size"/>
+    </LinearLayout>
+</LinearLayout>

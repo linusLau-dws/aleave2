@@ -133,7 +133,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/content_page_color_botton_g"
-                android:text="CHATROOM"
+                android:text="@string/btn_chatroom"
                 android:backgroundTint="@color/bootstrap_brand_success"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorButtonText" />

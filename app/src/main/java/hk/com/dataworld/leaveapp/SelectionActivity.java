@@ -220,7 +220,7 @@ public class SelectionActivity extends BaseActivity {
                                     Toast.makeText(SelectionActivity.this, mInstanceId, Toast.LENGTH_SHORT).show();
                                 }
 
-                                Intent intent = new Intent(SelectionActivity.this, MessengerActivity.class);
+                                Intent intent = new Intent(SelectionActivity.this, MessengerSelectionActivity.class);
 //                                intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
 //                        finish();
                                 startActivity(intent);

@@ -85,7 +85,7 @@ import static hk.com.dataworld.leaveapp.Utility.roundTo2Dp;
 
 public class LeaveApplyActivityRevised extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private LeaveRecyclerAdapter mLeaveRecyclerAdapter = new LeaveRecyclerAdapter(this);
+    private LeaveRecyclerAdapter mLeaveRecyclerAdapter;
     private List<String> mListTypes;
     private TextView mName;
     private TextView mBalance;
@@ -220,6 +220,8 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
         StrictMode.setVmPolicy(builder.build());
 
         getSupportActionBar().setTitle(R.string.btn_applyleaveCamel);
+
+        mLeaveRecyclerAdapter = new LeaveRecyclerAdapter(this);
 
         SQLiteHelper dbHelper;
         dbHelper = new SQLiteHelper(this);

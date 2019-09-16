@@ -38,10 +38,12 @@
                 android:layout_height="wrap_content"
                 android:text="Annual leave"
                 android:textSize="@dimen/bootstrap_h3_text_size"
+                app:dropdownResource="@array/lunar_str"
                 app:bootstrapBrand="secondary"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintWidth_percent="0.5"
-                app:roundedCorners="true" />
+                app:roundedCorners="true"
+                app:bootstrapSize="lg"/>
 
             <TextView
                 android:id="@+id/balance"

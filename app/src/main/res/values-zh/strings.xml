@@ -43,6 +43,7 @@
         \n
     </string>
 
+    <string name="btn_chatroom">聊天室</string>
     <string name="leave_calendar_team">隊伍</string>
     <string name="leave_calendar_myself">自己</string>
 
