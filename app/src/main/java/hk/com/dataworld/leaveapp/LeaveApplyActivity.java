@@ -324,11 +324,11 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         } else {
                             RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
                         }
-                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
-                        } else {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
-                        }
+//                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
+//                        } else {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                        }
                     } else if (al.isChecked()) {
                         leaveBalanceContent = dbHelper.getLeaveBalanceByLeaveType("AL");
                         Leave_Type = leaveBalanceContent.getLBLeaveType();
@@ -342,11 +342,11 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         } else {
                             RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
                         }
-                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
-                        } else {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
-                        }
+//                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
+//                        } else {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                        }
                     }
                     otherLeaveType.setSelection(0);
                     dbHelper.closeDB();
@@ -1009,11 +1009,11 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         } else {
                             RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
                         }
-                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
-                        } else {
-                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
-                        }
+//                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
+//                        } else {
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                        }
                     } else {
                         Balance = null;
                         Balance_As_Of_Date = "";

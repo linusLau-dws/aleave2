@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -29,7 +30,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+<<<<<<< HEAD
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+=======
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
 
 import org.apache.commons.codec.binary.Hex;
 import org.json.JSONArray;
@@ -45,6 +53,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import hk.com.dataworld.leaveapp.DAL.LoginResultData;
@@ -92,6 +101,8 @@ public class LoginActivity extends BaseActivity {
     private JSONArray LeaveBalance;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mPrefsEditor;
+    private String mInstanceId = null;
+
     private ProgressDialog pd;
     private Response.ErrorListener networkIssueListener = new Response.ErrorListener() {
         @Override
@@ -124,6 +135,30 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID mInstanceId
+                        InstanceIdResult instanceIdResult = task.getResult();
+                        if (instanceIdResult != null) {
+                            mInstanceId = instanceIdResult.getToken();
+                            Log.d(TAG, mInstanceId);
+                            Toast.makeText(LoginActivity.this, mInstanceId, Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent intent = new Intent(LoginActivity.this, MessengerActivity.class);
+                        intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
+//                        finish();
+                        startActivity(intent);
+                    }
+                });
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mPrefsEditor = mSharedPreferences.edit();
@@ -192,11 +227,11 @@ public class LoginActivity extends BaseActivity {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getImei();
-            } else {
-                deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getImei();
+//            } else {
+//                deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+//            }
         }
 
 
@@ -392,6 +427,7 @@ public class LoginActivity extends BaseActivity {
         // You have to start it all over (get a new nonce) if login fails
         mRequestQueue = Volley.newRequestQueue(this);
         JSONObject nonceReqBody = new JSONObject();
+        deviceId = "TBDonEmulator";
         try {
             nonceReqBody.put("deviceID", deviceId);
             nonceReqBody.put("program", 0);
@@ -403,11 +439,16 @@ public class LoginActivity extends BaseActivity {
         pd.setCancelable(false);
         pd.show();
         //Log.d("IMEI", deviceId);
+        Log.i("asdf", nonceReqBody.toString());
         JsonObjectRequest nonceRequest = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                 String.format("%s%s", baseUrl, "_GenerateNonce"), nonceReqBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+<<<<<<< HEAD
+=======
+                    Log.i("asdfasdf","sdfgsdfg");
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
                     String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {
@@ -431,7 +472,7 @@ public class LoginActivity extends BaseActivity {
                                     try {
                                         if (!response.isNull("d")) {
                                             JSONObject tokContainer = response.getJSONObject("d");
-                                            String tok = tokContainer.getString("t");
+                                            final String tok = tokContainer.getString("t");
                                             String rtok = tokContainer.getString("r");
 
                                             mPolicy_low = tokContainer.getInt("policy_low");
@@ -468,6 +509,37 @@ public class LoginActivity extends BaseActivity {
                                                     String.format("%s%s", baseUrl, "_GetLeaveInfo"), leaveObj, new Response.Listener<JSONObject>() {
                                                 @Override
                                                 public void onResponse(JSONObject response) {
+
+                                                    // TODO: Firebase
+                                                    if (mInstanceId!= null) {
+                                                        mRequestQueue = Volley.newRequestQueue(LoginActivity.this);
+                                                        JSONObject req = new JSONObject();
+                                                        try {
+                                                            req.put("deviceToken", mInstanceId);
+                                                            req.put("os", true);
+                                                            req.put("token", tok);
+                                                            JsonObjectRequest StoreIdReq = new JsonObjectRequest(JsonObjectRequest.Method.POST,
+                                                                    String.format("%s%s", baseUrl, "_RegDeviceToken"), req, new Response.Listener<JSONObject>() {
+                                                                @Override
+                                                                public void onResponse(JSONObject response) {
+                                                                    // TODO: move intent here
+                                                                }
+                                                            }, new Response.ErrorListener() {
+                                                                @Override
+                                                                public void onErrorResponse(VolleyError error) {
+
+                                                                }
+                                                            });
+                                                            StoreIdReq.setRetryPolicy(new DefaultRetryPolicy(
+                                                                    8000,
+                                                                    0,
+                                                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                                            mRequestQueue.add(StoreIdReq);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                    // TODO: FireBase
 
                                                     Log.d("Leave", "leave");
                                                     List<LoginResultData> loginReceivedList = new ArrayList<>();
@@ -608,7 +680,7 @@ public class LoginActivity extends BaseActivity {
                                                 }
                                             }, networkIssueListener);
                                             leaveReq.setRetryPolicy(new DefaultRetryPolicy(
-                                                    60000,
+                                                    20000,
                                                     0,
                                                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                             mRequestQueue.add(leaveReq);

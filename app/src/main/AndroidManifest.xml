@@ -29,7 +29,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
+        tools:replace="android:label,android:hardwareAccelerated"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
@@ -83,7 +84,10 @@
         <activity
             android:name=".HistoryMasterRecordActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".MessengerActivity"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
         <receiver
             android:name=".BootCompleteReceiver"
             android:enabled="true"
@@ -99,6 +103,14 @@
             android:name=".NotificationService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".MessagingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

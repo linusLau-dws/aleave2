@@ -139,14 +139,14 @@
         android:textSize="@dimen/bootstrap_h2_text_size"
         android:textStyle="bold" />
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.haibin.calendarview.CalendarView
             android:id="@+id/leave_calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:visibility="invisible"
             app:calendar_match_parent="true"
             app:current_month_lunar_text_color="@color/bootstrap_gray_dark"
@@ -161,12 +161,17 @@
 
         </com.haibin.calendarview.CalendarView>
 
-        <fragment
-            android:id="@+id/eventListFragment"
-            android:name="hk.com.dataworld.leaveapp.EventListFragment"
+        <ListView
+            android:id="@+id/calEvents"
             android:layout_width="match_parent"
-            android:layout_height="229dp"
-            android:layout_gravity="bottom" />
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/leave_calendar"></ListView>
+<!--        <fragment-->
+<!--            android:id="@+id/eventListFragment"-->
+<!--            android:name="hk.com.dataworld.leaveapp.EventListFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_below="@id/leave_calendar" />-->
+    </RelativeLayout>
 
 </LinearLayout>
