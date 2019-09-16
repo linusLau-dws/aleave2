@@ -150,6 +150,7 @@ public class NotificationService extends Service {
                 JSONObject object = new JSONObject();
                 try {
                     object.put("token", token);
+                    object.put("program", 0);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

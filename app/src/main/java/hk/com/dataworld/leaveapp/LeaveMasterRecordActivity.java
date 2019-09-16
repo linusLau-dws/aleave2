@@ -746,6 +746,7 @@ public class LeaveMasterRecordActivity extends BaseActivity implements View.OnCl
             obj.put("token", mToken);
             obj.put("FromDate", FromDate.getText().toString());
             obj.put("ToDate", ToDate.getText().toString());
+            obj.put("program", 0);
 
             mQueue = Volley.newRequestQueue(this);
 
@@ -927,6 +928,7 @@ public class LeaveMasterRecordActivity extends BaseActivity implements View.OnCl
             JSONObject realobj = new JSONObject();
             realobj.put("Data", tbd.toString());
             realobj.put("token", mToken);
+            realobj.put("program", 0);
             Log.i("Testtest", realobj.toString());
 
             mQueue = Volley.newRequestQueue(this);

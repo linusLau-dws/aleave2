@@ -75,6 +75,7 @@ public class NotificationListAdapter extends BaseAdapter {
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
             obj.put("token", sharedPreferences.getString(PREF_TOKEN, ""));
+            obj.put("program", 0);
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", extendBaseUrl(sharedPreferences.getString(PREF_SERVER_ADDRESS, "")), "PollAllNotifications"),
                     obj, new Response.Listener<JSONObject>() {
@@ -202,6 +203,7 @@ public class NotificationListAdapter extends BaseAdapter {
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                     obj.put("token", sharedPreferences.getString(PREF_TOKEN, ""));
                     obj.put("createDate", mArr.get(i).getCreateDate());
+                    obj.put("program", 0);
                     JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                             String.format("%s%s", extendBaseUrl(sharedPreferences.getString(PREF_SERVER_ADDRESS, "")), "PollNotification"),
                             obj, new Response.Listener<JSONObject>() {

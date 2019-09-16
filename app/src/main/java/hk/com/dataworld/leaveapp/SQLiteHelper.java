@@ -287,7 +287,7 @@ class SQLiteHelper extends SQLiteOpenHelper {
 
     void insertLeaveBalanceList(List<LeaveBalanceContent> list) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "INSERT OR REPLACE INTO " + TABLE_LEAVEBALANCE + " (" + LB_Emp_No + ", " + LB_Leave_Type + ", " + LB_Leave_Description + ", " + LB_Leave_Balance + ", " + LB_Leave_Balance + ", " + LB_Leave_IsEnforcedAttachment + ") " + " values (?,?,?,?,?,?)";
+        String sql = "INSERT OR REPLACE INTO " + TABLE_LEAVEBALANCE + " (" + LB_Emp_No + ", " + LB_Leave_Type + ", " + LB_Leave_Description + ", " + LB_Leave_Balance + ", " + LB_Leave_BalanceAsOfDate + ", " + LB_Leave_IsEnforcedAttachment + ") " + " values (?,?,?,?,?,?)";
         SQLiteStatement statement = db.compileStatement(sql);
         db.beginTransaction();
         Log.i(TAG, "Begin insertLeaveBalanceList Transaction");

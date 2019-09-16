@@ -82,8 +82,12 @@ public class LeaveCalendarActivity extends BaseActivity {
             json.put("monthEnd", String.format("%d-%02d-%02d", year, month, daysInMonth));
             json.put("getSelf", true); // TODO: Changed to self
             json.put("getOptions", false); // TODO: Check if gson has merge function
+<<<<<<< HEAD
+            json.put("program", 0);
+=======
             json.put("zone", "-1"); // TODO: Check if gson has merge function
             Log.i("asdff",json.toString());
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", mBaseUrl, "_GetLeaveCalendar"), json, new Response.Listener<JSONObject>() {
                 @Override
@@ -199,7 +203,11 @@ public class LeaveCalendarActivity extends BaseActivity {
             json.put("monthEnd", String.format("%s-%02d", yearMonth, daysInMonth));
             json.put("getSelf", true);
             json.put("getOptions", true);
+<<<<<<< HEAD
+            json.put("program", 0);
+=======
             json.put("zone", -1);
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
             Log.i("REVAMP", json.toString());
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", mBaseUrl, "_GetLeaveCalendar"), json, new Response.Listener<JSONObject>() {

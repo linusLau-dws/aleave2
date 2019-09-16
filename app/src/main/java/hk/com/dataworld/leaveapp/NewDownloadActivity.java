@@ -100,6 +100,7 @@ public class NewDownloadActivity extends BaseActivity {
 
             obj.put("token", mToken);
             obj.put("Data", innerObj.toString());
+            obj.put("program", 0);
             Log.i("testtesttest",obj.toString());
             final ProgressDialog pDialog = new ProgressDialog(this);
             pDialog.setMessage(getString(R.string.loading));
@@ -171,6 +172,7 @@ public class NewDownloadActivity extends BaseActivity {
             Log.i("Month", "09"); //getIntent().getStringExtra(EXTRA_PAY_SLIP_MONTH));
             obj.put("year", getIntent().getStringExtra(EXTRA_PAY_SLIP_YEAR));
             obj.put("month", getIntent().getStringExtra(EXTRA_PAY_SLIP_MONTH));
+            obj.put("program", 0);
 
 
             final ProgressDialog pDialog = new ProgressDialog(this);

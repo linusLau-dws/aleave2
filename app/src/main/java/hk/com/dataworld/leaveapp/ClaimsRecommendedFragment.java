@@ -358,6 +358,7 @@ public class ClaimsRecommendedFragment extends Fragment {
                             queryObj_bus.put("dest", end);
                             queryObj_bus.put("locale", mLocale);
                             queryObj_bus.put("token", mToken);
+                            queryObj_bus.put("program", 0);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -440,6 +441,7 @@ public class ClaimsRecommendedFragment extends Fragment {
                             queryObj_mtr.put("fareType", 1);
                             queryObj_mtr.put("locale", mLocale);
                             queryObj_mtr.put("token", mToken);
+                            queryObj_mtr.put("program", 0);
                             Log.i("1218", queryObj_mtr.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -482,6 +484,7 @@ public class ClaimsRecommendedFragment extends Fragment {
                         try {
                             queryObj_minibus.put("minibusRoute", route);
                             queryObj_minibus.put("token", mToken);
+                            queryObj_minibus.put("program", 0);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

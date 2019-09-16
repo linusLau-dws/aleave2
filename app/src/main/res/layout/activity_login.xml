@@ -8,6 +8,9 @@
     android:scaleType="fitXY"
     tools:context="hk.com.dataworld.leaveapp.LoginActivity">
 
+<<<<<<< HEAD
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+=======
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="100dp"
@@ -23,6 +26,7 @@
     </ImageView>
 
     <EditText
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="42dp"
@@ -36,16 +40,23 @@
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
         android:textAlignment="center"
+<<<<<<< HEAD
+        android:textAppearance="?android:attr/textAppearanceMedium"
+=======
         android:textAppearance="?android:attr/textAppearanceLarge"
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
         android:textColor="@color/colorDisplayText"
+        android:textSize="@dimen/bootstrap_h2_text_size"
+        app:bootstrapSize="xl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintVertical_bias="0.139"
+        app:roundedCorners="true" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="42dp"
@@ -59,13 +70,20 @@
         android:inputType="textPassword"
         android:paddingLeft="5dp"
         android:textAlignment="center"
+<<<<<<< HEAD
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/bootstrap_h2_text_size"
+        app:bootstrapSize="xl"
+=======
         android:textAppearance="?android:attr/textAppearanceLarge"
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="0.034"
+        app:roundedCorners="true" />
 
     <CheckBox
         android:id="@+id/cbRememberMe"

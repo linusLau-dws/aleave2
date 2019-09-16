@@ -195,7 +195,7 @@ public class Utility {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("VolCalled","why");
+                Log.i("VolCalled", "why");
                 try {
                     if (pDialog != null) {
                         if (pDialog.isShowing()) {
@@ -280,4 +280,17 @@ public class Utility {
         };
     }
     // 2018.12.11 End
+
+    static String getSectionString(Context context, int section) {
+        switch (section) {
+            case 0:
+                return context.getString(R.string.rb_fullday);
+            case 1:
+                return context.getString(R.string.rb_am);
+            case 2:
+                return context.getString(R.string.rb_pm);
+            case 3:
+                return context.getString(R.string.rb_section);
+        }
+    }
 }

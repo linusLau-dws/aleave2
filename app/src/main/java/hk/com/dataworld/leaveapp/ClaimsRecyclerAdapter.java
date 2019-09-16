@@ -359,6 +359,7 @@ public class ClaimsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                         realobj.put("token", sp.getString(PREF_TOKEN, ""));
                                         realobj.put("Data", obj.toString());
                                         realobj.put("baseURL", extendBaseUrl(sp.getString(PREF_SERVER_ADDRESS, "")));
+                                        realobj.put("program",  0);
                                         Log.i("asdf", realobj.toString());
 
                                         JsonObjectRequest objectRequest = new JsonObjectRequest(

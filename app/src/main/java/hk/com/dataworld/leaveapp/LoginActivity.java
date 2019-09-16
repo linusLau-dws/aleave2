@@ -30,10 +30,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+<<<<<<< HEAD
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+=======
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
 
 import org.apache.commons.codec.binary.Hex;
 import org.json.JSONArray;
@@ -82,7 +86,7 @@ public class LoginActivity extends BaseActivity {
     private static SecureRandom rnd = new SecureRandom();
     protected String baseUrl, deviceId;
     private RequestQueue mRequestQueue;
-    private EditText mUsernameEdit, mPasswordEdit;
+    private BootstrapEditText mUsernameEdit, mPasswordEdit;
     private Button mLoginButton;
     private TextView mVersionNameEdit;
     private CheckBox mRememberMe;
@@ -441,7 +445,10 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+<<<<<<< HEAD
+=======
                     Log.i("asdfasdf","sdfgsdfg");
+>>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
                     String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {
@@ -612,6 +619,7 @@ public class LoginActivity extends BaseActivity {
                                                             mPrefsEditor.putBoolean("IsAllowApprovals", IsAllowApprovals);
                                                             mPrefsEditor.apply();
 
+                                                            DBCreate();
 
                                                             loginResultData.setLeaveBalance(employment.getJSONArray("LeaveBalance"));
                                                             Log.i(TAG, "LeaveBalance content is: " + loginResultData.getLeaveBalance());
@@ -651,10 +659,11 @@ public class LoginActivity extends BaseActivity {
                                                                 dbHelper.insertLeaveBalanceList(leaveBalanceList);
                                                                 dbHelper.closeDB();
                                                             }
-                                                            DBCreate();
                                                             SubmitData2SQLiteDB();
                                                         }
                                                     } catch (JSONException e) {
+                                                        Log.e("asdfasdf", e.getMessage());
+                                                        Log.e("asdfasdf", e.toString());
                                                         e.printStackTrace();
                                                     }
                                                     // TODO: Leave Object
@@ -699,7 +708,7 @@ public class LoginActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-        }, getGenericErrorListener(this, null));
+        }, getGenericErrorListener(this, pd));
         mRequestQueue.add(nonceRequest);
     }
 
