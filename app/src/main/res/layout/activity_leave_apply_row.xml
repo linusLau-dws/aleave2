@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="2dp">
+
+    <ImageView
+        android:id="@+id/row0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_black_24dp"
+        android:tint="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="08-21"
+        android:paddingEnd="10dp"
+        android:textSize="@dimen/bootstrap_h4_text_size"/>
+
+    <TextView
+        android:id="@+id/row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annual Leave"
+        android:paddingEnd="10dp"
+        android:textSize="@dimen/bootstrap_h4_text_size"/>
+
+    <FrameLayout
+        android:id="@+id/row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/row3header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Section"
+            android:layout_gravity="center"
+            android:translationZ="1dp"
+            android:textColor="@color/colorWhite"/>
+        <com.beardedhen.androidbootstrap.BootstrapDropDown
+            android:id="@+id/row3dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:roundedCorners="true"
+            android:text="AM"/>
+    </FrameLayout>
+</LinearLayout>

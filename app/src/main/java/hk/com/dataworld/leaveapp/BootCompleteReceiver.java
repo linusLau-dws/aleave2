@@ -41,6 +41,7 @@ public class BootCompleteReceiver extends BroadcastReceiver {
                 try {
                     obj.put("oldToken", token);
                     obj.put("refreshToken", refrToken);
+                    obj.put("program", 0);
                     JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                             String.format("%s%s", baseUrl, "_RefreshToken"), obj,
                             new Response.Listener<JSONObject>() {

@@ -103,6 +103,7 @@ public class ClaimsGeneralFragment extends Fragment {
         try {
             obj.put("token", mToken);
             obj.put("catID", input);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -145,6 +146,7 @@ public class ClaimsGeneralFragment extends Fragment {
         try {
             obj.put("token", mToken);
             obj.put("itemID", input);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -198,6 +200,7 @@ public class ClaimsGeneralFragment extends Fragment {
         JSONObject obj = new JSONObject();
         try {
             obj.put("token", mToken);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -390,6 +393,7 @@ public class ClaimsGeneralFragment extends Fragment {
                         obj.put("baseURL", mUrl);
                         obj.put("token", mToken);
                         obj.put("Data", dataObj.toString());
+                        obj.put("program", 0);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

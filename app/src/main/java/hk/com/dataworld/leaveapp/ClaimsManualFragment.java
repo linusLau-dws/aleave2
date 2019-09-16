@@ -88,6 +88,7 @@ public class ClaimsManualFragment extends Fragment {
             obj.put("token", mToken);
             obj.put("line", current);
             obj.put("locale", mLocale);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,6 +142,7 @@ public class ClaimsManualFragment extends Fragment {
                 obj.put("token", mToken);
                 obj.put("busRoute", mBusRoute.getText().toString());
                 obj.put("locale", mLocale);
+                obj.put("program", 0);
                 Log.i("1218", obj.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -352,6 +354,7 @@ public class ClaimsManualFragment extends Fragment {
                 obj.put("token", mToken);
                 obj.put("minibusRoute", mBusRoute.getText().toString());
                 obj.put("locale", mLocale);
+                obj.put("program", 0);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -483,6 +486,7 @@ public class ClaimsManualFragment extends Fragment {
             obj.put("routeSeq", mCurrentRouteSeq);
             obj.put("source", (int) mSrcStationControl.getmCurrent());
             obj.put("dest", (int) mDestStationControl.getmCurrent());
+            obj.put("program", 0);
             Log.i("asdf3", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -524,6 +528,7 @@ public class ClaimsManualFragment extends Fragment {
             obj.put("source", (int) mSrcStationControl.getmCurrent());
             obj.put("dest", (int) mDestStationControl.getmCurrent());
             obj.put("fareType", 1);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -562,6 +567,7 @@ public class ClaimsManualFragment extends Fragment {
             obj.put("token", mToken);
             obj.put("minibusRoute", mCurrentValidRouteS);
             obj.put("locale", mLocale);
+            obj.put("program", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }

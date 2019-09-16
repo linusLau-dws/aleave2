@@ -423,6 +423,7 @@ public class LeaveApprovalActivity extends BaseActivity {
             JSONObject obj = new JSONObject();
             obj.put("RequestID", RequestId);            //TODO: Use this
             obj.put("token", mToken);
+            obj.put("program", 0);
             Log.i("RequestID", " " + RequestId);
 
             mQueue = Volley.newRequestQueue(this);
@@ -914,6 +915,7 @@ public class LeaveApprovalActivity extends BaseActivity {
             realobj.put("Data", tbd.toString());
             realobj.put("baseURL", baseUrl);
             realobj.put("token", mToken);
+            realobj.put("program", 0);
 
             mQueue = Volley.newRequestQueue(this);
 
@@ -989,6 +991,7 @@ public class LeaveApprovalActivity extends BaseActivity {
             realobj.put("Data", tbd.toString());
             realobj.put("baseURL", baseUrl);
             realobj.put("token", mToken);
+            realobj.put("program", 0);
 
             mQueue = Volley.newRequestQueue(this);
 
@@ -1046,6 +1049,7 @@ public class LeaveApprovalActivity extends BaseActivity {
             obj.put("NewApprovalStatus", New_Approval_Status);
             obj.put("baseURL", baseUrl);
             obj.put("token", mToken);
+            obj.put("program", 0);
 
             mQueue = Volley.newRequestQueue(this);
 

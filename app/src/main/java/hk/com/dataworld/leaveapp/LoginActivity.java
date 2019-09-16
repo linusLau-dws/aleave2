@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 
 import org.apache.commons.codec.binary.Hex;
 import org.json.JSONArray;
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseActivity {
     private static SecureRandom rnd = new SecureRandom();
     protected String baseUrl, deviceId;
     private RequestQueue mRequestQueue;
-    private EditText mUsernameEdit, mPasswordEdit;
+    private BootstrapEditText mUsernameEdit, mPasswordEdit;
     private Button mLoginButton;
     private TextView mVersionNameEdit;
     private CheckBox mRememberMe;
@@ -407,7 +408,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    String nonce = response.getString("d");
+                    String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {
                         mRequestQueue = Volley.newRequestQueue(LoginActivity.this);
@@ -546,6 +547,7 @@ public class LoginActivity extends BaseActivity {
                                                             mPrefsEditor.putBoolean("IsAllowApprovals", IsAllowApprovals);
                                                             mPrefsEditor.apply();
 
+                                                            DBCreate();
 
                                                             loginResultData.setLeaveBalance(employment.getJSONArray("LeaveBalance"));
                                                             Log.i(TAG, "LeaveBalance content is: " + loginResultData.getLeaveBalance());
@@ -577,7 +579,7 @@ public class LoginActivity extends BaseActivity {
                                                                 LeaveDescription = subMenuObject.getString("LeaveDescription");
                                                                 Balance = subMenuObject.getString("Balance").equals("null") ? "null" : String.valueOf(Math.round(Double.valueOf(subMenuObject.getString("Balance")) * 100.0) / 100.0);
                                                                 BalanceAsOfDate = subMenuObject.getString("AsOfDate");
-                                                                leavebalance = new LeaveBalanceContent(tmpEmploymentNumber, LeaveCode, LeaveDescription, Balance, BalanceAsOfDate, subMenuObject.getBoolean("AsOfDate"), 0);
+                                                                leavebalance = new LeaveBalanceContent(tmpEmploymentNumber, LeaveCode, LeaveDescription, Balance, BalanceAsOfDate, subMenuObject.getBoolean("IsEnforceAttachment"), 0);
                                                                 leaveBalanceList.add(leavebalance);
                                                             }
                                                             if (!(leaveBalanceList.isEmpty())) {
@@ -585,10 +587,11 @@ public class LoginActivity extends BaseActivity {
                                                                 dbHelper.insertLeaveBalanceList(leaveBalanceList);
                                                                 dbHelper.closeDB();
                                                             }
-                                                            DBCreate();
                                                             SubmitData2SQLiteDB();
                                                         }
                                                     } catch (JSONException e) {
+                                                        Log.e("asdfasdf", e.getMessage());
+                                                        Log.e("asdfasdf", e.toString());
                                                         e.printStackTrace();
                                                     }
                                                     // TODO: Leave Object
@@ -633,7 +636,7 @@ public class LoginActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-        }, getGenericErrorListener(this, null));
+        }, getGenericErrorListener(this, pd));
         mRequestQueue.add(nonceRequest);
     }
 

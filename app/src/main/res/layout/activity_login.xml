@@ -8,7 +8,7 @@
     android:scaleType="fitXY"
     tools:context="hk.com.dataworld.leaveapp.LoginActivity">
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="42dp"
@@ -21,16 +21,20 @@
         android:hint="@string/et_name"
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorDisplayText"
+        android:textSize="@dimen/bootstrap_h2_text_size"
+        app:bootstrapSize="xl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintVertical_bias="0.139"
+        app:roundedCorners="true" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="42dp"
@@ -43,13 +47,17 @@
         android:hint="@string/et_password"
         android:inputType="textPassword"
         android:paddingLeft="5dp"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/bootstrap_h2_text_size"
+        app:bootstrapSize="xl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="0.034"
+        app:roundedCorners="true" />
 
     <CheckBox
         android:id="@+id/cbRememberMe"

@@ -356,6 +356,7 @@ public class ClaimsRecyclerAdapterManual extends RecyclerView.Adapter<RecyclerVi
                                         dataObj.put("Amount", mTotalFare);
                                         obj.put("Data", dataObj.toString());
                                         obj.put("baseURL", baseUrl);
+                                        obj.put("program", 0);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
