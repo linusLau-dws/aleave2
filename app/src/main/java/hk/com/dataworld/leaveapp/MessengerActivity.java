@@ -143,12 +143,13 @@ public class MessengerActivity extends BaseActivity {
     private void sendMessage(String body) {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("token", mSharedPreferences.getString(mSharedPreferences.getString(PREF_TOKEN, ""), ""));
+            obj.put("token", mSharedPreferences.getString(PREF_TOKEN, ""));
             obj.put("StationCode", "01");
             obj.put("ZoneCode", "01");
             obj.put("Message", body);
             obj.put("ChatroomID", 1);
             obj.put("MessageType", 0);
+            obj.put("program", 0);
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
                     String.format("%s%s", extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, "")), "SendMsg"), obj, new Response.Listener<JSONObject>() {
                 @Override
@@ -181,7 +182,7 @@ public class MessengerActivity extends BaseActivity {
             message1.setBody(body);
             message1.setMessageType(Message.MessageType.LeftSimpleMessage);
             message1.setTime(mFormatter.format(new Date()));
-            message1.setUserName("Hodor");
+            message1.setUserName("You");
             message1.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//Uri.parse("android.resource://com.shrikanthravi.chatviewlibrary/drawable/hodor"));
             mChatView.addMessage(message1);
 
@@ -210,26 +211,45 @@ public class MessengerActivity extends BaseActivity {
 //            mSelected = Matisse.obtainResult(data);
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            Message _message = new Message();
-            _message.setBody("Lorem ipsum");//messageET.getText().toString().trim());
-            _message.setMessageType(Message.MessageType.LeftSingleImage);
-            _message.setTime(mFormatter.format(new Date()));
-            _message.setUserName("Groot");
-            Uri uri = Uri.parse(picturePath);
-            List<Uri> uriList = new ArrayList<>();
-            uriList.add(uri);
-            _message.setImageList(uriList);//mSelected);
-            _message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
-            mChatView.addMessage(message);
-            mIsIncoming = false;
-            return;
+//            Cursor cursor = getContentResolver().query(selectedImage,
+//                    filePathColumn, null, null, null);
+//            cursor.moveToFirst();
+//
+//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//            String picturePath = cursor.getString(columnIndex);
+//            cursor.close();
+//            Message _message = new Message();
+//            _message.setBody("Lorem ipsum");//messageET.getText().toString().trim());
+//            _message.setMessageType(Message.MessageType.LeftSingleImage);
+//            _message.setTime(mFormatter.format(new Date()));
+//            _message.setUserName("Groot");
+//            Uri uri = Uri.parse(picturePath);
+//            List<Uri> uriList = new ArrayList<>();
+//            uriList.add(uri);
+//            _message.setImageList(uriList);//mSelected);
+//            _message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
+//            mChatView.addMessage(message);
+//            mIsIncoming = false;
+//            return;            Cursor cursor = getContentResolver().query(selectedImage,
+//                    filePathColumn, null, null, null);
+//            cursor.moveToFirst();
+//
+//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//            String picturePath = cursor.getString(columnIndex);
+//            cursor.close();
+//            Message _message = new Message();
+//            _message.setBody("Lorem ipsum");//messageET.getText().toString().trim());
+//            _message.setMessageType(Message.MessageType.LeftSingleImage);
+//            _message.setTime(mFormatter.format(new Date()));
+//            _message.setUserName("Groot");
+//            Uri uri = Uri.parse(picturePath);
+//            List<Uri> uriList = new ArrayList<>();
+//            uriList.add(uri);
+//            _message.setImageList(uriList);//mSelected);
+//            _message.setUserIcon(Uri.parse("android.resource://hk.com.dataworld.leaveapp/drawable/login_page_icon"));//android.resource://com.shrikanthravi.chatviewlibrary/drawable/groot"));
+//            mChatView.addMessage(message);
+//            mIsIncoming = false;
+//            return;
 
             if (mIsIncoming) {
                 if (mSelected.size() == 1) {

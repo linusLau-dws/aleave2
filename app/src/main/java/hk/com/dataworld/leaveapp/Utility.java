@@ -291,6 +291,8 @@ public class Utility {
                 return context.getString(R.string.rb_pm);
             case 3:
                 return context.getString(R.string.rb_section);
+            default:
+                return "";
         }
     }
 }

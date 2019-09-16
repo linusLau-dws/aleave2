@@ -30,14 +30,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-<<<<<<< HEAD
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-=======
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
->>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
 
 import org.apache.commons.codec.binary.Hex;
 import org.json.JSONArray;
@@ -152,11 +149,6 @@ public class LoginActivity extends BaseActivity {
                             Log.d(TAG, mInstanceId);
                             Toast.makeText(LoginActivity.this, mInstanceId, Toast.LENGTH_SHORT).show();
                         }
-
-                        Intent intent = new Intent(LoginActivity.this, MessengerActivity.class);
-                        intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
-//                        finish();
-                        startActivity(intent);
                     }
                 });
 
@@ -445,10 +437,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-<<<<<<< HEAD
-=======
                     Log.i("asdfasdf","sdfgsdfg");
->>>>>>> 923efe35decb254be98c27c968a388ddd4c1b1f6
                     String nonce = response.getJSONObject("d").getString("n");
 
                     if (nonce != null) {

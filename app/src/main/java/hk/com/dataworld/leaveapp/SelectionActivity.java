@@ -16,12 +16,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,6 +35,7 @@ import hk.com.dataworld.leaveapp.DAL.Notification;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static hk.com.dataworld.leaveapp.Constants.ACTION_INCOMING_NOTIFICATION;
+import static hk.com.dataworld.leaveapp.Constants.EXTRA_ALLOWED_APPROVALS;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_BROADCAST_NOTIFICATION_COUNT;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_SHIM_NOTIFICATION;
@@ -39,11 +46,12 @@ import static hk.com.dataworld.leaveapp.Constants.EXTRA_TO_PAY_SLIP;
 public class SelectionActivity extends BaseActivity {
 
     private static final String TAG = SelectionActivity.class.getSimpleName();
-    private Button mLeaveApplyButton, mMyApplicationsButton, mLeaveApprovalsButton, mLeaveCalendarButton, mPaySlipButton, mTaxationButton, mFareClaimsButton, mAttendanceButton;
+    private Button mLeaveApplyButton, mMyApplicationsButton, mLeaveApprovalsButton, mLeaveCalendarButton, mPaySlipButton, mTaxationButton, mFareClaimsButton, mAttendanceButton, mChatroomButton;
     private BootstrapButton mNotiCountButton;
     private NotificationListAdapter mNotificationAdapter = null;
     private ListView mListView = null;
     private ArrayList<Notification> mReceived = new ArrayList<>();
+    private String mInstanceId;
 
     private void startNotificationService() {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -85,6 +93,7 @@ public class SelectionActivity extends BaseActivity {
         mAttendanceButton = findViewById(R.id.btnBluetoothAttendance);
         mPaySlipButton = findViewById(R.id.btnPaySlip);
         mTaxationButton = findViewById(R.id.btnTaxation);
+        mChatroomButton = findViewById(R.id.btnChatroom);
 
         mLeaveApplyButton.setTypeface(avenir_black, Typeface.NORMAL);
         mMyApplicationsButton.setTypeface(avenir_black, Typeface.NORMAL);
@@ -94,6 +103,7 @@ public class SelectionActivity extends BaseActivity {
         mAttendanceButton.setTypeface(avenir_black, Typeface.NORMAL);
         mPaySlipButton.setTypeface(avenir_black, Typeface.NORMAL);
         mTaxationButton.setTypeface(avenir_black, Typeface.NORMAL);
+        mChatroomButton.setTypeface(avenir_black, Typeface.NORMAL);
 
 //        Intent intent = getIntent();
 
@@ -106,7 +116,8 @@ public class SelectionActivity extends BaseActivity {
             public void onClick(View view) {
                 mIsEnableRestartBehaviour = false;
                 Log.i(TAG, "Will go to Apply Leave");
-                Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivity.class);
+//                Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivity.class);
+                Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivityRevised.class);
                 intent.putParcelableArrayListExtra(EXTRA_SHIM_NOTIFICATION, new ArrayList<>(mNotificationAdapter.getmArr()));
                 startActivity(intent);
             }
@@ -188,6 +199,36 @@ public class SelectionActivity extends BaseActivity {
                 }
             }
         });
+
+        mChatroomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w(TAG, "getInstanceId failed", task.getException());
+                                    return;
+                                }
+
+                                // Get new Instance ID mInstanceId
+                                InstanceIdResult instanceIdResult = task.getResult();
+                                if (instanceIdResult != null) {
+                                    mInstanceId = instanceIdResult.getToken();
+                                    Log.d(TAG, mInstanceId);
+                                    Toast.makeText(SelectionActivity.this, mInstanceId, Toast.LENGTH_SHORT).show();
+                                }
+
+                                Intent intent = new Intent(SelectionActivity.this, MessengerActivity.class);
+//                                intent.putExtra(EXTRA_ALLOWED_APPROVALS, IsAllowApprovals);
+//                        finish();
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
+
     }
 
     private static boolean isIAttendanceInstalled(String packageName, PackageManager packageManager) {

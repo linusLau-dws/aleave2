@@ -56,6 +56,10 @@
             android:parentActivityName=".SelectionActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LeaveApplyActivityRevised"
+            android:parentActivityName=".SelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".LeaveApprovalActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

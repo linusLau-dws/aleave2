@@ -69,8 +69,8 @@ dependencies {
     implementation files('libs/commons-codec-1.11.jar')
     implementation files('libs/commons-codec-1.11-javadoc.jar')
 
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+//    implementation 'com.jakewharton:butterknife:10.1.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
