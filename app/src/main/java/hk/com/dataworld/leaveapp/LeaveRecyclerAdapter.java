@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import hk.com.dataworld.leaveapp.DAL.LeaveModel;
 
@@ -24,9 +25,12 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<LeaveModel> mLeavesToApply = new ArrayList<>();
     private List<String> mListSections;
     private Context mContext;
+    private TextView mDayCount;
 
-    public LeaveRecyclerAdapter(Context mContext) {
+    public LeaveRecyclerAdapter(Context mContext, TextView mDayCount) {
         this.mContext = mContext;
+        this.mDayCount = mDayCount;
+        mDayCount.setText(this.mContext.getString(R.string.daycount, 0));
         SQLiteHelper dbHelper;
         dbHelper = new SQLiteHelper(this.mContext);
         dbHelper.openDB();
@@ -45,6 +49,8 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void addLeave(LeaveModel leaveModel) {
         mLeavesToApply.add(leaveModel);
+        mDayCount.setText(this.mContext.getString(R.string.daycount, mLeavesToApply.size()));
+        notifyDataSetChanged();
         // Refresh
     }
 
@@ -117,29 +123,29 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (position == 0) {
             ((LeaveRowHolder) holder).mContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary2));
-            ((LeaveRowHolder) holder).mRemoveBtn.setVisibility(View.GONE);
-            ((LeaveRowHolder) holder).mDateView.setText("Date");
-            ((LeaveRowHolder) holder).mTypeView.setText("Type");
-            ((LeaveRowHolder) holder).mSectionHeader.setText("Section");
+            ((LeaveRowHolder) holder).mRemoveBtn.setVisibility(View.INVISIBLE);
+            ((LeaveRowHolder) holder).mDateView.setText(R.string.leave_entry_date);
+            ((LeaveRowHolder) holder).mDateView.setTextSize(15);
+            ((LeaveRowHolder) holder).mDateView.setTextColor(mContext.getResources().getColor(android.R.color.white));
+            ((LeaveRowHolder) holder).mTypeView.setText(R.string.leave_entry_type);
+            ((LeaveRowHolder) holder).mTypeView.setTextSize(15);
+            ((LeaveRowHolder) holder).mTypeView.setTextColor(mContext.getResources().getColor(android.R.color.white));
+            ((LeaveRowHolder) holder).mSectionHeader.setText(R.string.leave_entry_date);
+            ((LeaveRowHolder) holder).mSectionHeader.setTextSize(15);
+            ((LeaveRowHolder) holder).mSectionHeader.setTextColor(mContext.getResources().getColor(android.R.color.white));
             ((LeaveRowHolder) holder).mSectionHeader.setVisibility(View.VISIBLE);
-            ((LeaveRowHolder) holder).mSectionControl.setVisibility(View.GONE);
+            ((LeaveRowHolder) holder).mSectionControl.setVisibility(View.INVISIBLE);
 
         } else if (position % 2 == 0) {
-            ((LeaveRowHolder) holder).mContainer.setBackgroundColor(mContext.getResources().getColor(R.color.bootstrap_gray_light));
+            ((LeaveRowHolder) holder).mContainer.setBackgroundColor(mContext.getResources().getColor(R.color.bootstrap_gray_lighter));
             ((LeaveRowHolder) holder).mRemoveBtn.setVisibility(View.VISIBLE);
             ((LeaveRowHolder) holder).mDateView.setText(mLeavesToApply.get(position - 1).getDate());
             ((LeaveRowHolder) holder).mTypeView.setText(mLeavesToApply.get(position - 1).getLeaveDescription());
             ((LeaveRowHolder) holder).mSectionHeader.setText(getSectionString(mContext, mLeavesToApply.get(position - 1).getSection()));
-            ((LeaveRowHolder) holder).mSectionHeader.setVisibility(View.GONE);
+            ((LeaveRowHolder) holder).mSectionHeader.setVisibility(View.INVISIBLE);
             ((LeaveRowHolder) holder).mSectionControl.setVisibility(View.VISIBLE);
 
         } else {
@@ -147,7 +153,7 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((LeaveRowHolder) holder).mDateView.setText(mLeavesToApply.get(position - 1).getDate());
             ((LeaveRowHolder) holder).mTypeView.setText(mLeavesToApply.get(position - 1).getLeaveDescription());
             ((LeaveRowHolder) holder).mSectionHeader.setText(getSectionString(mContext, mLeavesToApply.get(position - 1).getSection()));
-            ((LeaveRowHolder) holder).mSectionHeader.setVisibility(View.GONE);
+            ((LeaveRowHolder) holder).mSectionHeader.setVisibility(View.INVISIBLE);
             ((LeaveRowHolder) holder).mSectionControl.setVisibility(View.VISIBLE);
         }
         ((LeaveRowHolder) holder).mRemoveBtn.setOnClickListener(new View.OnClickListener() {
@@ -158,16 +164,21 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
 
     class LeaveRowHolder extends RecyclerView.ViewHolder {
-        LinearLayout mContainer;
+        ConstraintLayout mContainer;
         ImageView mRemoveBtn;
         TextView mDateView;
         TextView mTypeView;
         TextView mSectionHeader;
         BootstrapDropDown mSectionControl;
 
-        LeaveRowHolder(List<String> list, View layout) {
+        LeaveRowHolder(final List<String> list, View layout) {
             super(layout);
             mContainer = layout.findViewById(R.id.row_container);
             mRemoveBtn = layout.findViewById(R.id.row0);
@@ -176,6 +187,12 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             mSectionHeader = layout.findViewById(R.id.row3header);
             mSectionControl = layout.findViewById(R.id.row3dropdown);
             mSectionControl.setDropdownData(list.toArray(new String[0]));
+            mSectionControl.setOnDropDownItemClickListener(new BootstrapDropDown.OnDropDownItemClickListener() {
+                @Override
+                public void onItemClick(ViewGroup parent, View v, int id) {
+                    mSectionControl.setText(list.get(id));
+                }
+            });
         }
     }
 }

@@ -43,7 +43,12 @@
         \n
     </string>
 
+    <string name="daycount">%1$d Days</string>
     <string name="btn_chatroom">TEAM CHAT</string>
+    <string name="leave_entry_date">Date</string>
+    <string name="leave_entry_type">Type</string>
+    <string name="leave_entry_section">Section</string>
+
     <string name="leave_calendar_team">Team</string>
     <string name="leave_calendar_myself">Myself</string>
 
@@ -173,6 +178,7 @@
     <string name="tv_position">Position: %1$s</string>
     <string name="tv_datetime">Date: %1$s Time: %2$s</string>
     <string name="tv_remark">Remark: %1$s</string>
+    <string name="tv_remark_plain">Remarks:</string>
 
     <!--Download Page -->
     <string name="btn_download">Download</string>

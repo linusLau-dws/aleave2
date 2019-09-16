@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="My group"
             android:textSize="@dimen/bootstrap_h3_text_size"
+            android:textColor="@android:color/black"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="wrap_content"

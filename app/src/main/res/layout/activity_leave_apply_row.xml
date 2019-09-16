@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,34 +10,49 @@
 
     <ImageView
         android:id="@+id/row0"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close_black_24dp"
-        android:tint="@android:color/holo_red_dark" />
+        android:tint="@android:color/holo_red_dark"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/row1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="08-21"
         android:paddingEnd="10dp"
-        android:textSize="@dimen/bootstrap_h4_text_size"/>
+        android:textSize="@dimen/bootstrap_h4_text_size"
+        app:layout_constraintStart_toEndOf="@id/row0"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/row2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Annual Leave"
         android:paddingEnd="10dp"
-        android:textSize="@dimen/bootstrap_h4_text_size"/>
+        android:textSize="@dimen/bootstrap_h4_text_size"
+        app:layout_constraintStart_toEndOf="@id/row1"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <FrameLayout
         android:id="@+id/row3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/row2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         <TextView
             android:id="@+id/row3header"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Section"
             android:layout_gravity="center"
@@ -45,10 +60,10 @@
             android:textColor="@color/colorWhite"/>
         <com.beardedhen.androidbootstrap.BootstrapDropDown
             android:id="@+id/row3dropdown"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:roundedCorners="true"
             app:dropdownResource="@array/lunar_str"
-            android:text="AM"/>
+            android:text="@string/rb_fullday"/>
     </FrameLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

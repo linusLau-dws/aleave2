@@ -32,6 +32,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -46,6 +47,12 @@ import com.android.volley.toolbox.Volley;
 import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapDropDown;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.beardedhen.androidbootstrap.BootstrapText;
+import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.beardedhen.androidbootstrap.font.FontAwesome;
 import com.haibin.calendarview.CalendarView;
 
 import org.json.JSONArray;
@@ -66,7 +73,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.exifinterface.media.ExifInterface;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import hk.com.dataworld.leaveapp.DAL.LeaveModel;
 import hk.com.dataworld.leaveapp.DAL.Notification;
 import hk.com.dataworld.leaveapp.DAL.SimpleResultData;
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -92,6 +102,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
     private TextView mDayCount;
     private BootstrapDropDown mLeaveType;
     private ImageView mAddLeave;
+    private BootstrapEditText mRemarks;
     private RecyclerView mRecyclerView;
     private String mSelectedLeaveCode;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,8 +232,6 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 
         getSupportActionBar().setTitle(R.string.btn_applyleaveCamel);
 
-        mLeaveRecyclerAdapter = new LeaveRecyclerAdapter(this);
-
         SQLiteHelper dbHelper;
         dbHelper = new SQLiteHelper(this);
         dbHelper.openDB();
@@ -240,8 +249,15 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
         mDayCount = findViewById(R.id.dayCount);
         mLeaveType = findViewById(R.id.leavetype);
         mAddLeave = findViewById(R.id.add);
+        mRemarks = findViewById(R.id.remarks);
         mRecyclerView = findViewById(R.id.recycler);
 
+        mLeaveRecyclerAdapter = new LeaveRecyclerAdapter(this, mDayCount);
+
+        mBalance.setText(getString(R.string.tv_remainBal, "12.23"));
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mLeaveRecyclerAdapter);
 
         mLeaveType.setDropdownData(mListTypes.toArray(new String[0]));
@@ -261,15 +277,36 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                         mSelectedLeaveCode = "";
                         break;
                 }
+                mLeaveType.setText(mListTypes.get(id));
             }
         });
 
         mAddLeave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 // Calendar pop-up
-                Dialog dialog = new Dialog(LeaveApplyActivityRevised.this);
-                dialog.addContentView(new CalendarView(LeaveApplyActivityRevised.this), null);
+                final Dialog dialog = new Dialog(LeaveApplyActivityRevised.this);
+                final CalendarView calendarView = new CalendarView(LeaveApplyActivityRevised.this);
+                calendarView.setMonthView(LeaveCalendarMonthView.class);
+                LinearLayout linearLayout = new LinearLayout(LeaveApplyActivityRevised.this);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                BootstrapButton submit = new BootstrapButton(LeaveApplyActivityRevised.this);
+                submit.setRounded(true);
+                submit.setBootstrapText(new BootstrapText.Builder(LeaveApplyActivityRevised.this).addFontAwesomeIcon(FontAwesome.FA_PAPER_PLANE).addText(getString(android.R.string.ok)).build());
+                submit.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                submit.setBootstrapSize(DefaultBootstrapSize.XL);
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view2) {
+                        mLeaveRecyclerAdapter.addLeave(new LeaveModel(String.format("%04d-%02d-%02d",calendarView.getCurYear(), calendarView.getCurMonth(), calendarView.getCurDay()),
+                                mLeaveType.getText().toString(), mLeaveType.getText().toString(), 0));
+                        dialog.dismiss();
+                    }
+                });
+                linearLayout.addView(calendarView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                linearLayout.addView(submit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                dialog.addContentView(linearLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
                 dialog.show();
 
 //                calendarPopUp();
