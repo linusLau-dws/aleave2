@@ -21,13 +21,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,7 +49,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapDropDown;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.BootstrapText;
-import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.beardedhen.androidbootstrap.font.FontAwesome;
@@ -70,6 +69,8 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.exifinterface.media.ExifInterface;
@@ -88,7 +89,10 @@ import static hk.com.dataworld.leaveapp.Constants.EXTRA_SHIM_NOTIFICATION;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_SOURCE_NOTIFICATION_STATUS;
 import static hk.com.dataworld.leaveapp.Constants.EXTRA_TO_MY_HISTORY;
 import static hk.com.dataworld.leaveapp.Constants.LONGEST_TIMEOUT_MS;
+import static hk.com.dataworld.leaveapp.Constants.PREF_LOCALE;
+import static hk.com.dataworld.leaveapp.Constants.PREF_SERVER_ADDRESS;
 import static hk.com.dataworld.leaveapp.Constants.PREF_TOKEN;
+import static hk.com.dataworld.leaveapp.Utility.extendBaseUrl;
 import static hk.com.dataworld.leaveapp.Utility.getDayOfWeekSuffixedString;
 import static hk.com.dataworld.leaveapp.Utility.getGenericErrorListener;
 import static hk.com.dataworld.leaveapp.Utility.roundTo2Dp;
@@ -128,12 +132,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
     SQLiteDatabase SQLITEDATABASE;
     SQLiteHelper dbHelper;
     private ProgressDialog pDialog;
-    private Button applyButton;
-    private ImageView attachedImage, cameraButton, galleryButton;
+    private ImageView applyButton, attachedImage, cameraButton, galleryButton;
     private Uri file;
-    private TextView name;
     private TextView nickname;
-    private TextView RemainBalance;
     private TextView AsOfDate;
     private RadioGroup leaveGroup;
     private RadioButton sl;
@@ -254,8 +255,6 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 
         mLeaveRecyclerAdapter = new LeaveRecyclerAdapter(this, mDayCount);
 
-        mBalance.setText(getString(R.string.tv_remainBal, "12.23"));
-
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mLeaveRecyclerAdapter);
@@ -298,7 +297,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view2) {
-                        mLeaveRecyclerAdapter.addLeave(new LeaveModel(String.format("%04d-%02d-%02d",calendarView.getCurYear(), calendarView.getCurMonth(), calendarView.getCurDay()),
+                        mLeaveRecyclerAdapter.addLeave(new LeaveModel(String.format("%04d-%02d-%02d",calendarView.getSelectedCalendar().getYear(), calendarView.getSelectedCalendar().getMonth(), calendarView.getSelectedCalendar().getDay()),
                                 mLeaveType.getText().toString(), mLeaveType.getText().toString(), 0));
                         dialog.dismiss();
                     }
@@ -315,105 +314,80 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
         });
 
 
-//        dbHelper = new SQLiteHelper(LeaveApplyActivityRevised.this);
-//
-//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        String server_addr = extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, ""));
-//        if (!server_addr.equals("")) {
-//            baseUrl = server_addr;
-//        }
-//
-//        dbHelper.openDB();
-//        UserContent userContent = dbHelper.getUserInfo();
-//        boolean hasSL = dbHelper.hasSL();
-//        boolean hasAL = dbHelper.hasAL();
-//        dbHelper.closeDB();
-//
-//        User_Name = userContent.getUserName();
-//        UserId = userContent.getUserId();
-//        English_Name = userContent.getEnglishName();
-//        Chinese_Name = userContent.getChineseName();
-//        Nickname = userContent.getNickName();
-//        Employment_Number = userContent.getEmploymentNumber();
-//        IsAllow3Sections = userContent.getAllow3Sections();
-//        IsAllowHalfDay = userContent.getAllowHalfDay();
-//        IsAllowHourly = userContent.getAllowHourly();
-//        Record_Count = userContent.getCount();
-//        Log.i(TAG, "User Name is: " + User_Name);
-//        Log.i(TAG, "User ID: " + UserId);
-//        Log.i(TAG, "English Name: " + English_Name);
-//        Log.i(TAG, "Chinese Name: " + Chinese_Name);
-//        Log.i(TAG, "Employment Number: " + Employment_Number);
-//        Log.i(TAG, "No Record Get: " + Record_Count);
-//        Log.i(TAG, "IsAllow3Sections is: " + IsAllow3Sections);
-//        Log.i(TAG, "IsAllowHalfDay is: " + IsAllowHalfDay);
-//        Log.i(TAG, "IsAllowHourly is: " + IsAllowHourly);
-//
-//        applyButton = (Button) findViewById(R.id.btnGet);
-//        //attachedImage = (ImageView) findViewById(R.id.ivAttachedImage);
-//        cameraButton = (ImageView) findViewById(R.id.ivAttachedImage1);
-//        cameraButton.setOnClickListener(this);
-//        galleryButton = (ImageView) findViewById(R.id.ivAttachedImage2);
-//        galleryButton.setOnClickListener(this);
-//        name = (TextView) findViewById(R.id.tvSeqNo);
-//        nickname = (TextView) findViewById(R.id.tvNickname);
-//        RemainBalance = (TextView) findViewById(R.id.tvALremain);
-//        RemainBalance.setText(getString(R.string.tv_remainBal, ""));
-//        AsOfDate = (TextView) findViewById(R.id.tvAsOfDate);
-//        AsOfDate.setText(getString(R.string.tv_asOfDate, ""));
+        dbHelper = new SQLiteHelper(LeaveApplyActivityRevised.this);
 
-//        otherLeaveType = (Spinner) findViewById(R.id.spOtherLeave);
-//        startDate = (EditText) findViewById(R.id.tvDateRange);
-//        startDate.setOnClickListener(this);
-//        endDate = (EditText) findViewById(R.id.etEnddate);
-//        endDate.setOnClickListener(this);
-//
-//        fullDay.setChecked(true);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String server_addr = extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, ""));
+        if (!server_addr.equals("")) {
+            baseUrl = server_addr;
+        }
+
+        dbHelper.openDB();
+        boolean hasSL = dbHelper.hasSL();
+        boolean hasAL = dbHelper.hasAL();
+        dbHelper.closeDB();
+
+        User_Name = userContent.getUserName();
+        UserId = userContent.getUserId();
+        English_Name = userContent.getEnglishName();
+        Chinese_Name = userContent.getChineseName();
+        Nickname = userContent.getNickName();
+        Employment_Number = userContent.getEmploymentNumber();
+        IsAllow3Sections = userContent.getAllow3Sections();
+        IsAllowHalfDay = userContent.getAllowHalfDay();
+        IsAllowHourly = userContent.getAllowHourly();
+        Record_Count = userContent.getCount();
+        Log.i(TAG, "User Name is: " + User_Name);
+        Log.i(TAG, "User ID: " + UserId);
+        Log.i(TAG, "English Name: " + English_Name);
+        Log.i(TAG, "Chinese Name: " + Chinese_Name);
+        Log.i(TAG, "Employment Number: " + Employment_Number);
+        Log.i(TAG, "No Record Get: " + Record_Count);
+        Log.i(TAG, "IsAllow3Sections is: " + IsAllow3Sections);
+        Log.i(TAG, "IsAllowHalfDay is: " + IsAllowHalfDay);
+        Log.i(TAG, "IsAllowHourly is: " + IsAllowHourly);
+
+        applyButton = (ImageView) findViewById(R.id.apply_leave_revised);
+        //attachedImage = (ImageView) findViewById(R.id.ivAttachedImage);
+        cameraButton = (ImageView) findViewById(R.id.ivAttachedImage1);
+        cameraButton.setOnClickListener(this);
+        galleryButton = (ImageView) findViewById(R.id.ivAttachedImage2);
+        galleryButton.setOnClickListener(this);
+        mBalance.setText(getString(R.string.tv_remainBal, ""));
+
 //        // 2018.11.30 - Begin
 //        mCbExcludeSat = findViewById(R.id.exclude_sat);
 //        mCbExcludeSun = findViewById(R.id.exclude_sun);
 //        mCbExcludeHolidays = findViewById(R.id.exclude_holidays);
 //        // 2018.11.30 - End
-//
-//        Log.i(TAG, "Nickname is: " + "[" + Nickname + "]");
-//
-//        if (Nickname == null || Nickname.length() == 0 || Nickname.equals("null")) {
-////            Log.i(TAG, "Empty Nickname");
-//            Nickname = "";
-//        }
-//
-//        nickname.setText(getString(R.string.tv_nickname, Nickname));
-//
-//        if (!IsAllow3Sections) {
-//            sections.setVisibility(View.GONE);
-//        }
-//        if (!IsAllowHalfDay) {
-//            am.setVisibility(View.GONE);
-//            pm.setVisibility(View.GONE);
-//        }
-//
-//        listType = dbHelper.getLeaveDescription(Employment_Number);
-//
-//        String lLocale = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_LOCALE, "");
-//
-//        if (lLocale.equals("zh")) {
-//            if (Chinese_Name.isEmpty()) {
-////                Log.i(TAG, "Language is Chinese but without Chinese name, therefore display English name");
-//                name.setText(getString(R.string.tv_name, English_Name));
-//                Name = English_Name;
-//            } else {
-////                Log.i(TAG, "Language is Chinese, therefore display Chinese name");
-//                name.setText(getString(R.string.tv_name, Chinese_Name));
-//                Name = Chinese_Name;
-//            }
-//        } else {
-//            //if (lLocale.equals("en")) { //Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage())
-////            Log.i(TAG, "Language is English, therefore display English name");
-//            name.setText(getString(R.string.tv_name, English_Name));
-//            Name = English_Name;
-//            //}
-//        }
-//
+
+        Log.i(TAG, "Nickname is: " + "[" + Nickname + "]");
+
+        if (Nickname == null || Nickname.length() == 0 || Nickname.equals("null")) {
+//            Log.i(TAG, "Empty Nickname");
+            Nickname = "";
+        }
+
+        String lLocale = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_LOCALE, "");
+
+        if (lLocale.equals("zh")) {
+            if (Chinese_Name.isEmpty()) {
+//                Log.i(TAG, "Language is Chinese but without Chinese mName, therefore display English mName");
+                mName.setText(getString(R.string.tv_name, English_Name));
+                Name = English_Name;
+            } else {
+//                Log.i(TAG, "Language is Chinese, therefore display Chinese mName");
+                mName.setText(getString(R.string.tv_name, Chinese_Name));
+                Name = Chinese_Name;
+            }
+        } else {
+            //if (lLocale.equals("en")) { //Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage())
+//            Log.i(TAG, "Language is English, therefore display English mName");
+            mName.setText(getString(R.string.tv_name, English_Name));
+            Name = English_Name;
+            //}
+        }
+
 //        ArrayAdapter<String> adapterLeaveType = new ArrayAdapter<>(this, R.layout.spinner_layout, R.id.txt, listType);
 //        otherLeaveType.setAdapter(adapterLeaveType);
 //        otherLeaveType.setOnItemSelectedListener(this);
@@ -437,9 +411,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 //                        Log.i(TAG, "AsOfDate: " + Balance_As_Of_Date);
 //                        Log.i(TAG, "Leave_Type: " + Leave_Type);
 //                        if (Balance.equals("null") || Balance.isEmpty()) {
-//                            RemainBalance.setText(getString(R.string.tv_remainBal, "--"));
+//                            mBalance.setText(getString(R.string.tv_remainBal, "--"));
 //                        } else {
-//                            RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
+//                            mBalance.setText(getString(R.string.tv_remainBal, Balance));
 //                        }
 //                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
 //                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
@@ -455,9 +429,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 //                        Log.i(TAG, "AsOfDate: " + Balance_As_Of_Date);
 //                        Log.i(TAG, "Leave_Type: " + Leave_Type);
 //                        if (Balance.equals("null") || Balance.isEmpty()) {
-//                            RemainBalance.setText(getString(R.string.tv_remainBal, "--"));
+//                            mBalance.setText(getString(R.string.tv_remainBal, "--"));
 //                        } else {
-//                            RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
+//                            mBalance.setText(getString(R.string.tv_remainBal, Balance));
 //                        }
 //                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
 //                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
@@ -470,12 +444,12 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 //                }
 //            }
 //        });
-//
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            cameraButton.setClickable(false);
-//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-//        }
-//
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            cameraButton.setClickable(false);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+
         applyButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -500,7 +474,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 
                 applyLeave();
 
-//                validate(name.getText().toString(), RemainBalance.getText().toString(), startDate.getText().toString(), endDate.getText().toString());
+//                validate(mName.getText().toString(), mBalance.getText().toString(), startDate.getText().toString(), endDate.getText().toString());
             }
         });
 //
@@ -634,7 +608,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
             e.printStackTrace();
         }
 
-        Log.i(TAG, "Worker name is: " + Name);
+        Log.i(TAG, "Worker mName is: " + Name);
         Log.i(TAG, "Leave Balance is: " + Balance);
         Log.i(TAG, "Leave Type is: " + Leave_Type);
         Log.i(TAG, "Half day ind is: " + Half_Day_Ind);
@@ -722,9 +696,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                     Balance = String.valueOf(balance); // Is this really necessary
                     Balance_As_Of_Date = startDate.getText().subSequence(0, 10).toString();
                     if (balance == -1d) {
-                        RemainBalance.setText(getString(R.string.tv_remainBal, "--"));
+                        mBalance.setText(getString(R.string.tv_remainBal, "--"));
                     } else {
-                        RemainBalance.setText(getString(R.string.tv_remainBal, String.valueOf(roundTo2Dp(balance))));
+                        mBalance.setText(getString(R.string.tv_remainBal, String.valueOf(roundTo2Dp(balance))));
                     }
                 }
             } catch (JSONException e) {
@@ -854,7 +828,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Leave_Type = "";
-                    RemainBalance.setText(getText(R.string.tv_remainBal));
+                    mBalance.setText(getText(R.string.tv_remainBal));
                     leaveGroup.clearCheck();
                     otherLeaveType.setEnabled(true);
                     otherLeaveType.setSelection(0);
@@ -1088,9 +1062,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                         Balance_As_Of_Date = leaveBalanceContent.getLBLeaveBalanceAsOfDate();
                         Log.i(TAG, "LEAVETYPE, BALANCE, ASOFDATE: " + "[" + Leave_Type + "]" + "[" + Balance + "]" + "[" + Balance_As_Of_Date + "]");
                         if (Balance.equals("null") || Balance.isEmpty()) {
-                            RemainBalance.setText(getString(R.string.tv_remainBal, "--"));
+                            mBalance.setText(getString(R.string.tv_remainBal, "--"));
                         } else {
-                            RemainBalance.setText(getString(R.string.tv_remainBal, Balance));
+                            mBalance.setText(getString(R.string.tv_remainBal, Balance));
                         }
                         if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
                             AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
@@ -1100,7 +1074,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                     } else {
                         Balance = null;
                         Balance_As_Of_Date = "";
-                        RemainBalance.setText(getString(R.string.tv_remainBal, "--"));
+                        mBalance.setText(getString(R.string.tv_remainBal, "--"));
                         Leave_Type = null;
                     }
                 } else {
@@ -1213,7 +1187,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 
             mRequestQueue = Volley.newRequestQueue(this);
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
-                    String.format("%s%s", baseUrl, "LeaveApplyActivity"),
+                    String.format("%s%s", baseUrl, "LeaveApplyActivityOld"),
                     realobj, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -1280,7 +1254,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                                 SubmitData2SQLiteDB();
 
                                 Leave_Type = "";
-                                RemainBalance.setText(getString(R.string.tv_remainBal, ""));
+                                mBalance.setText(getString(R.string.tv_remainBal, ""));
                                 leaveGroup.clearCheck();
                                 otherLeaveType.setEnabled(true);
                                 otherLeaveType.setSelection(0);
@@ -1302,7 +1276,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                                 builder.create().show();
                             }
                         } else {
-                            Log.i("LeaveApplyActivity: ", "Leave Apply Failed");
+                            Log.i("LeaveApplyActivityOld: ", "Leave Apply Failed");
                             builder.setMessage(getString(R.string.msg_errorLoginFail));
                             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -1373,7 +1347,7 @@ public LeaveApplyTask() {
 protected void onPreExecute() {
 Log.i(TAG, "LeaveApplyTask");
 super.onPreExecute();
-pDialog = new ProgressDialog(LeaveApplyActivity.this);
+pDialog = new ProgressDialog(LeaveApplyActivityOld.this);
 pDialog.setMessage(getString(R.string.leave_apply_msg_progress));
 pDialog.setIndeterminate(false);
 pDialog.setCancelable(true);
@@ -1447,12 +1421,12 @@ Log.i(TAG, nvpList.get(1).getValue().toString());
 
 
 JSONParser jParser = new JSONParser();
-JSONObject json = jParser.getJSONFromUrl(baseUrl + "LeaveApplyActivity", nvpList);
+JSONObject json = jParser.getJSONFromUrl(baseUrl + "LeaveApplyActivityOld", nvpList);
 JSONArray jArray = json.getJSONArray("d");
 Log.i(TAG, "jArray content is: " + jArray.getString(0));
 Log.i(TAG, "jArray length is: " + jArray.length());
 if (jArray.length() <= 0) {
-AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
 Log.i(TAG, "General error from server");
 builder.setMessage(getString(R.string.msg_errorLoginFail));
 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

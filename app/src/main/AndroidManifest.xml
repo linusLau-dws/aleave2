@@ -52,7 +52,7 @@
             android:name=".SelectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LeaveApplyActivity"
+            android:name=".LeaveApplyActivityOld"
             android:parentActivityName=".SelectionActivity"
             android:screenOrientation="portrait" />
         <activity

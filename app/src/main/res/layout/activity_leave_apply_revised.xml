@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="hk.com.dataworld.leaveapp.LeaveApplyActivity">
+    tools:context="hk.com.dataworld.leaveapp.LeaveApplyActivityOld">
 
     <!--<ScrollView-->
         <!--android:layout_width="match_parent"-->
@@ -152,6 +152,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 >
                 <ImageView
+                    android:id="@+id/apply_leave_revised"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/content_page_color_botton_f"

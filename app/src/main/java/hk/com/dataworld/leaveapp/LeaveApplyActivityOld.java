@@ -86,9 +86,9 @@ import static hk.com.dataworld.leaveapp.Utility.getDayOfWeekSuffixedString;
 import static hk.com.dataworld.leaveapp.Utility.getGenericErrorListener;
 import static hk.com.dataworld.leaveapp.Utility.roundTo2Dp;
 
-public class LeaveApplyActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class LeaveApplyActivityOld extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private static final String TAG = LeaveApplyActivity.class.getSimpleName();
+    private static final String TAG = LeaveApplyActivityOld.class.getSimpleName();
     private static String baseUrl;
     String Name, Start_Date, End_Date, Date_Apply, Photo, Rejected_Reason, Approve_By;
     String Leave_Type = "";
@@ -178,7 +178,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
         getSupportActionBar().setTitle(R.string.btn_applyleaveCamel);
 
-        dbHelper = new SQLiteHelper(LeaveApplyActivity.this);
+        dbHelper = new SQLiteHelper(LeaveApplyActivityOld.this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String server_addr = extendBaseUrl(mSharedPreferences.getString(PREF_SERVER_ADDRESS, ""));
@@ -327,7 +327,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 //                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
 //                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
 //                        } else {
-//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, Balance_As_Of_Date)));
 //                        }
                     } else if (al.isChecked()) {
                         leaveBalanceContent = dbHelper.getLeaveBalanceByLeaveType("AL");
@@ -345,7 +345,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 //                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
 //                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
 //                        } else {
-//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, Balance_As_Of_Date)));
 //                        }
                     }
                     otherLeaveType.setSelection(0);
@@ -365,7 +365,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
                 //newDrawable = ((BitmapDrawable) attachedImage.getDrawable()).getBitmap();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this, R.style.AlertDialogCustom);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this, R.style.AlertDialogCustom);
 
                 if ((mAttachmentAdapter.getItemCount() == 0) && (sl.isChecked())) {
                     builder.setMessage(R.string.enforced_attachment).setCancelable(false).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -418,7 +418,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            startDate.setText(getDayOfWeekSuffixedString(LeaveApplyActivity.this, String.format(Locale.ENGLISH, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)));
+                            startDate.setText(getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, String.format(Locale.ENGLISH, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)));
                             fromDateChanged();
                         }
                     }, mYear, mMonth, mDay);
@@ -445,7 +445,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            endDate.setText(getDayOfWeekSuffixedString(LeaveApplyActivity.this, String.format(Locale.ENGLISH, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)));
+                            endDate.setText(getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, String.format(Locale.ENGLISH, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)));
 
                         }
                     }, mYear, mMonth, mDay);
@@ -473,7 +473,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 //        Log.i(TAG,"EndDate is: " + EndDate);
 
         if (StartDate.isEmpty() || EndDate.isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this, R.style.AlertDialogCustom);
+            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this, R.style.AlertDialogCustom);
 
 //            Log.i(TAG, "Date fields be empty");
 
@@ -499,7 +499,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
             if (enddate.compareTo(startdate) < 0) {
 //                Log.i(TAG, "End Date is Greater than Start Date");
-                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this, R.style.AlertDialogCustom);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this, R.style.AlertDialogCustom);
                 builder.setMessage(R.string.msg_errDate).setCancelable(false).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -585,7 +585,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                 Log.i(TAG, "Empty Leave Type");
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this, R.style.AlertDialogCustom);
+            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this, R.style.AlertDialogCustom);
 
 //            Log.i(TAG, "Some fields be empty");
 
@@ -707,7 +707,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        RequestQueue requestQueue = Volley.newRequestQueue(LeaveApplyActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(LeaveApplyActivityOld.this);
         JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST, String.format("%s%s", baseUrl, "GetIntervalDays"), includeDaysObj,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -719,7 +719,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                             e.printStackTrace();
                         }
                         if (mDates.length() == 0) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
                             builder.setMessage(R.string.msg_errorNoAvailableDates)
                                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                         @Override
@@ -733,7 +733,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < mDates.length(); i++) {
                             try {
-                                sb.append(getDayOfWeekSuffixedString(LeaveApplyActivity.this, mDates.getString(i)));
+                                sb.append(getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, mDates.getString(i)));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -761,7 +761,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                                 }
                             }
                         };
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(LeaveApplyActivity.this);
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(LeaveApplyActivityOld.this);
                         builder1.setTitle(R.string.dialog_title_date_selected);
                         builder1.setMessage(Result_String).setCancelable(true).setPositiveButton(android.R.string.ok, dialogClickListener)
                                 .setNegativeButton(android.R.string.cancel, dialogClickListener).show();
@@ -920,7 +920,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
     public void SubmitData2SQLiteDB() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this, R.style.AlertDialogCustom);
 
         Approval_Status = 1;
 
@@ -1012,7 +1012,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 //                        if (Balance_As_Of_Date.equals("null") || Balance_As_Of_Date.isEmpty()) {
 //                            AsOfDate.setText(getString(R.string.tv_asOfDate, "--"));
 //                        } else {
-//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivity.this, Balance_As_Of_Date)));
+//                            AsOfDate.setText(getString(R.string.tv_asOfDate, getDayOfWeekSuffixedString(LeaveApplyActivityOld.this, Balance_As_Of_Date)));
 //                        }
                     } else {
                         Balance = null;
@@ -1097,7 +1097,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
     private void realApplyLeave() {
         try {
-            pDialog = new ProgressDialog(LeaveApplyActivity.this);
+            pDialog = new ProgressDialog(LeaveApplyActivityOld.this);
             pDialog.setMessage(getString(R.string.leave_apply_msg_progress));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -1130,7 +1130,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 
             mRequestQueue = Volley.newRequestQueue(this);
             JsonObjectRequest req = new JsonObjectRequest(JsonObjectRequest.Method.POST,
-                    String.format("%s%s", baseUrl, "LeaveApplyActivity"),
+                    String.format("%s%s", baseUrl, "LeaveApplyActivityOld"),
                     realobj, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -1143,7 +1143,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
 //                        Log.i(TAG, "jArray content is: " + jArray.getString(0));
 //                        Log.i(TAG, "jArray length is: " + jArray.length());
                         if (jArray.length() <= 0) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
                             Log.i(TAG, "General error from server");
                             builder.setMessage(getString(R.string.msg_errorLoginFail));
                             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -1177,7 +1177,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                             }
                         }
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
 
                         if (leaveApplyReceivedList != null) {
                             if (!ErrorCode.isEmpty()) {
@@ -1208,7 +1208,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                                 startDate.setText("");
                                 endDate.setText("");
 
-                                builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+                                builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
                                 builder.setMessage(R.string.application_sent);
                                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
@@ -1219,7 +1219,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                                 builder.create().show();
                             }
                         } else {
-                            Log.i("LeaveApplyActivity: ", "Leave Apply Failed");
+                            Log.i("LeaveApplyActivityOld: ", "Leave Apply Failed");
                             builder.setMessage(getString(R.string.msg_errorLoginFail));
                             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -1275,7 +1275,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
             }
             int count = intent.getIntExtra(EXTRA_BROADCAST_NOTIFICATION_COUNT, 0);
             mNotiCountButton.setText(String.valueOf(count));
-            ShortcutBadger.applyCount(LeaveApplyActivity.this, count);
+            ShortcutBadger.applyCount(LeaveApplyActivityOld.this, count);
         }
     }
 
@@ -1290,7 +1290,7 @@ public LeaveApplyTask() {
 protected void onPreExecute() {
 Log.i(TAG, "LeaveApplyTask");
 super.onPreExecute();
-pDialog = new ProgressDialog(LeaveApplyActivity.this);
+pDialog = new ProgressDialog(LeaveApplyActivityOld.this);
 pDialog.setMessage(getString(R.string.leave_apply_msg_progress));
 pDialog.setIndeterminate(false);
 pDialog.setCancelable(true);
@@ -1364,12 +1364,12 @@ Log.i(TAG, nvpList.get(1).getValue().toString());
 
 
 JSONParser jParser = new JSONParser();
-JSONObject json = jParser.getJSONFromUrl(baseUrl + "LeaveApplyActivity", nvpList);
+JSONObject json = jParser.getJSONFromUrl(baseUrl + "LeaveApplyActivityOld", nvpList);
 JSONArray jArray = json.getJSONArray("d");
 Log.i(TAG, "jArray content is: " + jArray.getString(0));
 Log.i(TAG, "jArray length is: " + jArray.length());
 if (jArray.length() <= 0) {
-AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivity.this);
+AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityOld.this);
 Log.i(TAG, "General error from server");
 builder.setMessage(getString(R.string.msg_errorLoginFail));
 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

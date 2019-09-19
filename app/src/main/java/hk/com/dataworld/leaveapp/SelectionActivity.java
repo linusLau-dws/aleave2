@@ -116,7 +116,7 @@ public class SelectionActivity extends BaseActivity {
             public void onClick(View view) {
                 mIsEnableRestartBehaviour = false;
                 Log.i(TAG, "Will go to Apply Leave");
-//                Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivity.class);
+//                Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivityOld.class);
                 Intent intent = new Intent(SelectionActivity.this, LeaveApplyActivityRevised.class);
                 intent.putParcelableArrayListExtra(EXTRA_SHIM_NOTIFICATION, new ArrayList<>(mNotificationAdapter.getmArr()));
                 startActivity(intent);
