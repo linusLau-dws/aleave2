@@ -6,10 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:layout_width=""
-        android:layout_height=""
-
     <TextView
         android:id="@+id/position_num"
         android:layout_width="wrap_content"

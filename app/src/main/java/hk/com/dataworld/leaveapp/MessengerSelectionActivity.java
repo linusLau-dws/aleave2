@@ -52,7 +52,7 @@ public class MessengerSelectionActivity extends BaseActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.add(R.string.fri)
+        menu.add(R.string.add);
         return super.onPrepareOptionsMenu(menu);
     }
 }
