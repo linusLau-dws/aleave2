@@ -1118,6 +1118,7 @@ public class LeaveApplyActivity extends BaseActivity implements View.OnClickList
                         obj.put("AttachedImage", mAttachmentAdapter.getJSONArr());
                     }
                 }
+                obj.put("Remarks", "");
                 tbd.put(obj);
             }
 

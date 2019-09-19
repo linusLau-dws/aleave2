@@ -1201,6 +1201,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                         obj.put("AttachedImage", mAttachmentAdapter.getJSONArr());
                     }
                 }
+                obj.put("Remarks", mRemarks.getText().toString());
                 tbd.put(obj);
             }
 
