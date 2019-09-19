@@ -54,6 +54,10 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         // Refresh
     }
 
+    public List<LeaveModel> getLeaves() {
+        return mLeavesToApply;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -125,7 +129,7 @@ public class LeaveRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (position == 0) {
-            ((LeaveRowHolder) holder).mContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary2));
+            ((LeaveRowHolder) holder).mContainer.setBackgroundResource(R.drawable.gradient_header);
             ((LeaveRowHolder) holder).mRemoveBtn.setVisibility(View.INVISIBLE);
             ((LeaveRowHolder) holder).mDateView.setText(R.string.leave_entry_date);
             ((LeaveRowHolder) holder).mDateView.setTextSize(15);

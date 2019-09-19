@@ -422,6 +422,7 @@ public class LeaveApprovalActivity extends BaseActivity {
 
             JSONObject obj = new JSONObject();
             obj.put("RequestID", RequestId);            //TODO: Use this
+            obj.put("Type", 0);
             obj.put("token", mToken);
             obj.put("program", 0);
             Log.i("RequestID", " " + RequestId);

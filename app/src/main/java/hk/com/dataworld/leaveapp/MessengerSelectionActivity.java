@@ -3,6 +3,7 @@ package hk.com.dataworld.leaveapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,5 +48,11 @@ public class MessengerSelectionActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.add(R.string.fri)
+        return super.onPrepareOptionsMenu(menu);
     }
 }

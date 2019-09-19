@@ -476,34 +476,33 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
 //            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
 //        }
 //
-//        applyButton.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View view) {
-//
-//                //newDrawable = ((BitmapDrawable) attachedImage.getDrawable()).getBitmap();
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityRevised.this, R.style.AlertDialogCustom);
-//
-//                if ((mAttachmentAdapter.getItemCount() == 0) && (sl.isChecked())) {
-//                    builder.setMessage(R.string.enforced_attachment).setCancelable(false).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            cameraButton.requestFocus();
-//                        }
-//                    });
-//                    AlertDialog alert = builder.create();
-//                    alert.show();
-//                    return;
-//                }
-//
-////                Log.i(TAG, "Before validate");
-//
+        applyButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                List<LeaveModel> mLeaves = mLeaveRecyclerAdapter.getLeaves();
+
+                //newDrawable = ((BitmapDrawable) attachedImage.getDrawable()).getBitmap();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(LeaveApplyActivityRevised.this, R.style.AlertDialogCustom);
+
+                if ((mAttachmentAdapter.getItemCount() == 0) && (sl.isChecked())) {
+                    builder.setMessage(R.string.enforced_attachment).setCancelable(false).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            cameraButton.requestFocus();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    return;
+                }
+
+                applyLeave();
+
 //                validate(name.getText().toString(), RemainBalance.getText().toString(), startDate.getText().toString(), endDate.getText().toString());
-//
-////                Log.i(TAG, "After validate");
-//
-//            }
-//        });
+            }
+        });
 //
 //        RecyclerView recyclerView = findViewById(R.id.attachments_recycler);
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 6));
@@ -574,6 +573,10 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
         }
     }
 
+    private void validate() {
+
+    }
+
     private void validate(String Name, String Balance, String StartDate, String EndDate) {
 
         if (fullDay.isChecked()) {
@@ -630,60 +633,6 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
         } catch (ParseException e) {
             e.printStackTrace();
         }
-/*
-        if (sl.isChecked()) {
-            CheckType = "SL";
-        }
-        else if (al.isChecked()) {
-            CheckType = "AL";
-        }
-        else if (positionOtherLeave == 1) {
-            CheckType = "BL";
-        }
-        else if (positionOtherLeave == 2) {
-            CheckType = "COML";
-        }
-        else if (positionOtherLeave == 3) {
-            CheckType = "EXAM";
-        }
-        else if (positionOtherLeave == 4) {
-            CheckType = "IL";
-        }
-        else if (positionOtherLeave == 5) {
-            CheckType = "JURL";
-        }
-        else if (positionOtherLeave == 6) {
-            CheckType = "MARL";
-        }
-        else if (positionOtherLeave == 7) {
-            CheckType = "ML";
-        }
-        else if (positionOtherLeave == 8) {
-            CheckType = "NML";
-        }
-        else if (positionOtherLeave == 9) {
-            CheckType = "NPL";
-        }
-        else if (positionOtherLeave == 10) {
-            CheckType = "NSL";
-        }
-        else if (positionOtherLeave == 11) {
-            CheckType = "PATL";
-        }
-        else if (positionOtherLeave == 12) {
-            CheckType = "SUL";
-        }
-        else {
-            CheckType = "";
-        }
-
-        Log.i(TAG, "Worker name is: " + Name);
-        Log.i(TAG, "Leave Balance is: " + Balance);
-        Log.i(TAG, "Leave Type is: " + Leave_Type);
-        Log.i(TAG, "Half day ind is: " + Half_Day_Ind);
-        Log.i(TAG, "Start Date is: " + StartDate);
-        Log.i(TAG, "End Date is: " + EndDate);
-*/
 
         Log.i(TAG, "Worker name is: " + Name);
         Log.i(TAG, "Leave Balance is: " + Balance);
@@ -715,17 +664,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-/*
-            Log.i(TAG, "All fields be inputted");
-            Log.i(TAG, "Before Insert");
 
-            Log.i(TAG, "Worker name is: " + Name);
-            Log.i(TAG, "Leave Balance is: " + Balance);
-            Log.i(TAG, "Leave Type is: " + Leave_Type);
-            Log.i(TAG, "Half day ind is: " + Half_Day_Ind);
-            Log.i(TAG, "Start Date is: " + StartDate);
-            Log.i(TAG, "End Date is: " + EndDate);
-*/
             Start_Date = StartDate;
             End_Date = EndDate;
 
@@ -810,12 +749,35 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
     }
 
     private void applyLeave() {
+        // TODO: TODO TODO TODO
+
+        mLeaveRecyclerAdapter.getLeaves();
+        // TODO: End
+        // TODO: Implement CLOT / DoctorVisit
+        // ApplyCLOT(string Data, string baseURL, string token, int program)
+        // ApplyDoctorVisit(string Data, string baseURL, string token, int program)
+
+        String minDate = null, maxDate = null;
+        for (LeaveModel l:mLeaveRecyclerAdapter.getLeaves()) {
+            if (minDate == null) {
+                minDate = l.getDate();
+            } else if (l.getDate().compareTo(minDate) < 0) {
+                minDate = l.getDate();
+            }
+            if (maxDate == null) {
+                maxDate = l.getDate();
+            } else if (l.getDate().compareTo(maxDate) > 0) {
+                maxDate = l.getDate();
+            }
+        }
+
+
         // 2018.11.30 - Begin
         JSONObject includeDaysObj = new JSONObject();
         try {
             includeDaysObj.put("token", mSharedPreferences.getString(PREF_TOKEN, ""));
-            includeDaysObj.put("from", Start_Date);
-            includeDaysObj.put("to", End_Date);
+            includeDaysObj.put("from", minDate);
+            includeDaysObj.put("to", maxDate);
             includeDaysObj.put("type", Half_Day_Ind);
             includeDaysObj.put("excludeSat", mCbExcludeSat.isChecked());
             includeDaysObj.put("excludeSun", mCbExcludeSun.isChecked());
@@ -829,6 +791,9 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
+                        // TODO: Compare dates here.
+
                         mDates = null;
                         try {
                             mDates = response.getJSONArray("d");
@@ -848,6 +813,7 @@ public class LeaveApplyActivityRevised extends BaseActivity implements View.OnCl
                             return;
                         }
                         StringBuilder sb = new StringBuilder();
+                        //TODO: Add (am), (pm)
                         for (int i = 0; i < mDates.length(); i++) {
                             try {
                                 sb.append(getDayOfWeekSuffixedString(LeaveApplyActivityRevised.this, mDates.getString(i)));

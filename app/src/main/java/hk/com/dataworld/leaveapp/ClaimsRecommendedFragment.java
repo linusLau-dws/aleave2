@@ -260,7 +260,7 @@ public class ClaimsRecommendedFragment extends Fragment {
             }
         });
 
-        mRecyclerView = view.findViewById(R.id.results_recycler);
+        mRecyclerView = view.findViewById(R.id.results_reƒcycler);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
