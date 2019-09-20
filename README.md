@@ -247,3 +247,11 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 Now you may upload the generated file to Play Console.
 ### Fastlane
 iOS is substantially different from Android since many security processses have to be done. We use the [*Fastlane*](https://fastlane.tools/) toolchain to speed up the deployment process, from managing provisioning profiles and certificates to taking screenshots, metadata and upload a build to App Store Connect.
+
+Open cmd,
+1. Change directory: `cd Desktop/iosleave2`
+2. Type `fastlane beta` to upload to TestFlight (so that Noordin and I receive updates automatically), **OR** type `fastlane release` to upload to App Store.
+![2](https://drive.google.com/uc?export=view&id=1vGB78abTcEAvvdoxAbv52k3r9JwEnpEK)
+3. Wait for it to finish. (May take half an hour)
+![3](https://drive.google.com/uc?export=view&id=1fpqRhwou2zsYfUjMHSe_EdOY0-FHMWUl)
+
