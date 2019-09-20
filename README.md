@@ -38,9 +38,8 @@
     - [iOS](#ios-3)
     - [Android](#android-3)
   - [Building guide](#building-guide)
-    - [iOS](#ios-4)
     - [Android](#android-4)
-    - [Fastlane](#fastlane)
+    - [iOS (We Use Fastlane)](#ios-we-use-fastlane)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 # DW-iLeave Documentation
