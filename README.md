@@ -247,7 +247,13 @@ iOS is substantially different from Android since many security processses have 
 Open cmd,
 1. Change directory: `cd Desktop/iosleave2`
 2. Type `fastlane beta` to upload to TestFlight (so that Noordin and I receive updates automatically), **OR** type `fastlane release` to upload to App Store.
+
 ![2](https://drive.google.com/uc?export=view&id=1vGB78abTcEAvvdoxAbv52k3r9JwEnpEK)
 3. Wait for it to finish. (May take half an hour)
+
 ![3](https://drive.google.com/uc?export=view&id=1fpqRhwou2zsYfUjMHSe_EdOY0-FHMWUl)
+
+NOTE: If the upload is stuck. Check your email you used to register Apple Developer. Apple will tell you what is wrong with the app.
+
+![4](https://drive.google.com/uc?export=view&id=1Bwwz94xvfoyu7ZyQ-KvdaIFr768C-rgI)
 
