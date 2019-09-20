@@ -224,9 +224,6 @@ UPDATE t_Metadata SET [Value] = '<new version number>' WHERE [Key] = 'VERSION_NU
 ```
 If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FMDB on iOS to patch it.
 
-### iOS
-[App Store Connect guide here](https://instabug.com/blog/how-to-submit-app-to-app-store/)
-
 ### Android
 
 1.	Open Android Studio, select `Build` > `Generate Signed Bundle / APK…`
@@ -245,7 +242,7 @@ If local (SQLite) schema is changed, use the onUpdate function of SQLHelper / FM
 ![5](https://drive.google.com/uc?export=view&id=11EJkYDkQncdL2s6J2gnlrC_v26ein_UX)
 
 Now you may upload the generated file to Play Console.
-### Fastlane
+### iOS (we use Fastlane)
 iOS is substantially different from Android since many security processses have to be done. We use the [*Fastlane*](https://fastlane.tools/) toolchain to speed up the deployment process, from managing provisioning profiles and certificates to taking screenshots, metadata and upload a build to App Store Connect.
 
 Open cmd,
