@@ -293,7 +293,7 @@ public class NotificationService extends Service {
                 });
                 mRequestQueue.add(notificationRequest);
             }
-        }, 0, 20, TimeUnit.SECONDS);
+        }, 0, 50, TimeUnit.SECONDS);
 
 
 //        Thread thread = new Thread(new Runnable() {
